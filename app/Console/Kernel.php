@@ -26,8 +26,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('get:dungeons')->daily();
+        $schedule->command('get:characters')->hourly();
+        $schedule->command('get:ilvls')->hourly();
     }
 
     /**
