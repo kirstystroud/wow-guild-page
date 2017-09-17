@@ -23,6 +23,21 @@ class BlizzardApi
         return self::makeRequest($endpoint, $data);
     }
 
+    /**
+     * Make a request to get information on character items
+     */
+    public static function getCharacterItems($charName) {
+        $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
+
+        $data = [
+            'fields' => 'items',
+            'locale' => 'en_GB',
+            'apikey' => env('WOW_KEY')
+        ];
+
+        return self::makeRequest($endpoint, $data);
+    }
+
     protected static function makeRequest($endpoint, $data) {
         $baseUrl = 'https://' . env('WOW_REGION') . '.api.battle.net/';
 
@@ -30,8 +45,11 @@ class BlizzardApi
             $client = new GuzzleHttp\Client(['base_uri' => $baseUrl]);
             $req = $client->request('GET', $endpoint, [ 'query' => $data ]);
             return (string) $req->getBody();
+        } catch (GuzzleHttp\Exception\ClientException $e) {
+            error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
+            return false;
         } catch (Exception $e) {
-            error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e);
+            error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
             return false;
         }
     }
