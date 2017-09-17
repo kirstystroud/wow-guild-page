@@ -9,7 +9,7 @@
     </thead>
     <tbody>
         @foreach($characters as $character)
-            <tr class="members-tr">
+            <tr class="members-tr members-tr-{{ $character->class }}">
                 <td>{{ $character->name }}</td>
                 <td>{{ $character->level }}</td>
                 <td>
