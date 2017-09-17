@@ -35,6 +35,10 @@ class Character extends Model
         26 => 'Pandaren'
     ];
 
+    protected $tanks = [ 1, 2, 6, 10, 11, 12 ];
+
+    protected $healers = [ 2, 5, 7, 10, 11 ];
+
     protected $specImages = [
         /* Warrior */
         1 => [
@@ -140,7 +144,24 @@ class Character extends Model
         return 'https://render-eu.worldofwarcraft.com/icons/18/race_' . $this->race . '_0.jpg';
     }
 
+    /**
+     * Get human-friendly race name
+     */
     public function getRaceName() {
         return $this->raceNames[$this->race];
+    }
+
+    /**
+     * Can this character tank
+     */
+    public function canTank() {
+        return (bool) in_array($this->class, $this->tanks);
+    }
+
+    /**
+     * Can this character heal
+     */
+    public function canHeal() {
+        return (bool) in_array($this->class, $this->healers);
     }
 }

@@ -31,7 +31,17 @@ var loadCharactersTab = function(sortData) {
  * Load data on available dungeons
  */
 var loadDungeonsTab = function() {
-
+    $.ajax({
+        url : '/dungeons',
+        method : 'GET',
+        success : function(resp) {
+            $('#guild-dungeons-available-list').empty();
+            $('#guild-dungeons-available-list').append(resp);
+        },
+        error : function(err) {
+            console.log(err);
+        }
+    });
 };
 
 /**

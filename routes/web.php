@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::get('/characters', '\App\Http\Controllers\CharactersController@get');
+Route::get('/dungeons', '\App\Http\Controllers\DungeonsController@get');
