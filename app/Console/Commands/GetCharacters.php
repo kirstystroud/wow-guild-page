@@ -71,7 +71,7 @@ class GetCharacters extends Command
         if (isset($characterData['spec'])) {
             $char->spec = $characterData['spec']['name'];    
         } else {
-            $char->spec = '-';
+            $char->spec = Character::NO_SPEC;
         }
         
         $char->save();

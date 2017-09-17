@@ -26,7 +26,17 @@
                         </a>
                     </span>
                 </td>
-                <td>{{ $character->getSpecImg() }}</td>
+                <td>
+                    @if($character->getSpecImg())
+                        <span>
+                            <a href="#" data-toggle="tooltip" data-placement="right" data-original-title="{{ $character->spec }}">
+                                <img class="fmts-img" src="{{ $character->getSpecImg() }}">
+                            </a>
+                        </span>
+                    @else
+                        -
+                    @endif
+                </td>
                 <td>{{ $character->ilvl }}</td>
             </tr>
         @endforeach
