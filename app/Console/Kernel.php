@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\GetCharacters::class,
-        Commands\GetItemLevels::class
+        Commands\GetItemLevels::class,
+        Commands\LoadDungeons::class
     ];
 
     /**

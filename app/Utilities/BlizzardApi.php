@@ -38,6 +38,20 @@ class BlizzardApi
         return self::makeRequest($endpoint, $data);
     }
 
+    /**
+     * Make a request to load all dungeon information
+     */
+    public static function getZones() {
+        $endpoint = '/wow/zone/';
+
+        $data = [
+            'locale' => 'en_GB',
+            'apikey' => env('WOW_KEY')
+        ];
+
+        return self::makeRequest($endpoint, $data);
+    }
+
     protected static function makeRequest($endpoint, $data) {
         $baseUrl = 'https://' . env('WOW_REGION') . '.api.battle.net/';
 
