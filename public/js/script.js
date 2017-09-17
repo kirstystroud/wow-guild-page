@@ -13,6 +13,7 @@ var loadCharactersTab = function() {
         success : function(resp) {
             $('#guild-members-list').empty();
             $('#guild-members-list').append(resp);
+            $('[data-toggle="tooltip"]').tooltip();
         },
         error : function(err) {
             console.log(err);

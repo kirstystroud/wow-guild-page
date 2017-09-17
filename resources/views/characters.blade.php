@@ -12,9 +12,21 @@
             <tr class="members-tr">
                 <td>{{ $character->name }}</td>
                 <td>{{ $character->level }}</td>
-                <td>{{ $character->class }}</td>
-                <td>{{ $character->race }}</td>
-                <td>{{ $character->spec }}</td>
+                <td>
+                    <span>
+                        <a href="#" data-toggle="tooltip" data-placement="right" data-original-title="{{ $character->getClassName() }}">
+                            <img src="{{ $character->getClassImg() }}">
+                        </a>
+                    </span>
+                </td>
+                <td>
+                    <span>
+                        <a href="#" data-toggle="tooltip" data-placement="right" data-original-title="{{ $character->getRaceName() }}">
+                            <img src="{{ $character->getRaceImg() }}">
+                        </a>
+                    </span>
+                </td>
+                <td>{{ $character->getSpecImg() }}</td>
                 <td>{{ $character->ilvl }}</td>
             </tr>
         @endforeach
