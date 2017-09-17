@@ -1,0 +1,226 @@
+body {
+    background: url('../background.jpg');
+}
+
+.container-fmts {
+    width: 95%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.nav-tabs li {
+    background-color: #2b1507;
+    color: #ffb100;
+    border: none;
+}
+
+.nav-tabs li.active, 
+.nav-tabs li.active a {
+    border: none!important;
+    background-color: #6a240b!important;
+}
+
+.nav-tabs li a, 
+.nav-tabs li.active a {
+    color: #ffb100!important;
+}
+
+.nav-tabs li:hover, 
+.nav-tabs li a:hover, 
+.nav-tabs li.active:hover, 
+.nav-tabs li.active a:hover {
+    background-color: #6a240b!important;
+    border: none;
+}
+
+#tab-chars a {
+    color: #f5ebd1;
+}
+
+#tab-available-dungeons tr, #tab-available-dungeons td {
+    border: none;
+}
+
+.td-yes {
+    color: #3c763d;
+    font-weight: bold;
+}
+
+.td-no {
+    color: #b30000;
+    font-weight: bold;
+}
+
+th {
+    font-weight: bold;
+    color: #f5ebd1;
+    padding-bottom: 10px;
+}
+
+td {
+    border: none!important;
+}
+
+.fmts-img {
+    width: 18px;
+    height: 18px;
+}
+
+.panel-success a {
+    color: #3c763d;
+}
+
+.panel-danger a {
+    color: #b30000;
+}
+
+.panel-warning a {
+    color: #ffb100;
+}
+
+div.panel-body {
+    background-color: #231207;
+}
+
+div.panel-default div.panel-body {
+    background-color: #fff;
+}
+
+.panel {
+    border: none;
+}
+
+div.dungeon-panel {
+    border: none;
+}
+
+div.dungeon-panel div.panel-heading {
+    background-color: #2b1507;
+    border: none;
+}
+
+div.dungeon-panel h1, 
+div.dungeon-panel h2, 
+div.dungeon-panel h3, 
+div.dungeon-panel h4, 
+div.dungeon-panel h5, 
+div.dungeon-panel h6 {
+    padding: 0 0!important;
+    margin: 0 0!important;
+}
+
+div.panel-info h1, 
+div.panel-info h2, 
+div.panel-info, 
+div.panel-info h4, 
+div.panel-info h5, 
+div.panel-info h6 {
+    color: #f5eBd1;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+div.panel-info > div.panel-heading {
+    background-color: #6a240b;
+    border-bottom: none;
+}
+
+div.panel-success div.panel-body,
+div.panel-warning div.panel-body,
+div.panel-danger div.panel-body {
+    border-bottom: 1px solid #2b1507;
+    border-left: 1px solid #2b1507;
+    border-right: 1px solid #2b1507;
+}
+
+td {
+    color: #f5ebd1;
+    border: none;
+}
+
+th {
+    border-bottom : 1px solid #f5ebd1;
+}
+
+tr:nth-child(even) {
+    background-color: #231207;
+}
+
+tr:nth-child(odd) {
+    background-color: #2b1507;
+}
+
+tr td:nth-child(1) {
+    font-weight: bold;
+}
+
+tr td:nth-child(1) span {
+    color: #f5eBd1;
+    font-weight: normal;
+}
+
+/* Class specific trs */
+
+/* Warrior */
+tr.members-tr-1 td:nth-child(1) {
+    color: #c69b6d;
+}
+
+/* Paladin */
+tr.members-tr-2 td:nth-child(1) {
+    color: #f48cba;
+}
+
+/* Hunter */
+tr.members-tr-3 td:nth-child(1) {
+    color: #aad372;
+}
+
+/* Rogue */
+tr.members-tr-4 td:nth-child(1) {
+    color: #fff468;
+}
+
+/* Priest */
+tr.members-tr-5 td:nth-child(1) {
+    color: #fff;
+}
+
+/* Death Knight */
+tr.members-tr-6 td:nth-child(1) {
+    color: red;
+}
+
+/* Shaman */
+tr.members-tr-7 td:nth-child(1) {
+    color: #2359ff;
+}
+
+/* Mage */
+tr.members-tr-8 td:nth-child(1) {
+    color: #68ccef;
+}
+
+/* Warlock */
+tr.members-tr-9 td:nth-child(1) {
+    color: #9382c9;
+}
+
+/* Monk */
+tr.members-tr-10 td:nth-child(1) {
+    color: #00ffba;
+}
+
+/* Druid */
+tr.members-tr-11 td:nth-child(1) {
+    color: #ff7c0a;
+}
+
+/* Demon Hunter */
+tr.members-tr-12 td:nth-child(1) {
+    color: #a330c9;
+}
