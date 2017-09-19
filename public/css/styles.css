@@ -65,6 +65,18 @@ td {
     border: none!important;
 }
 
+select {
+    background-color: #f1ebd7;
+    color: #171717;
+    border: none;
+    border-radius: 3px;
+    font: 11px system-ui;
+}
+
+.btn {
+    color: #ffae00;
+}
+
 .fmts-img {
     width: 18px;
     height: 18px;
@@ -100,6 +112,11 @@ div.dungeon-panel {
 
 div.dungeon-panel div.panel-heading {
     background-color: #2b1507;
+    border: none;
+}
+
+div.dungeon-panel-select div.panel-heading {
+    background-color: #231207;
     border: none;
 }
 

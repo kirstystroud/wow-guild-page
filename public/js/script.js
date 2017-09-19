@@ -50,6 +50,7 @@ var loadDungeonsTab = function() {
 var attachEventHandlers = function() {
     $('[data-toggle="tooltip"]').tooltip();
 
+    // Sorting icons
     $('#guild-members-list th').click(function() {
         var splitId = $(this).attr('id').split('th-');
         var sortName = splitId[1]
@@ -64,5 +65,16 @@ var attachEventHandlers = function() {
         sortingInfo[sortName] = newSort
 
         loadCharactersTab({ sort : sortingInfo });
+    });
+
+    // Showing dungeon panels on a per-char basis
+    $('#dungeon-char-select').change(function() {
+        var selected = $(this).val();
+        if (selected && (selected != '0')) {
+            $('.dungeon-panel').css('display', 'none');
+            $('.char-' + selected).parents('.dungeon-panel').css('display', 'block');
+        } else {
+            $('.dungeon-panel').css('display', 'block');
+        }
     });
 };

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Character;
 use App\Dungeon;
 use Illuminate\Http\Request;
 

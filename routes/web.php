@@ -11,9 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', '\App\Http\Controllers\HomeController@get');
 Route::get('/characters', '\App\Http\Controllers\CharactersController@get');
 Route::get('/dungeons', '\App\Http\Controllers\DungeonsController@get');

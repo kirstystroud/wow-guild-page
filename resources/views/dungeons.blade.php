@@ -1,6 +1,6 @@
 <div class="panel-group">
     @foreach($dungeons as $dungeon)
-        <div class="panel dungeon-panel {{ $dungeon->getPanelClass() }}">
+        <div class="panel dungeon-panel {{ $dungeon->getPanelClass() }} dungeon-panel">
             <div class="panel-heading">
                 <h4>
                     <a data-toggle="collapse" href="#dungeon-row-{{ $dungeon->id }}">
@@ -19,7 +19,7 @@
                     </thead>
                     <tbody>
                         @foreach($dungeon->getAvailableChars() as $char)
-                            <tr class="members-tr-{{ $char->class }}">
+                            <tr class="members-tr-{{ $char->class }} char-{{ $char->id }}">
                                 <td>{{ $char->name }}</td>
                                 <td class="td-yes">Yes</td>
                                 @if($char->canTank())
