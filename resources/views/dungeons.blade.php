@@ -20,7 +20,7 @@
                     <tbody>
                         @foreach($dungeon->getAvailableChars() as $char)
                             <tr class="members-tr-{{ $char->class }} char-{{ $char->id }}">
-                                <td>{{ $char->name }}</td>
+                                <td>{{ $char->name }} <span>({{ $char->level }})</span></td>
                                 <td class="td-yes">Yes</td>
                                 @if($char->canTank())
                                     <td class="td-yes">Yes</td>

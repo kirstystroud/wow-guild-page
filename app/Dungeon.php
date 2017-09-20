@@ -21,6 +21,7 @@ class Dungeon extends Model
     public function getAvailableChars() {
         $chars = Character::where('level',  '>=', $this->min_level)
             ->where('level',  '<=', $this->max_level)
+            ->orderBy('level', 'asc')
             ->get();
         return $chars;
     }
