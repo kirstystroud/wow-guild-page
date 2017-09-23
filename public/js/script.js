@@ -2,6 +2,8 @@ $(document).ready(function() {
     // Update nav-bar
     updateNavBar()
 
+    loadTabard();
+
     // Load characters data
     loadCharactersTab({ sort : 0 });
 
@@ -24,6 +26,20 @@ var updateNavBar = function() {
         default :
             console.log(`Unknown path ${pathname}`);
     }
+}
+
+/**
+ * Load guild tabard
+ */
+var loadTabard = function() {
+    Core.staticUrl = '/static';
+
+    var tabard = new GuildTabard('guild-tabard', {
+        'ring': 'horde',
+        'bg': [ 0, 15 ],
+        'border': [ 3, 5 ],
+        'emblem': [ 104, 15 ]
+    });
 }
 
 /**

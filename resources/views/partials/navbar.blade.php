@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-          <a class="navbar-brand" href="#">Guild tabard</a>
+            <canvas id="guild-tabard" width="50" height="50"></canvas>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
