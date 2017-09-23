@@ -10,13 +10,13 @@ $(document).ready(function() {
             _width = canvas.width,
             _height = canvas.height,
             _src = [
-                '/static/images/guild/tabards/ring-horde.png',
-                '/static/images/guild/tabards/shadow_00.png',
-                '/static/images/guild/tabards/bg_00.png',
-                '/static/images/guild/tabards/overlay_00.png',
-                '/static/images/guild/tabards/border_03.png',
-                '/static/images/guild/tabards/emblem_104.png',
-                '/static/images/guild/tabards/hooks.png'
+                '/images/ring-horde.png',
+                '/images/shadow_00.png',
+                '/images/bg_00.png',
+                '/images/overlay_00.png',
+                '/images/border_03.png',
+                '/images/emblem_104.png',
+                '/images/hooks.png'
             ],
             // Colors that need to be applied to each layer
             _color = [
