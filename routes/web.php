@@ -13,4 +13,5 @@
 
 Route::get('/', '\App\Http\Controllers\HomeController@get');
 Route::get('/characters', '\App\Http\Controllers\CharactersController@get');
+Route::get('/characters/data', '\App\Http\Controllers\CharactersController@data');
 Route::get('/dungeons', '\App\Http\Controllers\DungeonsController@get');

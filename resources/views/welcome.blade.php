@@ -18,43 +18,9 @@
 
     </head>
     <body>
-        <div class="container-fmts">
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#tab-chars">Characters</a></li>
-                <li><a data-toggle="tab" href="#tab-available-dungeons">Available Dungeons</a></li>
-            </ul>
-            <div class="tab-content">
-                <div id="tab-chars" class="tab-pane fade in active">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h4>Characters</h4>
-                        </div>
-                        <div class="panel-body" id="guild-members-list">
-                            Loading ...
-                        </div>
-                    </div>
-                </div>
-                <div id="tab-available-dungeons" class="tab-pane fade">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h4>
-                                Available Dungeons
-                                <p class="pull-right text-right">
-                                    <select id="dungeon-char-select">
-                                        <option value="0">Select Character ...</option>
-                                        @foreach($characters as $char)
-                                            <option value="{{ $char->id }}">{{ $char->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </p>
-                            </h4>
-                        </div>
-                        <div class="panel-body" id="guild-dungeons-available-list">
-                            Loading ...
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="container container-fmts">
+            @include('partials.navbar')
+            @yield('content')
         </div>
     </body>
 </html>

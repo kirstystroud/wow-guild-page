@@ -8,6 +8,27 @@ body {
     margin-left: auto;
 }
 
+.navbar-default {
+    background-color: #2b1507;
+    border: none;
+    margin-bottom: 0px;
+}
+
+.navbar-default .navbar-toggle {
+    color: #f5ebd1;
+    border-color: #f5ebd1;
+    background-color: #2b1507;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    color: #f5ebd1;
+    background-color: #f5ebd1;
+}
+
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background-color: #6a240b;
+}
+
 .nav-tabs {
     border-bottom: none;
 }
@@ -163,11 +184,11 @@ th {
     border-bottom : 1px solid #f5ebd1;
 }
 
-tr:nth-child(even) {
+tr:nth-child(odd) {
     background-color: #231207;
 }
 
-tr:nth-child(odd) {
+tr:nth-child(even) {
     background-color: #2b1507;
 }
 

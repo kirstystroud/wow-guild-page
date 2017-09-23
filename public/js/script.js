@@ -1,10 +1,30 @@
 $(document).ready(function() {
-    // Load characters tab
+    // Update nav-bar
+    updateNavBar()
+
+    // Load characters data
     loadCharactersTab({ sort : 0 });
 
-    // Load dungeons tab
-    loadDungeonsTab();
+    attachEventHandlers();
 });
+
+/**
+ * Update nav bar to have correct tab highlighted
+ */
+var updateNavBar = function() {
+    var pathname = window.location.pathname;
+    var $span = $('<span class="sr-only">(current)</span>');
+    switch(pathname) {
+        case '/characters' :
+            $('#navbar-characters').addClass('active');
+            break
+        case '/dungeons' :
+            $('#navbar-dungeons').addClass('active');
+            break;
+        default :
+            console.log(`Unknown path ${pathname}`);
+    }
+}
 
 /**
  * Load characters table and populate with ajax data
@@ -12,7 +32,7 @@ $(document).ready(function() {
  */
 var loadCharactersTab = function(sortData) {
     $.ajax({
-        url : '/characters',
+        url : '/characters/data',
         method : 'GET',
         data : sortData,
         success : function(resp) {
@@ -20,23 +40,6 @@ var loadCharactersTab = function(sortData) {
             $('#guild-members-list').append(resp);
 
             attachEventHandlers();
-        },
-        error : function(err) {
-            console.log(err);
-        }
-    });
-};
-
-/**
- * Load data on available dungeons
- */
-var loadDungeonsTab = function() {
-    $.ajax({
-        url : '/dungeons',
-        method : 'GET',
-        success : function(resp) {
-            $('#guild-dungeons-available-list').empty();
-            $('#guild-dungeons-available-list').append(resp);
         },
         error : function(err) {
             console.log(err);

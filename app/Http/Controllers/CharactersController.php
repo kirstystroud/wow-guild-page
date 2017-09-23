@@ -7,11 +7,19 @@ use Illuminate\Http\Request;
 
 class CharactersController extends Controller
 {
+
     /**
      * Handles GET request to /characters
-     * Returns view with summary of character data
      */
     public function get(Request $request) {
+        return view('characters');
+    }
+
+    /**
+     * Handles GET request to /characters/data to laod data
+     * Returns view with summary of character data
+     */
+    public function data(Request $request) {
 
         $sorting = $request->sort;
 
@@ -35,6 +43,6 @@ class CharactersController extends Controller
             $sortOutcome = [$sortKeys[0] => $sorting[$sortKeys[0]]];
         }
 
-        return view('characters')->with('characters', $characters)->with('sorting', $sortOutcome);
+        return view('partials.characters')->with('characters', $characters)->with('sorting', $sortOutcome);
     }
 }
