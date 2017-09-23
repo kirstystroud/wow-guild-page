@@ -29,7 +29,7 @@ var updateNavBar = function() {
 }
 
 /**
- * Load guild tabard
+ * Load guild tabard using WoW Core and GuildTabard classes
  */
 var loadTabard = function() {
     Core.staticUrl = '/static';
