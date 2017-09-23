@@ -11,7 +11,15 @@
 |
 */
 
+// Default
 Route::get('/', '\App\Http\Controllers\HomeController@get');
+
+// Character pages
 Route::get('/characters', '\App\Http\Controllers\CharactersController@get');
 Route::get('/characters/data', '\App\Http\Controllers\CharactersController@data');
+
+// Dungeons page
 Route::get('/dungeons', '\App\Http\Controllers\DungeonsController@get');
+
+// Professions page
+Route::get('/professions', '\App\Http\Controllers\ProfessionsController@get');
