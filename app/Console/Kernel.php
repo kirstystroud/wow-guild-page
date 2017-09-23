@@ -27,8 +27,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('get:dungeons')->daily();
-        $schedule->command('get:characters')->hourly();
-        $schedule->command('get:ilvls')->hourly();
+        $schedule->command('get:characters')->hourlyAt(0);
+        $schedule->command('get:ilvls')->hourlyAt(15);
     }
 
     /**
