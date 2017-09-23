@@ -127,7 +127,7 @@ div.panel-default div.panel-body {
     border: none;
 }
 
-div.dungeon-panel {
+div.dungeon-panel, div.profession-panel {
     border: none;
 }
 
@@ -141,19 +141,19 @@ div.dungeon-panel-select div.panel-heading {
     border: none;
 }
 
-div.dungeon-panel h1, 
-div.dungeon-panel h2, 
-div.dungeon-panel h3, 
-div.dungeon-panel h4, 
-div.dungeon-panel h5, 
-div.dungeon-panel h6 {
+div.dungeon-panel h1, div.profession-panel h1,
+div.dungeon-panel h2, div.profession-panel h2,
+div.dungeon-panel h3, div.profession-panel h3,
+div.dungeon-panel h4, div.profession-panel h4,
+div.dungeon-panel h5, div.profession-panel h5,
+div.dungeon-panel h6, div.profession-panel h6 {
     padding: 0 0!important;
     margin: 0 0!important;
 }
 
 div.panel-info h1, 
 div.panel-info h2, 
-div.panel-info, 
+div.panel-info h3,
 div.panel-info h4, 
 div.panel-info h5, 
 div.panel-info h6 {
@@ -173,6 +173,15 @@ div.panel-danger div.panel-body {
     border-bottom: 1px solid #2b1507;
     border-left: 1px solid #2b1507;
     border-right: 1px solid #2b1507;
+}
+
+div.profession-panel, div.profession-panel > div.panel-heading a {
+    background-color: #2b1507;
+    color: #f5eBd1;
+}
+
+div.profession-panel > div.panel-heading {
+    background-color: #2b1507;
 }
 
 td {
