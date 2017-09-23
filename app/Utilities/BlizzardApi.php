@@ -25,6 +25,7 @@ class BlizzardApi
 
     /**
      * Make a request to get information on character items
+     * @param {string} $charName
      */
     public static function getCharacterItems($charName) {
         $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
@@ -45,6 +46,22 @@ class BlizzardApi
         $endpoint = '/wow/zone/';
 
         $data = [
+            'locale' => 'en_GB',
+            'apikey' => env('WOW_KEY')
+        ];
+
+        return self::makeRequest($endpoint, $data);
+    }
+
+    /**
+     * Make a request to get information on character professions
+     * @param {string} $charName
+     */
+    public static function getProfessions($charName) {
+        $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
+
+        $data = [
+            'fields' => 'professions',
             'locale' => 'en_GB',
             'apikey' => env('WOW_KEY')
         ];

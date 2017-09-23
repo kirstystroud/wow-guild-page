@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\GetCharacters::class,
         Commands\GetItemLevels::class,
-        Commands\LoadDungeons::class
+        Commands\LoadDungeons::class,
+        Commands\GetProfessions::class
     ];
 
     /**
@@ -29,6 +30,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('get:dungeons')->daily();
         $schedule->command('get:characters')->hourlyAt(0);
         $schedule->command('get:ilvls')->hourlyAt(15);
+        $schedule->command('get:professions')->hourlyAt(30);
     }
 
     /**
