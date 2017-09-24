@@ -10,6 +10,7 @@ class Character extends Model
 
     public $timestamps = false;
 
+    // Need to figure out how to pull all specs in through API for this
     protected $tanks = [ 1, 2, 6, 10, 11, 12 ];
 
     protected $healers = [ 2, 5, 7, 10, 11 ];
