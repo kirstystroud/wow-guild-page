@@ -72,6 +72,12 @@ class GetProfessions extends Command
                 $profession->save();
             }
 
+            // Update icon
+            if (!$profession->icon) {
+                $profession->icon = $p['icon'];
+                $profession->save();
+            }
+
             // Does this character have existing entries for this profession
             $link = CharacterProfession::where('character_id', $char->id)->where('profession_id', $profession->id)->first();
             if (!$link) {

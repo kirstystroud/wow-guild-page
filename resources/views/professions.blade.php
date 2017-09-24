@@ -11,6 +11,7 @@
                     <div class="panel panel-info profession-panel">
                         <div class="panel-heading">
                             <h4>
+                                <span><img class="icon" src="{{ $profession->getIconLocation() }}"> </span>
                                 <a data-toggle="collapse" href="#profession-row-{{ $profession->id }}">
                                     {{ $profession->name }}
                                 </a>

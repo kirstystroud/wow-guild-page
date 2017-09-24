@@ -19,4 +19,12 @@ class Profession extends Model
             ->get();
         return $chars;
     }
+
+    /**
+     * Get path to icon image
+     * @return {string}
+     */
+    public function getIconLocation() {
+        return 'https://render-eu.worldofwarcraft.com/icons/18/' . $this->icon . '.jpg';
+    }
 }
