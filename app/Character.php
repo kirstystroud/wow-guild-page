@@ -119,14 +119,14 @@ class Character extends Model
      * Get class icon
      */
     public function getClassImg() {
-        return 'https://render-eu.worldofwarcraft.com/icons/18/class_' . $this->class . '.jpg';
+        return 'https://render-eu.worldofwarcraft.com/icons/18/class_' . $this->class_id . '.jpg';
     }
 
     /**
      * Get human-friendly class-name
      */
     public function getClassName() {
-        return $this->classNames[$this->class];
+        return $this->classNames[$this->class_id];
     }
 
     /**
@@ -134,7 +134,7 @@ class Character extends Model
      */
     public function getSpecImg() {
         if ($this->spec == self::NO_SPEC) return false;
-        return $this->specImages[$this->class][$this->spec];
+        return $this->specImages[$this->class_id][$this->spec];
     }
 
     /**
@@ -155,13 +155,13 @@ class Character extends Model
      * Can this character tank
      */
     public function canTank() {
-        return (bool) in_array($this->class, $this->tanks);
+        return (bool) in_array($this->class_id, $this->tanks);
     }
 
     /**
      * Can this character heal
      */
     public function canHeal() {
-        return (bool) in_array($this->class, $this->healers);
+        return (bool) in_array($this->class_id, $this->healers);
     }
 }
