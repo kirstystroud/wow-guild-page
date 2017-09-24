@@ -32,11 +32,20 @@ class CharactersController extends Controller
             $sortKeys = array_keys($sorting);
 
             // Assuming only one key set here
-            $characterQuery = Character::orderBy($sortKeys[0], $sorting[$sortKeys[0]]);
+            switch($sortKeys[0]) {
+                case 'class' :
+                    $characterQuery = Character::join('classes', 'classes.id', 'characters.class_id')->orderBy('classes.name', $sorting[$sortKeys[0]]);
+                    break;
+                case 'race' :
+                    $characterQuery = Character::join('races', 'races.id', 'characters.race_id')->orderBy('races.name', $sorting[$sortKeys[0]]);
+                    break;
+                default :
+                    $characterQuery = Character::orderBy($sortKeys[0], $sorting[$sortKeys[0]]);
+            }
 
             // Add sorting by name if not already been asked for
             if ($sortKeys[0] !== 'name') {
-                $characterQuery = $characterQuery->orderBy('name', 'asc');
+                $characterQuery = $characterQuery->orderBy('characters.name', 'asc');
             }
 
             $characters = $characterQuery->get();
