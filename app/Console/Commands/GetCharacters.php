@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Character;
 use App\CharacterClass;
 use App\Race;
+use App\Spec;
 use App\Utilities\BlizzardApi;
 use Illuminate\Console\Command;
 
@@ -75,9 +76,33 @@ class GetCharacters extends Command
         // Spec and Level change, reset here
         $char->level = $characterData['level'];
         if (isset($characterData['spec'])) {
-            $char->spec = $characterData['spec']['name'];    
-        } else {
-            $char->spec = Character::NO_SPEC;
+
+            // Does spec already exist
+            $spec = Spec::where('class_id', $char->class_id)->where('name', $characterData['spec']['name'])->first();
+            if (!$spec) {
+                $spec = new Spec;
+                $spec->class_id = $char->class_id;
+                $spec->name = $characterData['spec']['name'];
+                $spec->icon = $characterData['spec']['icon'];
+
+                switch($characterData['spec']['role']) {
+                    case 'HEALING' :
+                        $spec->role = Spec::ROLE_HEALER;
+                        break;
+                    case 'TANK' :
+                        $spec->role = Spec::ROLE_TANK;
+                        break;
+                    case 'DPS' :
+                        $spec->role = Spec::ROLE_DPS;
+                        break;
+                    default :
+                        $spec->role = Spec::ROLE_DPS;
+                }
+
+                $spec->save();
+            }
+
+            $char->spec_id = $spec->id;
         }
         
         $char->save();

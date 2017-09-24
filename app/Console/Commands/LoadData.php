@@ -43,6 +43,7 @@ class LoadData extends Command
     {
         $this->loadClasses();
         $this->loadRaces();
+        $this->loadDungeons();
     }
 
     /**
@@ -100,12 +101,5 @@ class LoadData extends Command
                 $race->save();
             }
         }
-    }
-
-    /**
-     * Update list of specialisations
-     */
-    protected function loadSpecs() {
-
     }
 }

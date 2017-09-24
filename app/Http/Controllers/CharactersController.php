@@ -39,6 +39,9 @@ class CharactersController extends Controller
                 case 'race' :
                     $characterQuery = Character::join('races', 'races.id', 'characters.race_id')->orderBy('races.name', $sorting[$sortKeys[0]]);
                     break;
+                case 'spec' :
+                    $characterQuery = Character::select(['characters.*', 'specs.name AS spec_name'])->leftJoin('specs', 'specs.id', 'characters.spec_id')->orderBy('specs.name', $sorting[$sortKeys[0]]);
+                    break;
                 default :
                     $characterQuery = Character::orderBy($sortKeys[0], $sorting[$sortKeys[0]]);
             }
