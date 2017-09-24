@@ -51,7 +51,7 @@
     </thead>
     <tbody>
         @foreach($characters as $character)
-            <tr class="members-tr members-tr-{{ $character->class }}">
+            <tr class="members-tr members-tr-{{ $character->class_id }}">
                 <td>{{ $character->name }}</td>
                 <td>{{ $character->level }}</td>
                 <td>
