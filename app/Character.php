@@ -10,31 +10,6 @@ class Character extends Model
 
     public $timestamps = false;
 
-    protected $classNames = [
-        1 => 'Warrior',
-        2 => 'Paladin',
-        3 => 'Hunter',
-        4 => 'Rogue',
-        5 => 'Priest',
-        6 => 'Death Knight',
-        7 => 'Shaman',
-        8 => 'Mage',
-        9 => 'Warlock',
-        10 => 'Monk',
-        11 => 'Druid',
-        12 => 'Demon Hunter'
-    ];
-
-    protected $raceNames = [
-        2 => 'Orc',
-        5 => 'Undead',
-        6 => 'Tauren',
-        8 => 'Troll',
-        9 => 'Goblin',
-        10 => 'Blood Elf',
-        26 => 'Pandaren'
-    ];
-
     protected $tanks = [ 1, 2, 6, 10, 11, 12 ];
 
     protected $healers = [ 2, 5, 7, 10, 11 ];
@@ -115,18 +90,19 @@ class Character extends Model
         '-' => false
     ];
 
+    public function character_class() {
+        return $this->belongsTo('\App\CharacterClass', 'class_id');
+    }
+
+    public function race() {
+        return $this->belongsTo('\App\Race');
+    }
+
     /**
      * Get class icon
      */
     public function getClassImg() {
         return 'https://render-eu.worldofwarcraft.com/icons/18/class_' . $this->class_id . '.jpg';
-    }
-
-    /**
-     * Get human-friendly class-name
-     */
-    public function getClassName() {
-        return $this->classNames[$this->class_id];
     }
 
     /**
@@ -141,14 +117,7 @@ class Character extends Model
      * Get race icon
      */
     public function getRaceImg() {
-        return 'https://render-eu.worldofwarcraft.com/icons/18/race_' . $this->race . '_0.jpg';
-    }
-
-    /**
-     * Get human-friendly race name
-     */
-    public function getRaceName() {
-        return $this->raceNames[$this->race];
+        return 'https://render-eu.worldofwarcraft.com/icons/18/race_' . $this->race->id_ext . '_0.jpg';
     }
 
     /**

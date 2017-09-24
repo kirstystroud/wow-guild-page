@@ -83,6 +83,20 @@ class BlizzardApi
         return self::makeRequest($endpoint, $data);
     }
 
+    /**
+     * Make a request to load races
+     */
+    public static function getRaces() {
+        $endpoint = 'wow/data/character/races';
+
+        $data = [
+            'locale' => 'en_GB',
+            'apikey' => env('WOW_KEY')
+        ];
+
+        return self::makeRequest($endpoint, $data);
+    }
+
     protected static function makeRequest($endpoint, $data) {
         $baseUrl = 'https://' . env('WOW_REGION') . '.api.battle.net/';
 

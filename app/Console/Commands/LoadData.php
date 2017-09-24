@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\CharacterClass;
 use App\Dungeon;
+use App\Race;
 use App\Utilities\BlizzardApi;
 use Illuminate\Console\Command;
 
@@ -41,6 +42,7 @@ class LoadData extends Command
     public function handle()
     {
         $this->loadClasses();
+        $this->loadRaces();
     }
 
     /**
@@ -87,7 +89,17 @@ class LoadData extends Command
      * Update list of races
      */
     protected function loadRaces() {
+        $races = json_decode(BlizzardApi::getRaces(), true);
 
+        foreach ($races['races'] as $r) {
+            $race = Race::where('id_ext', $r['id'])->first();
+            if (!$race) {
+                $race = new Race;
+                $race->id_ext = $r['id'];
+                $race->name = $r['name'];
+                $race->save();
+            }
+        }
     }
 
     /**

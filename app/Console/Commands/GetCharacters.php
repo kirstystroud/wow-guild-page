@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Character;
 use App\CharacterClass;
+use App\Race;
 use App\Utilities\BlizzardApi;
 use Illuminate\Console\Command;
 
@@ -62,10 +63,13 @@ class GetCharacters extends Command
             $char->name = $characterData['name'];
             $char->ilvl = 0;        // Handle this in separate command as ilvl requires separate call per character
 
-            // Race and class are fixed so set here
+            // Load class
             $class = CharacterClass::where('id_ext', $characterData['class'])->first();
             $char->class_id = $class->id;
-            $char->race = $characterData['race'];
+
+            // Load race
+            $race = Race::where('id_ext', $characterData['race'])->first();
+            $char->race_id = $race->id;
         }
 
         // Spec and Level change, reset here

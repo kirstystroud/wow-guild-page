@@ -56,14 +56,14 @@
                 <td>{{ $character->level }}</td>
                 <td>
                     <span>
-                        <a href="#" data-toggle="tooltip" data-placement="right" data-original-title="{{ $character->getClassName() }}">
+                        <a href="#" data-toggle="tooltip" data-placement="right" data-original-title="{{ $character->character_class->name }}">
                             <img src="{{ $character->getClassImg() }}">
                         </a>
                     </span>
                 </td>
                 <td>
                     <span>
-                        <a href="#" data-toggle="tooltip" data-placement="right" data-original-title="{{ $character->getRaceName() }}">
+                        <a href="#" data-toggle="tooltip" data-placement="right" data-original-title="{{ $character->race->name }}">
                             <img src="{{ $character->getRaceImg() }}">
                         </a>
                     </span>
