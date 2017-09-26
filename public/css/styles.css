@@ -184,6 +184,15 @@ div.profession-panel > div.panel-heading {
     background-color: #2b1507;
 }
 
+.chart-tooltip {
+    background-color: #222;
+    color: white;
+    position: absolute;
+    padding: 5px;
+    font-size: 0.8em;
+    max-width: 75px;
+}
+
 td {
     color: #f5ebd1;
     border: none;

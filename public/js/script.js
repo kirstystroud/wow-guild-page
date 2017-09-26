@@ -3,7 +3,14 @@ $(document).ready(function() {
     updateNavBar()
 
     // Load characters data
-    loadCharactersTab({ sort : 0 });
+    if (window.location.pathname == '/characters') {
+        loadCharactersTab({ sort : 0 });
+    }
+
+    // Load status
+    if (window.location.pathname == '/stats') {
+        loadGraphs();
+    }
 
     attachEventHandlers();
 });
@@ -23,6 +30,9 @@ var updateNavBar = function() {
             break;
         case '/professions' :
             $('#navbar-professions').addClass('active');
+            break;
+        case '/stats' :
+            $('#navbar-stats').addClass('active');
             break;
         default :
             console.log(`Unknown path ${pathname}`);
@@ -83,4 +93,146 @@ var attachEventHandlers = function() {
             $('.dungeon-panel').css('display', 'block');
         }
     });
+};
+
+/**
+ * Load stats for graphs
+ */
+var loadGraphs = function() {
+    $.ajax({
+        url : '/stats/data',
+        method : 'GET',
+        success : function(resp) {
+            drawChart(resp);
+        },
+        error : function(err) {
+            console.log(err);
+        }
+    });
+};
+
+var drawChart = function(respData) {
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    var chartData = [];
+
+    for(var item in respData) {
+
+        var row = respData[item];
+        var newDataItem = [
+            row.name,
+            row.min_level,
+            Math.round(parseFloat(row.avg_level) - parseFloat(row.std_level)),
+            Math.round(parseFloat(row.avg_level) + parseFloat(row.std_level)),
+            row.max_level
+        ];
+
+        newDataItem[2] = Math.max(newDataItem[2], newDataItem[1]);  // Don't allow to be less than minimum
+        newDataItem[3] = Math.min(newDataItem[3], newDataItem[4]);  // Don't allow to be greater than maximum
+
+        chartData.push(newDataItem);
+    }
+
+
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable(chartData, true);
+
+        var options = {
+            title : 'Class distribution by level',
+            titlePosition : 'out',
+            titleTextStyle : {
+                color : '#f5eBd1',
+                fontSize : 18
+            },
+            legend : 'none',
+            enableInteractivity : false,
+            hAxis : {
+                textStyle : {
+                    color : '#f5eBd1'
+                },
+                title : 'Class',
+                titleTextStyle : {
+                    color : '#f5eBd1',
+                    fontSize : 16
+                }
+            },
+            vAxis : {
+                ticks : [0, 30, 60, 90, 110],
+                maxValue : 110,
+                viewWindow : {
+                    max : 110
+                },
+                textStyle : {
+                    color : '#f5eBd1'
+                },
+                title : 'Level',
+                titleTextStyle : {
+                    color : '#f5eBd1',
+                    fontSize : 16
+                },
+                gridlines : {
+                    color : '#666'
+                }
+            },
+            backgroundColor : {
+                stroke : '#f5eBd1',
+                fill : '#231207'
+            },
+            colors : ['yellow']       // specific for later lookups
+        };
+
+        var chart = new google.visualization.CandlestickChart(document.getElementById('stats-div'));
+
+        chart.draw(data, options);
+
+        // Apply custom styling
+        var $rect = $('svg').find('rect[fill="#ffff00"]');
+
+        var colors = [
+            'red', // Death Knight
+            '#a330c9', // Demon Hunter
+            '#ff7c0a', // Druid
+            '#aad372', // Hunter
+            '#68ccef', // Mage
+            '#00ffba', // Monk
+            '#f48cba', // Paladin
+            'white', // Priest
+            '#fff468', // Rogue
+            '#2359ff', // Shaman
+            '#9382c9', // Warlock
+            '#c69b6d' // Warrior
+        ];
+
+        var $tooltip = $('<div></div>');
+        $tooltip.addClass('chart-tooltip');
+        $tooltip.css('display', 'none');
+        $tooltip.text('Tooltip');
+        $('#stats-div').append($tooltip);
+
+        var i = 0;
+        $.each($rect, function() {
+            var colorIndex = Math.floor(i / 2);
+            $(this).attr('fill', colors[colorIndex]);
+            $(this).attr('stroke', colors[colorIndex]);
+            $(this).attr('index', colorIndex);
+            i++;
+
+            $(this).mouseover(function() {
+                var index = $(this).attr('index');
+                var tooltipText = `${respData[index].name} (${respData[index].total}) : ${respData[index].min_level}-${respData[index].max_level} mean ${Math.round(respData[index].avg_level)}`;
+
+                $tooltip.css('top', event.clientY);
+                $tooltip.css('left', event.clientX);
+                $tooltip.css('display', 'block');
+                $tooltip.text(tooltipText);
+            });
+
+            $(this).mouseleave(function() {
+                $tooltip.css('display', 'none');
+            });
+        });
+
+    };
 };
