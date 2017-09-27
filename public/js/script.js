@@ -12,6 +12,10 @@ $(document).ready(function() {
         loadGraphs();
     }
 
+    if (window.location.pathname == '/dungeons') {
+        loadDungeons();
+    }
+
     attachEventHandlers();
 });
 
@@ -53,6 +57,20 @@ var loadCharactersTab = function(sortData) {
             $('#guild-members-list').append(resp);
 
             attachEventHandlers();
+        },
+        error : function(err) {
+            console.log(err);
+        }
+    });
+};
+
+var loadDungeons = function() {
+    $.ajax({
+        url : '/dungeons/data',
+        method : 'GET',
+        success : function(resp) {
+            $('#dungeons-panel-group').empty();
+            $('#dungeons-panel-group').append(resp);
         },
         error : function(err) {
             console.log(err);

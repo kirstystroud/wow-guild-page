@@ -20,6 +20,7 @@ Route::get('/characters/data', '\App\Http\Controllers\CharactersController@data'
 
 // Dungeons page
 Route::get('/dungeons', '\App\Http\Controllers\DungeonsController@get');
+Route::get('/dungeons/data', '\App\Http\Controllers\DungeonsController@data');
 
 // Professions page
 Route::get('/professions', '\App\Http\Controllers\ProfessionsController@get');
