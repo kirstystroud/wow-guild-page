@@ -64,6 +64,9 @@ var loadCharactersTab = function(sortData) {
     });
 };
 
+/**
+ * Load content for dungeons page
+ */
 var loadDungeons = function() {
     $.ajax({
         url : '/dungeons/data',
@@ -71,12 +74,39 @@ var loadDungeons = function() {
         success : function(resp) {
             $('#dungeons-panel-group').empty();
             $('#dungeons-panel-group').append(resp);
+
+            $.each($('#dungeons-panel-group').find('.dungeon-panel-pending'), function() {
+                var dungeonId = $(this).attr('id');
+                var splitId = dungeonId.split('-');
+                loadDungeonRow(splitId[2]);
+            });
         },
         error : function(err) {
             console.log(err);
         }
     });
 };
+
+/**
+ * Load content for single row on dungeons page
+ */
+var loadDungeonRow = function(id) {
+    console.log(`Loading row ${id}`);
+    $.ajax({
+        url : '/dungeons/data/' + id,
+        method: 'GET',
+        success : function(resp) {
+            var $panel = $('#dungeon-panel-' + id);
+            $panel.empty();
+            $panel.append(resp.view);
+            $panel.removeClass('dungeon-panel-pending');
+            $panel.addClass(resp.class);
+        },
+        error : function(err) {
+            console.log(err);
+        }
+    });
+}
 
 /**
  * Attach page event handlers

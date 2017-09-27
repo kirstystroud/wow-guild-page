@@ -25,4 +25,12 @@ class DungeonsController extends Controller
         $dungeonsData = Dungeon::orderBy('min_level', 'asc')->orderBy('max_level', 'asc')->get();
         return view('partials.dungeons')->with('dungeons', $dungeonsData);
     }
+
+    public function dungeonData(Dungeon $dungeon) {
+        $dungeonClass = $dungeon->getPanelClass();
+        return [
+            'class' => $dungeonClass,
+            'view' => view('partials.dungeon-row')->with('dungeon', $dungeon)->render()
+        ];
+    }
 }

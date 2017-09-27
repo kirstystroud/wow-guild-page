@@ -151,6 +151,10 @@ div.dungeon-panel h6, div.profession-panel h6 {
     margin: 0 0!important;
 }
 
+div.dungeon-panel-pending > div.panel-heading a {
+    color: #444!important;
+}
+
 div.panel-info h1, 
 div.panel-info h2, 
 div.panel-info h3,
