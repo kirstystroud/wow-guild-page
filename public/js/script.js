@@ -91,7 +91,6 @@ var loadDungeons = function() {
  * Load content for single row on dungeons page
  */
 var loadDungeonRow = function(id) {
-    console.log(`Loading row ${id}`);
     $.ajax({
         url : '/dungeons/data/' + id,
         method: 'GET',
