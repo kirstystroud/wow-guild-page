@@ -32,7 +32,7 @@ class Character extends Model
      * Get class icon
      */
     public function getClassImg() {
-        return 'https://render-eu.worldofwarcraft.com/icons/18/class_' . $this->class_id . '.jpg';
+        return 'https://render-eu.worldofwarcraft.com/icons/18/class_' . $this->character_class->id_ext . '.jpg';
     }
 
     /**
