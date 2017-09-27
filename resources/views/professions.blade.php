@@ -24,7 +24,7 @@
                                     <th>Skill</th>
                                 </thead>
                                 @foreach($profession->getCharacterData() as $char)
-                                    <tr class="members-tr-{{ $char->class_id }} char-{{ $char->id }}">
+                                    <tr class="members-tr-{{ $char->character_class->id_ext }} char-{{ $char->id }}">
                                         <td>{{ $char->name }} <span>({{ $char->level }})</span></td>
                                         <td>{{ $char->skill }}</td>
                                     </tr>

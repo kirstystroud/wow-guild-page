@@ -46,13 +46,13 @@ class Character extends Model
      * Can this character tank
      */
     public function canTank() {
-        return (bool) in_array($this->class_id, $this->tanks);
+        return (bool) in_array($this->character_class->id_ext, $this->tanks);
     }
 
     /**
      * Can this character heal
      */
     public function canHeal() {
-        return (bool) in_array($this->class_id, $this->healers);
+        return (bool) in_array($this->character_class->id_ext, $this->healers);
     }
 }
