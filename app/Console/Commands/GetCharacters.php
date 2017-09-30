@@ -25,6 +25,8 @@ class GetCharacters extends Command
      */
     protected $description = 'Poll Blizzard API to get latest character information';
 
+    protected $_existingCharIds;
+
     /**
      * Create a new command instance.
      *
@@ -52,6 +54,19 @@ class GetCharacters extends Command
 
         foreach($guildMembers as $member) {
             $this->updateCharacter($member['character']);
+        }
+
+        // Get list of characters who are no longer there
+        $deletedChars = Character::whereNotIn('id', $this->_existingCharIds)->get();
+
+        // loop over characters
+        foreach ($deletedChars as $char) {
+            if ($char->professions) {
+                foreach ($char->professions as $professions) {
+                    $profession->delete();
+                }
+            }
+            $char->delete();
         }
     }
 
@@ -106,5 +121,7 @@ class GetCharacters extends Command
         }
         
         $char->save();
+
+        $this->_existingCharIds[] = $char->id;
     }
 }
