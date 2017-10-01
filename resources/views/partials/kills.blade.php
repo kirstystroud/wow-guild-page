@@ -9,7 +9,7 @@
     </tbody>
         @foreach($characters as $char)
             <tr class="members-tr-{{ $char->character_class->id_ext }}">
-                <td>{{ $char->name }} <span>({{ $char->level }})</span></td>
+                <td><a href="{{ $char->getLinkAddr() }}" target="_blank">{{ $char->name }}</a> <span>({{ $char->level }})</span></td>
                 <td>{{ $char->kdr }}</td>
             </tr>
         @endforeach

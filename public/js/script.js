@@ -274,7 +274,7 @@ var drawChart = function(respData) {
         var $rect = $('svg').find('rect[fill="#ffff00"]');
 
         var colors = [
-            'red', // Death Knight
+            '#c41e3b', // Death Knight
             '#a330c9', // Demon Hunter
             '#ff7c0a', // Druid
             '#aad372', // Hunter

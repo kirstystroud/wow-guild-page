@@ -17,7 +17,7 @@
         <tbody>
             @foreach($dungeon->getAvailableChars() as $char)
                 <tr class="members-tr-{{ $char->character_class->id_ext }} char-{{ $char->id }}">
-                    <td>{{ $char->name }} <span>({{ $char->level }})</span></td>
+                    <td><a href="{{ $char->getLinkAddr() }}" target="_blank">{{ $char->name }}</a> <span>({{ $char->level }})</span></td>
                     <td class="td-yes">Yes</td>
                     @if($char->canTank())
                         <td class="td-yes">Yes</td>
