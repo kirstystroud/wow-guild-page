@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\GetItemLevels::class,
         Commands\LoadData::class,
         Commands\GetProfessions::class,
+        Commands\GetStatistics::class,
         Commands\SchedulerDaemon::class
     ];
 

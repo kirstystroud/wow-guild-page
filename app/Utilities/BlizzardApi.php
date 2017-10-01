@@ -11,15 +11,8 @@ class BlizzardApi
      * Make a request to get a list of characters in the guild
      */
     public static function getGuildCharacters() {
-
         $endpoint = '/wow/guild/' . env('WOW_REALM') . '/' . env('WOW_GUILD');
-
-        $data = [
-            'fields' => 'members',
-            'locale' => 'en_GB',
-            'apikey' => env('WOW_KEY')
-        ];
-
+        $data = [ 'fields' => 'members' ];
         return self::makeRequest($endpoint, $data);
     }
 
@@ -29,13 +22,7 @@ class BlizzardApi
      */
     public static function getCharacterItems($charName) {
         $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
-
-        $data = [
-            'fields' => 'items',
-            'locale' => 'en_GB',
-            'apikey' => env('WOW_KEY')
-        ];
-
+        $data = [ 'fields' => 'items' ];
         return self::makeRequest($endpoint, $data);
     }
 
@@ -44,13 +31,7 @@ class BlizzardApi
      */
     public static function getZones() {
         $endpoint = '/wow/zone/';
-
-        $data = [
-            'locale' => 'en_GB',
-            'apikey' => env('WOW_KEY')
-        ];
-
-        return self::makeRequest($endpoint, $data);
+        return self::makeRequest($endpoint);
     }
 
     /**
@@ -59,13 +40,7 @@ class BlizzardApi
      */
     public static function getProfessions($charName) {
         $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
-
-        $data = [
-            'fields' => 'professions',
-            'locale' => 'en_GB',
-            'apikey' => env('WOW_KEY')
-        ];
-
+        $data = [ 'fields' => 'professions' ];
         return self::makeRequest($endpoint, $data);
     }
 
@@ -74,31 +49,32 @@ class BlizzardApi
      */
     public static function getClasses() {
         $endpoint = '/wow/data/character/classes';
-
-        $data = [
-            'locale' => 'en_GB',
-            'apikey' => env('WOW_KEY')
-        ];
-
-        return self::makeRequest($endpoint, $data);
+        return self::makeRequest($endpoint);
     }
 
     /**
      * Make a request to load races
      */
     public static function getRaces() {
-        $endpoint = 'wow/data/character/races';
+        $endpoint = '/wow/data/character/races';
+        return self::makeRequest($endpoint);
+    }
 
-        $data = [
-            'locale' => 'en_GB',
-            'apikey' => env('WOW_KEY')
-        ];
-
+    /**
+     * Make a request to get character statistics
+     */
+    public static function getStats($charName) {
+        $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
+        $data = [ 'fields' => 'statistics' ];
         return self::makeRequest($endpoint, $data);
     }
 
-    protected static function makeRequest($endpoint, $data) {
+    protected static function makeRequest($endpoint, $data = []) {
         $baseUrl = 'https://' . env('WOW_REGION') . '.api.battle.net/';
+
+        // Required data for all requests
+        $data['locale'] = 'en_GB';
+        $data['apikey'] = env('WOW_KEY');
 
         try {
             $client = new GuzzleHttp\Client(['base_uri' => $baseUrl]);
