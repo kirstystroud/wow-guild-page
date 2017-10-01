@@ -1,5 +1,5 @@
 <br>
-<h4>Top 10 Most Kills per death</h4>
+<h4>Top 10 Most Kills per Death</h4>
 
 <table class="table">
     <thead>
