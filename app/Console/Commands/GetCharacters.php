@@ -7,7 +7,10 @@ use App\CharacterClass;
 use App\Race;
 use App\Spec;
 use App\Utilities\BlizzardApi;
+
 use Illuminate\Console\Command;
+
+use Log;
 
 class GetCharacters extends Command
 {
@@ -44,6 +47,7 @@ class GetCharacters extends Command
      */
     public function handle()
     {
+        Log::info('Updating characters');
         // Make call to Blizzard API to get a list of characters in the guild
         $result = BlizzardApi::getGuildCharacters();
 
@@ -66,6 +70,7 @@ class GetCharacters extends Command
                     $profession->delete();
                 }
             }
+            Log::info('Deleting character ' . $char->name);
             $char->delete();
         }
     }
@@ -75,6 +80,7 @@ class GetCharacters extends Command
         $char = Character::where('name', $characterData['name'])->first();
 
         if (!$char) {
+            Log::info('Creating new entry for ' . $characterData['name']);
             $char = new Character;
             $char->name = $characterData['name'];
             $char->ilvl = 0;        // Handle this in separate command as ilvl requires separate call per character
@@ -89,6 +95,9 @@ class GetCharacters extends Command
         }
 
         // Spec and Level change, reset here
+        if ($characterData['level'] != $char->level) {
+            Log::info($char->name . ' level has increased from ' . $char->level . ' to ' . $characterData['level']);
+        }
         $char->level = $characterData['level'];
         if (isset($characterData['spec'])) {
 
@@ -116,8 +125,10 @@ class GetCharacters extends Command
 
                 $spec->save();
             }
-
-            $char->spec_id = $spec->id;
+            if ($char->spec_id != $spec->id) {
+                Log::info($char->name . ' spec is now ' . $spec->name);
+                $char->spec_id = $spec->id;
+            }
         }
         
         $char->save();

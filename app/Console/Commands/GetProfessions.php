@@ -9,6 +9,8 @@ use App\Utilities\BlizzardApi;
 
 use Illuminate\Console\Command;
 
+use Log;
+
 class GetProfessions extends Command
 {
     /**
@@ -42,6 +44,7 @@ class GetProfessions extends Command
      */
     public function handle()
     {
+        Log::info('Updating character professions');
         // Loop over each character
         foreach (Character::all() as $char) {
 
@@ -88,8 +91,12 @@ class GetProfessions extends Command
             }
 
             // Always update skill
-            $link->skill = $p['rank'];
-            $link->save();
+            if ($link->skill != $p['rank']) {
+                Log::info($char->name . ' skill in ' . $profession->name . ' has increased from ' . $link->skill . ' to ' . $p['rank']);
+                $link->skill = $p['rank'];
+                $link->save();
+            }
+
         }
     }
 }

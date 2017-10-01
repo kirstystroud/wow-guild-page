@@ -6,6 +6,8 @@ use App\Character;
 use App\Utilities\BlizzardApi;
 use Illuminate\Console\Command;
 
+use Log;
+
 class GetItemLevels extends Command
 {
     /**
@@ -39,6 +41,7 @@ class GetItemLevels extends Command
      */
     public function handle()
     {
+        Log::info('Updating item levels');
         $characters = Character::all();
 
         foreach($characters as $character) {
@@ -53,8 +56,11 @@ class GetItemLevels extends Command
             $itemObject = json_decode($itemData, true);
 
             if ($itemObject['items']['averageItemLevelEquipped']) {
-                $character->ilvl = $itemObject['items']['averageItemLevelEquipped'];
-                $character->save();
+                if ($character->ilvl != $itemObject['items']['averageItemLevelEquipped']) {
+                    Log::info($character->name . ' item level changed from ' . $character->ilvl . ' to ' . $itemObject['items']['averageItemLevelEquipped']);
+                    $character->ilvl = $itemObject['items']['averageItemLevelEquipped'];
+                    $character->save();
+                }
             }
         } catch (Exception $e) {
 
