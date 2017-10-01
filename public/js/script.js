@@ -10,6 +10,8 @@ $(document).ready(function() {
     // Load status
     if (window.location.pathname == '/stats') {
         loadGraphs();
+        loadDeaths();
+        loadKills();
     }
 
     if (window.location.pathname == '/dungeons') {
@@ -141,6 +143,40 @@ var attachEventHandlers = function() {
         }
     });
 };
+
+/**
+ * Load table for character deaths
+ */
+var loadDeaths = function() {
+    $.ajax({
+        url : '/stats/deaths',
+        method : 'GET',
+        success : function(resp) {
+            $('#most-deaths').empty();
+            $('#most-deaths').append(resp);
+        },
+        error : function(err) {
+            console.log(err);
+        }
+    });
+};
+
+/**
+ * Load table for character kills
+ */
+var loadKills = function() {
+    $.ajax({
+        url : '/stats/kills',
+        method : 'GET',
+        success : function(resp) {
+            $('#most-kills').empty();
+            $('#most-kills').append(resp);
+        },
+        error : function(err) {
+            console.log(err);
+        }
+    });
+}
 
 /**
  * Load stats for graphs

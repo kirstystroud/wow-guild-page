@@ -29,3 +29,5 @@ Route::get('/professions', '\App\Http\Controllers\ProfessionsController@get');
 // Stats page
 Route::get('/stats', '\App\Http\Controllers\StatsController@get');
 Route::get('/stats/data', '\App\Http\Controllers\StatsController@data');
+Route::get('/stats/deaths', '\App\Http\Controllers\StatsController@deaths');
+Route::get('/stats/kills', '\App\Http\Controllers\StatsController@kills');

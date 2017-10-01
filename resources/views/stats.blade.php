@@ -6,7 +6,13 @@
             <h4>Stats</h4>
         </div>
         <div class="panel-body" id="panel-stats" >
-            <div id="stats-div" style="width: 900px; height: 500px;"></div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div id="stats-div" style="width: 800px; height: 500px;"></div>
+                </div>
+                <div class="col-md-3" id="most-deaths"></div>
+                <div class="col-md-3" id="most-kills"></div>
+            </div>
         </div>
     </div>
 @endsection

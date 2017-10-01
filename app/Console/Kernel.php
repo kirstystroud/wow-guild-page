@@ -33,6 +33,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('get:characters')->hourlyAt(0);
         $schedule->command('get:ilvls')->hourlyAt(15);
         $schedule->command('get:professions')->hourlyAt(30);
+        $schedule->command('get:statistics')->hourlyAt(45);
     }
 
     /**

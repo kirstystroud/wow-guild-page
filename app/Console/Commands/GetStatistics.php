@@ -55,11 +55,10 @@ class GetStatistics extends Command
             if ($deaths) {
                 $kdr = round($kills / $deaths);
             } else {
-                $kdr = 0;
+                $kdr = $kills;
             }
 
             $deathsPerLevel = round($deaths / $char->level, 2);
-            echo $char->name . ' has died ' . $deaths . ' times, deaths per level ' . $deathsPerLevel . ', KDR ' . $kdr . PHP_EOL;
             $char->kills = $kills;
             $char->deaths = $deaths;
             $char->kdr = $kdr;
