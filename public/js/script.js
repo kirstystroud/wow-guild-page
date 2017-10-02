@@ -291,8 +291,9 @@ var drawChart = function(respData) {
         var $tooltip = $('<div></div>');
         $tooltip.addClass('chart-tooltip');
         $tooltip.css('display', 'none');
+        $tooltip.css('position', 'absolute');
         $tooltip.text('Tooltip');
-        $('#stats-div').append($tooltip);
+        $('body').append($tooltip);
 
         var i = 0;
         $.each($rect, function() {
@@ -306,8 +307,8 @@ var drawChart = function(respData) {
                 var index = $(this).attr('index');
                 var tooltipText = `${respData[index].name} (${respData[index].total}) : ${respData[index].min_level}-${respData[index].max_level} mean ${Math.round(respData[index].avg_level)}`;
 
-                $tooltip.css('top', event.clientY);
-                $tooltip.css('left', event.clientX);
+                $tooltip.css('top', event.clientY + 10);
+                $tooltip.css('left', event.clientX + 10);
                 $tooltip.css('display', 'block');
                 $tooltip.text(tooltipText);
             });
