@@ -41,19 +41,52 @@ class StatsController extends Controller
     }
 
     protected function getClassData() {
-        $data = CharacterClass::select(DB::raw(
-                'classes.name,
-                count(*) AS total,
-                min(level) AS min_level,
-                max(level) AS max_level,
-                avg(level) AS avg_level,
-                std(level) AS std_level'
-            ))
-            ->join('characters', 'classes.id', 'characters.class_id')
-            ->groupBy('classes.name')
-            ->get();
+        $data = [];
+
+        // Get a list of all classes
+        $classes = CharacterClass::orderBy('name')->get();
+        foreach ($classes as $class) {
+            $charLevels = [];
+            $chars = $class->characters;
+            // Record all character levels for that class
+            foreach($chars as $char) {
+                $charLevels[] = $char->level;
+            }
+
+            // Sort ascending
+            sort($charLevels);
+
+            // Lower quartile
+            $lowerQ = $this->percentile($charLevels, 0.25);
+            $upperQ = $this->percentile($charLevels, 0.75);
+
+            $data[] = [
+                'name' => $class->name,
+                'total' => count($charLevels),
+                'min_level' => $charLevels[0],
+                'max_level' => $charLevels[count($charLevels) - 1],
+                'avg_level' => (int) round(array_sum($charLevels) / count($charLevels), 0),
+                'lower_q' => (int) round($lowerQ),
+                'upper_q' => (int) round($upperQ),
+                'levels' => $charLevels
+            ];
+        }
 
         return $data;
+    }
+
+    /**
+     * Calculate percentile from data array
+     * @param {array} $data
+     * @param {float} $percentile
+     * @return {float} $percentile value for data
+     */
+    protected function percentile($data, $percentile) {
+        $pos = (count($data) - 1) * $percentile;
+        $lowerIndex = floor($pos);
+        $upperIndex = ceil($pos);
+        $fraction = $pos - $lowerIndex;
+        return $data[$lowerIndex] + ($fraction * ($data[$upperIndex] - $data[$lowerIndex]));
     }
 
     protected function getDeathStats() {

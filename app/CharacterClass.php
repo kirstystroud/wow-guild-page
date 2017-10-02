@@ -11,4 +11,8 @@ class CharacterClass extends Model
     public function __construct() {
         $this->table = 'classes';
     }
+
+    public function characters() {
+        return $this->hasMany('\App\Character', 'class_id');
+    }
 }

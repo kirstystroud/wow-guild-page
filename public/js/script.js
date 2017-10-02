@@ -206,13 +206,10 @@ var drawChart = function(respData) {
         var newDataItem = [
             row.name,
             row.min_level,
-            Math.round(parseFloat(row.avg_level) - parseFloat(row.std_level)),
-            Math.round(parseFloat(row.avg_level) + parseFloat(row.std_level)),
+            row.lower_q,
+            row.upper_q,
             row.max_level
         ];
-
-        newDataItem[2] = Math.max(newDataItem[2], newDataItem[1]);  // Don't allow to be less than minimum
-        newDataItem[3] = Math.min(newDataItem[3], newDataItem[4]);  // Don't allow to be greater than maximum
 
         chartData.push(newDataItem);
     }
