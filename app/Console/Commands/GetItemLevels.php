@@ -41,12 +41,16 @@ class GetItemLevels extends Command
      */
     public function handle()
     {
-        Log::info('Updating item levels');
+        Log::debug('Updating item levels');
         $characters = Character::all();
+        $progressBar = $this->output->createProgressBar(count($characters));
 
         foreach($characters as $character) {
             $this->getItemLevel($character);
+            $progressBar->advance();
         }
+        $progressBar->finish();
+        $this->line('\n');
     }
 
     protected function getItemLevel($character) {
@@ -57,7 +61,7 @@ class GetItemLevels extends Command
 
             if ($itemObject['items']['averageItemLevelEquipped']) {
                 if ($character->ilvl != $itemObject['items']['averageItemLevelEquipped']) {
-                    Log::info($character->name . ' item level changed from ' . $character->ilvl . ' to ' . $itemObject['items']['averageItemLevelEquipped']);
+                    Log::info($character->name . '\'s item level changed from ' . $character->ilvl . ' to ' . $itemObject['items']['averageItemLevelEquipped']);
                     $character->ilvl = $itemObject['items']['averageItemLevelEquipped'];
                     $character->save();
                 }

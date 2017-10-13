@@ -47,7 +47,7 @@ class GetCharacters extends Command
      */
     public function handle()
     {
-        Log::info('Updating characters');
+        Log::debug('Updating characters');
         // Make call to Blizzard API to get a list of characters in the guild
         $result = BlizzardApi::getGuildCharacters();
 
@@ -96,7 +96,7 @@ class GetCharacters extends Command
 
         // Spec and Level change, reset here
         if ($characterData['level'] != $char->level) {
-            Log::info($char->name . ' level has increased from ' . $char->level . ' to ' . $characterData['level']);
+            Log::info($char->name . '\'s level has increased from ' . $char->level . ' to ' . $characterData['level']);
         }
         $char->level = $characterData['level'];
         if (isset($characterData['spec'])) {
@@ -126,7 +126,7 @@ class GetCharacters extends Command
                 $spec->save();
             }
             if ($char->spec_id != $spec->id) {
-                Log::info($char->name . ' spec is now ' . $spec->name);
+                Log::info($char->name . '\'s spec is now ' . $spec->name);
                 $char->spec_id = $spec->id;
             }
         }

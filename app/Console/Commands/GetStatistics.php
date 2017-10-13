@@ -5,7 +5,9 @@ namespace App\Console\Commands;
 use App\Character;
 use App\Utilities\BlizzardApi;
 
+use Log;
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
 class GetStatistics extends Command
 {
@@ -41,6 +43,8 @@ class GetStatistics extends Command
     public function handle()
     {
         $characters = Character::all();
+        $progressBar = $this->output->createProgressBar(count($characters));
+
         foreach($characters as $char) {
             $data = json_decode(BlizzardApi::getStats($char->name), true);
             $deaths = $data['statistics']['subCategories'][3]['statistics'][0]['quantity'];
@@ -59,11 +63,25 @@ class GetStatistics extends Command
             }
 
             $deathsPerLevel = round($deaths / $char->level, 2);
-            $char->kills = $kills;
-            $char->deaths = $deaths;
-            $char->kdr = $kdr;
+            if ($char->kills != $kills) {
+                Log::info($char->name . '\'s kills has increased from ' . $char->kills . ' to ' . $kills);
+                $char->kills = $kills;
+            }
+
+            if ($char->deaths != $deaths) {
+                Log::info($char->name . '\'s deaths has increased from ' . $char->deaths . ' to ' . $deaths);
+                $char->deaths = $deaths;
+            }
+
+            if ($char->kdr != $kdr) {
+                // Log::info($char->name . '\'s KDR has changed from ' . $char->kdr . ' to ' . $kdr);
+                $char->kdr = $kdr;
+            }
 
             $char->save();
+            $progressBar->advance();
         }
+        $progressBar->finish();
+        $this->line('\n');
     }
 }

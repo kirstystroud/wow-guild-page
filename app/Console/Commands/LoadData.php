@@ -42,7 +42,7 @@ class LoadData extends Command
      */
     public function handle()
     {
-        Log::info('Loading data');
+        Log::debug('Loading data');
         $this->loadClasses();
         $this->loadRaces();
         $this->loadDungeons();
@@ -52,7 +52,7 @@ class LoadData extends Command
      * Update list of dungeons
      */
     protected function loadDungeons() {
-        Log::info('Loading dungeons');
+        Log::debug('Loading dungeons');
         // Make request to Blizzard API to load Dungeons and populate database
         $zones = json_decode(BlizzardApi::getZones(), true);
 
@@ -76,7 +76,7 @@ class LoadData extends Command
      * Update list of classes
      */
     protected function loadClasses() {
-        Log::info('Loading classes');
+        Log::debug('Loading classes');
         // Make requests to Blizzard API to load classes
         $classes = json_decode(BlizzardApi::getClasses(), true);
 
@@ -96,7 +96,7 @@ class LoadData extends Command
      * Update list of races
      */
     protected function loadRaces() {
-        Log::info('Loading races');
+        Log::debug('Loading races');
         $races = json_decode(BlizzardApi::getRaces(), true);
 
         foreach ($races['races'] as $r) {

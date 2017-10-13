@@ -44,15 +44,20 @@ class GetProfessions extends Command
      */
     public function handle()
     {
-        Log::info('Updating character professions');
+        Log::debug('Updating character professions');
+        $characters = Character::all();
+        $progressBar = $this->output->createProgressBar(count($characters));
         // Loop over each character
-        foreach (Character::all() as $char) {
+        foreach ($characters as $char) {
 
             $data = json_decode(BlizzardApi::getProfessions($char->name), true);
 
             $this->updateProfessionsForChar($char, $data['professions']['primary']);
             $this->updateProfessionsForChar($char, $data['professions']['secondary']);
+            $progressBar->advance();
         }
+        $progressBar->finish();
+        $this->line('\n');
     }
 
     protected function updateProfessionsForChar($char, $professions) {
@@ -92,7 +97,7 @@ class GetProfessions extends Command
 
             // Always update skill
             if ($link->skill != $p['rank']) {
-                Log::info($char->name . ' skill in ' . $profession->name . ' has increased from ' . $link->skill . ' to ' . $p['rank']);
+                Log::info($char->name . '\'s skill in ' . $profession->name . ' has increased from ' . $link->skill . ' to ' . $p['rank']);
                 $link->skill = $p['rank'];
                 $link->save();
             }
