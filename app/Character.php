@@ -28,6 +28,10 @@ class Character extends Model
         return $this->belongsTo('\App\Spec');
     }
 
+    public function title() {
+        return $this->belongsTo('\App\Title');
+    }
+
     /**
      * Get class icon
      */
@@ -62,5 +66,12 @@ class Character extends Model
      */
     public function canHeal() {
         return (bool) in_array($this->character_class->id_ext, $this->healers);
+    }
+
+    public function getTitle() {
+        if (!$this->title_id) {
+            return $this->name;
+        }
+        return str_replace('%s', $this->name, $this->title->name);
     }
 }

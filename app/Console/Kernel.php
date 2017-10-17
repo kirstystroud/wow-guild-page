@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         Commands\LoadData::class,
         Commands\GetProfessions::class,
         Commands\GetStatistics::class,
+        Commands\GetTitles::class,
         Commands\SchedulerDaemon::class
     ];
 
@@ -30,6 +31,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('get:dungeons')->daily();
+        $schedule->command('get:titles')->daily();
         $schedule->command('get:characters')->hourlyAt(0);
         $schedule->command('get:ilvls')->hourlyAt(15);
         $schedule->command('get:professions')->hourlyAt(30);

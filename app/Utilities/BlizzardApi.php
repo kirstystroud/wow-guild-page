@@ -69,6 +69,15 @@ class BlizzardApi
         return self::makeRequest($endpoint, $data);
     }
 
+    /**
+     * Make a request to get character titles
+     */
+    public static function getTitles($charName) {
+        $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
+        $data = [ 'fields' => 'titles' ];
+        return self::makeRequest($endpoint, $data);
+    }
+
     protected static function makeRequest($endpoint, $data = []) {
         $baseUrl = 'https://' . env('WOW_REGION') . '.api.battle.net/';
 
