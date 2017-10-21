@@ -120,8 +120,20 @@ var loadDungeonRow = function(id) {
 /**
  * Load content for reputations page
  */
-var loadReputations = function() {
+var loadReputation = function() {
+    $.ajax({
+        url : '/reputation/data',
+        method : 'GET',
+        success : function(resp) {
+            $('#reputations-panel-group').empty();
+            $('#reputations-panel-group').append(resp);
 
+            // Loop over and pull in data
+        },
+        error : function(err) {
+            console.log(err);
+        }
+    });
 };
 
 /**

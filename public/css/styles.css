@@ -131,7 +131,8 @@ div.dungeon-panel, div.profession-panel {
     border: none;
 }
 
-div.dungeon-panel div.panel-heading {
+div.dungeon-panel div.panel-heading,
+div.reputation-panel div.panel-heading {
     background-color: #2b1507;
     border: none;
 }
@@ -141,17 +142,18 @@ div.dungeon-panel-select div.panel-heading {
     border: none;
 }
 
-div.dungeon-panel h1, div.profession-panel h1,
-div.dungeon-panel h2, div.profession-panel h2,
-div.dungeon-panel h3, div.profession-panel h3,
-div.dungeon-panel h4, div.profession-panel h4,
-div.dungeon-panel h5, div.profession-panel h5,
-div.dungeon-panel h6, div.profession-panel h6 {
+div.dungeon-panel h1, div.profession-panel h1, div.reputation-panel h1,
+div.dungeon-panel h2, div.profession-panel h2, div.reputation-panel h2,
+div.dungeon-panel h3, div.profession-panel h3, div.reputation-panel h3,
+div.dungeon-panel h4, div.profession-panel h4, div.reputation-panel h4,
+div.dungeon-panel h5, div.profession-panel h5, div.reputation-panel h5,
+div.dungeon-panel h6, div.profession-panel h6, div.reputation-panel h6 {
     padding: 0 0!important;
     margin: 0 0!important;
 }
 
-div.dungeon-panel-pending > div.panel-heading a {
+div.dungeon-panel-pending > div.panel-heading a,
+div.reputation-panel-pending > div.panel-heading a {
     color: #444!important;
 }
 
