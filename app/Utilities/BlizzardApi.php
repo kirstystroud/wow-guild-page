@@ -78,6 +78,12 @@ class BlizzardApi
         return self::makeRequest($endpoint, $data);
     }
 
+    public static function getReputation($charName) {
+        $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
+        $data = [ 'fields' => 'reputation'];
+        return self::makeRequest($endpoint, $data);
+    }
+
     protected static function makeRequest($endpoint, $data = []) {
         $baseUrl = 'https://' . env('WOW_REGION') . '.api.battle.net/';
 

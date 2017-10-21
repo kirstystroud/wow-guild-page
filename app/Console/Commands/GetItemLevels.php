@@ -50,7 +50,7 @@ class GetItemLevels extends Command
             $progressBar->advance();
         }
         $progressBar->finish();
-        $this->line('\n');
+        $this->line('');
     }
 
     protected function getItemLevel($character) {

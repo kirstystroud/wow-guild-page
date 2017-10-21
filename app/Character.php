@@ -32,6 +32,10 @@ class Character extends Model
         return $this->belongsTo('\App\Title');
     }
 
+    public function reputation() {
+        return $this->hasMany('\App\Reputation');
+    }
+
     /**
      * Get class icon
      */

@@ -73,6 +73,6 @@ class GetTitles extends Command
         }
 
         $progressBar->finish();
-        echo PHP_EOL;
+        $this->line('');
     }
 }

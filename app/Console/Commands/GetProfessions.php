@@ -57,7 +57,7 @@ class GetProfessions extends Command
             $progressBar->advance();
         }
         $progressBar->finish();
-        $this->line('\n');
+        $this->line('');
     }
 
     protected function updateProfessionsForChar($char, $professions) {
