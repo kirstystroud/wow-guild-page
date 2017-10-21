@@ -14,8 +14,14 @@ $(document).ready(function() {
         loadKills();
     }
 
+    // Load dungeons
     if (window.location.pathname == '/dungeons') {
         loadDungeons();
+    }
+
+    // Load reputation
+    if (window.location.pathname == '/reputation') {
+        loadReputation();
     }
 
     attachEventHandlers();
@@ -40,6 +46,8 @@ var updateNavBar = function() {
         case '/stats' :
             $('#navbar-stats').addClass('active');
             break;
+        case '/reputation' :
+            $('#navbar-reputation').addClass('active');
         default :
             console.log(`Unknown path ${pathname}`);
     }
@@ -108,6 +116,13 @@ var loadDungeonRow = function(id) {
         }
     });
 }
+
+/**
+ * Load content for reputations page
+ */
+var loadReputations = function() {
+
+};
 
 /**
  * Attach page event handlers

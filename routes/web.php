@@ -26,6 +26,9 @@ Route::get('/dungeons/data/{dungeon}', '\App\Http\Controllers\DungeonsController
 // Professions page
 Route::get('/professions', '\App\Http\Controllers\ProfessionsController@get');
 
+// Reputation page
+Route::get('/reputation', '\App\Http\Controllers\ReputationController@get');
+
 // Stats page
 Route::get('/stats', '\App\Http\Controllers\StatsController@get');
 Route::get('/stats/data', '\App\Http\Controllers\StatsController@data');
