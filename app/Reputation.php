@@ -29,4 +29,16 @@ class Reputation extends Model
             self::STANDING_EXALTED => 'Exalted'
         ];
     }
+
+    public function faction() {
+        return $this->belongsTo('\App\Faction');
+    }
+
+    public function character() {
+        return $this->belongsTo('\App\Character');
+    }
+
+    public function getProgress() {
+        return $this->max == 0 ? '100%' : floor(100 * ($this->current / $this->max)) . '%';
+    }
 }

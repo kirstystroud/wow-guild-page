@@ -225,6 +225,97 @@ tr td:nth-child(1) span {
     font-weight: normal;
 }
 
+/* Reputations tds */
+
+/* Hated */
+td.standing-0,
+div.reputation-panel-0 h1 a,
+div.reputation-panel-0 h2 a,
+div.reputation-panel-0 h3 a,
+div.reputation-panel-0 h4 a,
+div.reputation-panel-0 h5 a,
+div.reputation-panel-0 h6 a {
+    color: #cc2222;
+}
+
+/* Hostile */
+td.standing-1,
+div.reputation-panel-1 h1 a,
+div.reputation-panel-1 h2 a,
+div.reputation-panel-1 h3 a,
+div.reputation-panel-1 h4 a,
+div.reputation-panel-1 h5 a,
+div.reputation-panel-1 h6 a {
+    color: red;
+}
+
+/* Unfriendly */
+td.standing-2,
+div.reputation-panel-2 h1 a,
+div.reputation-panel-2 h2 a,
+div.reputation-panel-2 h3 a,
+div.reputation-panel-2 h4 a,
+div.reputation-panel-2 h5 a,
+div.reputation-panel-2 h6 a {
+    color: #ee6622;
+}
+
+/* Neutral */
+td.standing-3,
+div.reputation-panel-3 h1 a,
+div.reputation-panel-3 h2 a,
+div.reputation-panel-3 h3 a,
+div.reputation-panel-3 h4 a,
+div.reputation-panel-3 h5 a,
+div.reputation-panel-3 h6 a {
+    color: yellow;
+}
+
+/* Friendly */
+td.standing-4,
+div.reputation-panel-4 h1 a,
+div.reputation-panel-4 h2 a,
+div.reputation-panel-4 h3 a,
+div.reputation-panel-4 h4 a,
+div.reputation-panel-4 h5 a,
+div.reputation-panel-4 h6 a {
+    color: lime;
+}
+
+/* Honored */
+td.standing-5,
+div.reputation-panel-5 h1 a,
+div.reputation-panel-5 h2 a,
+div.reputation-panel-5 h3 a,
+div.reputation-panel-5 h4 a,
+div.reputation-panel-5 h5 a,
+div.reputation-panel-5 h6 a {
+    color: #00ff88;
+}
+
+/* Revered */
+td.standing-6,
+div.reputation-panel-6 h1 a,
+div.reputation-panel-6 h2 a,
+div.reputation-panel-6 h3 a,
+div.reputation-panel-6 h4 a,
+div.reputation-panel-6 h5 a,
+div.reputation-panel-6 h6 a {
+    color: #00ffcc;
+}
+
+/* Exalted */
+td.standing-7,
+div.reputation-panel-7 h1 a,
+div.reputation-panel-7 h2 a,
+div.reputation-panel-7 h3 a,
+div.reputation-panel-7 h4 a,
+div.reputation-panel-7 h5 a,
+div.reputation-panel-7 h6 a {
+    color: cyan;
+}
+
+
 /* Class specific trs */
 
 /* Warrior */

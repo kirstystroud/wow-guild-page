@@ -29,6 +29,7 @@ Route::get('/professions', '\App\Http\Controllers\ProfessionsController@get');
 // Reputation page
 Route::get('/reputation', '\App\Http\Controllers\ReputationController@get');
 Route::get('/reputation/data', '\App\Http\Controllers\ReputationController@data');
+Route::get('/reputation/data/{faction}', '\App\Http\Controllers\ReputationController@factionData');
 
 // Stats page
 Route::get('/stats', '\App\Http\Controllers\StatsController@get');
