@@ -89,7 +89,8 @@ class StatsController extends Controller
                     DB::raw('SUM(kills) AS kills')
                 )
                 ->leftJoin('characters', 'characters.class_id', 'classes.id')
-                ->groupBy('classes.id')
+                ->groupBy('classes.id_ext')
+                ->groupBy('classes.name')
                 ->orderBy('kills', 'DESC')
                 ->get();
         return $data;
