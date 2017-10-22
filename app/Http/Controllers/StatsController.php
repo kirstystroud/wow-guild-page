@@ -35,16 +35,16 @@ class StatsController extends Controller
      * Handles GET requests to /stats/deaths
      */
     public function deaths() {
-        $chars = $this->getDeathStats();
-        return view('partials.deaths')->with('characters', $chars);
+        $data = $this->getDeathStats();
+        return view('partials.deaths')->with('data', $data);
     }
 
     /**
      * Handles GET requests to /stats/kills
      */
     public function kills() {
-        $chars = $this->getKillStats();
-        return view('partials.kills')->with('characters', $chars);
+        $data = $this->getKillStats();
+        return view('partials.kills')->with('data', $data);
     }
 
     protected function getClassData() {
@@ -110,12 +110,20 @@ class StatsController extends Controller
     }
 
     protected function getDeathStats() {
-        $data = Character::orderBy('deaths', 'DESC')->limit(10)->get();
-        return $data;
+        $mostDeaths = Character::orderBy('deaths', 'DESC')->limit(11)->get();
+        $leastDeaths = Character::orderBy('deaths', 'DESC')->offset(Character::count() - 11)->limit(11)->get();
+        return [
+            'mostDeaths' => $mostDeaths,
+            'leastDeaths' => $leastDeaths
+        ];
     }
 
     protected function getKillStats() {
-        $data = Character::orderBy('kdr', 'DESC')->limit(10)->get();
-        return $data;
+        $mostKills = Character::orderBy('kdr', 'DESC')->limit(10)->get();
+        $leastKills = Character::orderBy('kills', 'DESC')->limit(10)->get();
+        return [
+            'kdr' => $mostKills,
+            'kills' => $leastKills
+        ];
     }
 }

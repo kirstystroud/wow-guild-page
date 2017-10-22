@@ -1,5 +1,5 @@
 <br>
-<h4>Top 10 Most Deaths</h4>
+<h4>Character Deaths</h4>
 
 <table class="table">
     <thead>
@@ -7,7 +7,17 @@
         <th>Deaths</th>
     </thead>
     </tbody>
-        @foreach($characters as $char)
+        @foreach($data['mostDeaths'] as $char)
+            <tr class="members-tr-{{ $char->character_class->id_ext }}">
+                <td><a href="{{ $char->getLinkAddr() }}" target="_blank">{{ $char->getTitle() }}</a> <span>({{ $char->level }})</span></td>
+                <td>{{ $char->deaths }}</td>
+            </tr>
+        @endforeach
+        <tr>
+            <td>....</td>
+            <td>....</td>
+        </tr>
+        @foreach($data['leastDeaths'] as $char)
             <tr class="members-tr-{{ $char->character_class->id_ext }}">
                 <td><a href="{{ $char->getLinkAddr() }}" target="_blank">{{ $char->getTitle() }}</a> <span>({{ $char->level }})</span></td>
                 <td>{{ $char->deaths }}</td>
