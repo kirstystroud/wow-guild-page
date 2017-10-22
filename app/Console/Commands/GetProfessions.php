@@ -97,7 +97,7 @@ class GetProfessions extends Command
 
             // Always update skill
             if ($link->skill != $p['rank']) {
-                Log::info($char->name . '\'s skill in ' . $profession->name . ' has increased from ' . $link->skill . ' to ' . $p['rank']);
+                Log::info($char->name . '\'s skill in ' . $profession->name . ' has increased from ' . ($link->skill ? $link->skill : 0) . ' to ' . $p['rank']);
                 $link->skill = $p['rank'];
                 $link->save();
             }

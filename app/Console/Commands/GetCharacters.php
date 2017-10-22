@@ -65,9 +65,16 @@ class GetCharacters extends Command
 
         // loop over characters
         foreach ($deletedChars as $char) {
+            // Professions
             if ($char->professions) {
                 foreach ($char->professions as $professions) {
                     $profession->delete();
+                }
+            }
+            // Reputation
+            if ($char->reputation) {
+                foreach($char->reputation as $link) {
+                    $link->delete();
                 }
             }
             Log::info('Deleting character ' . $char->name);
@@ -96,7 +103,7 @@ class GetCharacters extends Command
 
         // Spec and Level change, reset here
         if ($characterData['level'] != $char->level) {
-            Log::info($char->name . '\'s level has increased from ' . $char->level . ' to ' . $characterData['level']);
+            Log::info($char->name . '\'s level has increased from ' . ($char->level ? $char->level : 0) . ' to ' . $characterData['level']);
         }
         $char->level = $characterData['level'];
         if (isset($characterData['spec'])) {

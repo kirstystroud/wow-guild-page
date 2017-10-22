@@ -64,12 +64,12 @@ class GetStatistics extends Command
 
             $deathsPerLevel = round($deaths / $char->level, 2);
             if ($char->kills != $kills) {
-                Log::info($char->name . '\'s kills has increased from ' . $char->kills . ' to ' . $kills);
+                Log::info($char->name . '\'s kills has increased from ' . ($char->kills ? $char->kills : 0) . ' to ' . $kills);
                 $char->kills = $kills;
             }
 
             if ($char->deaths != $deaths) {
-                Log::info($char->name . '\'s deaths has increased from ' . $char->deaths . ' to ' . $deaths);
+                Log::info($char->name . '\'s deaths has increased from ' . ($char->deaths ? $char->deaths : 0) . ' to ' . $deaths);
                 $char->deaths = $deaths;
             }
 

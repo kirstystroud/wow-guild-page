@@ -61,7 +61,7 @@ class GetItemLevels extends Command
 
             if ($itemObject['items']['averageItemLevelEquipped']) {
                 if ($character->ilvl != $itemObject['items']['averageItemLevelEquipped']) {
-                    Log::info($character->name . '\'s item level changed from ' . $character->ilvl . ' to ' . $itemObject['items']['averageItemLevelEquipped']);
+                    Log::info($character->name . '\'s item level has changed from ' . ($character->ilvl ? $character->ilvl : 0) . ' to ' . $itemObject['items']['averageItemLevelEquipped']);
                     $character->ilvl = $itemObject['items']['averageItemLevelEquipped'];
                     $character->save();
                 }
