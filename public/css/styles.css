@@ -94,6 +94,19 @@ select {
     font: 11px system-ui;
 }
 
+div.google-visualization-tooltip,
+div.google-visualization-tooltip > ul,
+div.google-visualization-tooltip > ul > li,
+div.google-visualization-tooltip > ul > li > span  {
+    background-color: #222 !important;
+    border: none;
+}
+
+div.google-visualization-tooltip > ul > li > span {
+    font-size: 0.8em;
+    color: #f5eBd1 !important;
+}
+
 .btn {
     color: #ffae00;
 }

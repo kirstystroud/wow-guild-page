@@ -18,10 +18,17 @@ class StatsController extends Controller
     }
 
     /**
-     * Handles GET requests to /stats/data
+     * Handles GET requests to /stats/data/candlestick
      */
-    public function data() {
+    public function dataCandlestick() {
         return $this->getClassData();
+    }
+
+    /**
+     * Handles GET requests to /stats/data/pie
+     */
+    public function dataPie() {
+        return $this->getPieData();
     }
 
     /**
@@ -72,6 +79,19 @@ class StatsController extends Controller
             ];
         }
 
+        return $data;
+    }
+
+    protected function getPieData() {
+        $data = CharacterClass::select(
+                    'classes.id_ext',
+                    'classes.name',
+                    DB::raw('SUM(kills) AS kills')
+                )
+                ->leftJoin('characters', 'characters.class_id', 'classes.id')
+                ->groupBy('classes.id')
+                ->orderBy('kills', 'DESC')
+                ->get();
         return $data;
     }
 

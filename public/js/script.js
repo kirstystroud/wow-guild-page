@@ -246,10 +246,21 @@ var loadKills = function() {
  */
 var loadGraphs = function() {
     $.ajax({
-        url : '/stats/data',
+        url : '/stats/data/candlestick',
         method : 'GET',
         success : function(resp) {
             drawChart(resp);
+        },
+        error : function(err) {
+            console.log(err);
+        }
+    });
+    $.ajax({
+        url: '/stats/data/pie',
+        method : 'GET',
+        success : function(resp) {
+            console.log(resp);
+            drawPieChart(resp);
         },
         error : function(err) {
             console.log(err);
@@ -259,7 +270,7 @@ var loadGraphs = function() {
 
 var drawChart = function(respData) {
     google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawCandlestickChart);
 
     var chartData = [];
 
@@ -279,7 +290,7 @@ var drawChart = function(respData) {
 
 
 
-    function drawChart() {
+    function drawCandlestickChart() {
         var data = google.visualization.arrayToDataTable(chartData, true);
 
         var options = {
@@ -378,5 +389,64 @@ var drawChart = function(respData) {
             });
         });
 
+    };
+};
+
+var drawPieChart = function(respData) {
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawPieChart);
+
+    function drawPieChart() {
+
+        var colorMap = {
+            1 : '#c69b6d', // Warrior
+            2 : '#f48cba', // Paladin
+            3 : '#aad372', // Hunter
+            4 : '#fff468', // Rogue
+            5 : 'white', // Priest
+            6 : '#c41e3b', // Death Knight
+            7 : '#2359ff', // Shaman
+            8 : '#68ccef', // Mage
+            9 : '#9382c9', // Warlock
+            10 : '#00ffba', // Monk
+            11 : '#ff7c0a', // Druid
+            12 : '#a330c9', // Demon Hunter
+        };
+
+        var rawData = [];
+        var sliceData = {};
+        rawData.push(['Class', 'Total Kills']);
+        $.each(respData, function(k, v) {
+            rawData.push([v.name, parseInt(v.kills)]);
+            sliceData[k] = { 'color' : colorMap[ v['id_ext'] ] };
+        });
+
+        var data = google.visualization.arrayToDataTable(rawData);
+
+        var options = {
+            title: 'Kills by Class',
+            titlePosition : 'out',
+            titleTextStyle : {
+                color : '#f5eBd1',
+                fontSize : 18
+            },
+            backgroundColor : {
+                stroke : '#f5eBd1',
+                fill : '#231207'
+            },
+            slices : sliceData,
+            legend : {
+                textStyle : {
+                    color : '#f5eBd1'
+                }
+            },
+            tooltip : {
+                isHtml : true
+            }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('stats-pie-div'));
+
+        chart.draw(data, options);
     };
 };
