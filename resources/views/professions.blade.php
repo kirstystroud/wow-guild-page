@@ -15,6 +15,7 @@
                                 <a data-toggle="collapse" href="#profession-row-{{ $profession->id }}">
                                     {{ $profession->name }}
                                 </a>
+                                <p class="pull-right">(Max Skill: {{ $profession->getMaxSkill() }})</p>
                             </h4>
                         </div>
                         <div id="profession-row-{{ $profession->id }}" class="panel-body panel-collapse collapse">
