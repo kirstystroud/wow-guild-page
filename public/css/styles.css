@@ -2,6 +2,10 @@ body {
     background: url('../background.jpg');
 }
 
+.close {
+    color: #ffae00;
+}
+
 .container-fmts {
     width: 95%;
     margin-right: auto;
@@ -86,6 +90,10 @@ td {
     border: none!important;
 }
 
+table > tbody > tr > td.td-normal {
+    font-weight: normal;
+}
+
 select {
     background-color: #f1ebd7;
     color: #171717;
@@ -109,6 +117,22 @@ div.google-visualization-tooltip > ul > li > span {
 
 .btn {
     color: #ffae00;
+}
+
+.btn-search {
+    background-color: #6a240b;
+}
+
+.btn-search:hover, .btn-search:focus {
+    color : #ffae00;
+}
+
+.char-link {
+    font-weight: bold;
+}
+
+.form-control {
+    background-color: #f5eBd1;
 }
 
 .fmts-img {
@@ -138,6 +162,16 @@ div.panel-default div.panel-body {
 
 .panel {
     border: none;
+}
+
+.wow-modal-header {
+    background-color: #6a240b;
+    border: none;
+}
+
+.wow-modal-body {
+    background-color: #231207;
+    color: #f5eBd1;
 }
 
 div.dungeon-panel, div.profession-panel {
@@ -332,61 +366,61 @@ div.reputation-panel-7 h6 a {
 /* Class specific trs */
 
 /* Warrior */
-tr.members-tr-1 td:nth-child(1), tr.members-tr-1 td:nth-child(1) > a {
+tr.members-tr-1 td:nth-child(1), tr.members-tr-1 td:nth-child(1) > a, a.char-1 {
     color: #c69b6d!important;
 }
 
 /* Paladin */
-tr.members-tr-2 td:nth-child(1), tr.members-tr-2 td:nth-child(1) > a {
+tr.members-tr-2 td:nth-child(1), tr.members-tr-2 td:nth-child(1) > a, a.char-2 {
     color: #f48cba!important;
 }
 
 /* Hunter */
-tr.members-tr-3 td:nth-child(1), tr.members-tr-3 td:nth-child(1) > a {
+tr.members-tr-3 td:nth-child(1), tr.members-tr-3 td:nth-child(1) > a, a.char-3 {
     color: #aad372!important;
 }
 
 /* Rogue */
-tr.members-tr-4 td:nth-child(1), tr.members-tr-4 td:nth-child(1) > a {
+tr.members-tr-4 td:nth-child(1), tr.members-tr-4 td:nth-child(1) > a, a.char-4 {
     color: #fff468!important;
 }
 
 /* Priest */
-tr.members-tr-5 td:nth-child(1), tr.members-tr-5 td:nth-child(1) > a {
+tr.members-tr-5 td:nth-child(1), tr.members-tr-5 td:nth-child(1) > a, a.char-5 {
     color: #fff!important;
 }
 
 /* Death Knight */
-tr.members-tr-6 td:nth-child(1), tr.members-tr-6 td:nth-child(1) > a {
+tr.members-tr-6 td:nth-child(1), tr.members-tr-6 td:nth-child(1) > a, a.char-6 {
     color: #c41e3b!important;
 }
 
 /* Shaman */
-tr.members-tr-7 td:nth-child(1), tr.members-tr-7 td:nth-child(1) > a {
+tr.members-tr-7 td:nth-child(1), tr.members-tr-7 td:nth-child(1) > a, a.char-7 {
     color: #2359ff!important;
 }
 
 /* Mage */
-tr.members-tr-8 td:nth-child(1), tr.members-tr-8 td:nth-child(1) > a {
+tr.members-tr-8 td:nth-child(1), tr.members-tr-8 td:nth-child(1) > a, a.char-8 {
     color: #68ccef!important;
 }
 
 /* Warlock */
-tr.members-tr-9 td:nth-child(1), tr.members-tr-9 td:nth-child(1) > a {
+tr.members-tr-9 td:nth-child(1), tr.members-tr-9 td:nth-child(1) > a, a.char-9 {
     color: #9382c9!important;
 }
 
 /* Monk */
-tr.members-tr-10 td:nth-child(1), tr.members-tr-10 td:nth-child(1) > a {
+tr.members-tr-10 td:nth-child(1), tr.members-tr-10 td:nth-child(1) > a, a.char-10 {
     color: #00ffba!important;
 }
 
 /* Druid */
-tr.members-tr-11 td:nth-child(1), tr.members-tr-11 td:nth-child(1) > a {
+tr.members-tr-11 td:nth-child(1), tr.members-tr-11 td:nth-child(1) > a, a.char-11 {
     color: #ff7c0a!important;
 }
 
 /* Demon Hunter */
-tr.members-tr-12 td:nth-child(1), tr.members-tr-12 td:nth-child(1) > a {
+tr.members-tr-12 td:nth-child(1), tr.members-tr-12 td:nth-child(1) > a, a.char-12 {
     color: #a330c9!important;
 }
