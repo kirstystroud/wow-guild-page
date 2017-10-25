@@ -4,7 +4,9 @@ namespace App\Console\Commands;
 
 use App\Character;
 use App\Profession;
+use App\Recipe;
 use App\CharacterProfession;
+use App\CharacterRecipe;
 use App\Utilities\BlizzardApi;
 
 use Illuminate\Console\Command;
@@ -18,7 +20,7 @@ class GetProfessions extends Command
      *
      * @var string
      */
-    protected $signature = 'get:professions';
+    protected $signature = 'get:professions {--recipes= : Should we also load recipes}';
 
     /**
      * The console command description.
@@ -26,6 +28,8 @@ class GetProfessions extends Command
      * @var string
      */
     protected $description = 'Update character professions';
+
+    protected $_withRecipes = false;
 
     /**
      * Create a new command instance.
@@ -44,6 +48,8 @@ class GetProfessions extends Command
      */
     public function handle()
     {
+        $this->_withRecipes = isset($this->options()['recipes']) && ($this->options()['recipes'] == 'true');
+
         Log::debug('Updating character professions');
         $characters = Character::all();
         $progressBar = $this->output->createProgressBar(count($characters));
@@ -100,6 +106,39 @@ class GetProfessions extends Command
                 Log::info($char->name . '\'s skill in ' . $profession->name . ' has increased from ' . ($link->skill ? $link->skill : 0) . ' to ' . $p['rank']);
                 $link->skill = $p['rank'];
                 $link->save();
+            }
+
+            // Do we want to update recipes
+            if ($this->_withRecipes) {
+                if (!count($p['recipes'])) {
+                    return true;
+                }
+                Log::debug('Checking ' . count($p['recipes']) . ' ' . $profession->name . ' recipes for ' . $char->name);
+                // Loop over recipes
+                foreach($p['recipes'] as $r) {
+                    // Do we have an existing entry for this recipe
+                    $existing = Recipe::where('id_ext', $r)->first();
+                    if (!$existing) {
+
+                        $recipe = json_decode(BlizzardApi::getRecipe($r), true);
+
+                        $existing = new Recipe;
+                        $existing->id_ext = $r;
+                        $existing->name = $recipe['name'];
+                        $existing->profession_id = $profession->id;
+                        Log::info('Found new ' . $profession->name . ' recipe ' . $existing->name);
+                        $existing->save();
+                    }
+
+                    $link = CharacterRecipe::where('character_id', $char->id)->where('recipe_id', $existing->id)->first();
+                    if (!$link) {
+                        Log::info($char->name .  ' has learned the ' . $profession->name . ' recipe ' . $existing->name);
+                        $link = new CharacterRecipe;
+                        $link->character_id = $char->id;
+                        $link->recipe_id = $existing->id;
+                        $link->save();
+                    }
+                }
             }
 
         }

@@ -44,6 +44,12 @@ class BlizzardApi
         return self::makeRequest($endpoint, $data);
     }
 
+    public static function getRecipe($id) {
+        $endpoint = '/wow/recipe/' . $id;
+        $data = [];
+        return self::makeRequest($endpoint, $data);
+    }
+
     /**
      * Make a request to load classes
      */
