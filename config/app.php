@@ -120,7 +120,7 @@ return [
     |
     */
 
-    'log' => 'errorlog',
+    'log' => 'single',
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
@@ -229,6 +229,7 @@ return [
         // WoW Models
         'Character' => App\Character::class,
         'CharacterClass' => App\CharacterClass::class,
+        'CharacterDungeon' => App\CharacterDungeon::class,
         'CharacterProfession' => App\CharacterProfession::class,
         'CharacterRecipe' => App\CharacterRecipe::class,
         'Dungeon' => App\Dungeon::class,

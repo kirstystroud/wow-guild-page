@@ -84,9 +84,21 @@ class BlizzardApi
         return self::makeRequest($endpoint, $data);
     }
 
+    /**
+     * Make a request to get character reputation
+     */
     public static function getReputation($charName) {
         $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
         $data = [ 'fields' => 'reputation'];
+        return self::makeRequest($endpoint, $data);
+    }
+
+    /**
+     * Make a request to get character raid runs
+     */
+    public static function getRaids($charName) {
+        $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
+        $data = [ 'fields' => 'progression' ];
         return self::makeRequest($endpoint, $data);
     }
 

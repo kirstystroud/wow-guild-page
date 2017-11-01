@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel
         Commands\GetStatistics::class,
         Commands\GetTitles::class,
         Commands\GetReputation::class,
+        Commands\GetRaids::class,
         Commands\SchedulerDaemon::class
     ];
 
@@ -34,6 +35,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('get:data')->dailyAt('09:00');
         $schedule->command('get:titles')->dailyAt('12:00');
         $schedule->command('get:reputation')->dailyAt('15:00');
+        $schedule->command('get:raids')->dailyAt('18:00');
 
         $schedule->command('get:characters')->hourlyAt(0);
         $schedule->command('get:ilvls')->hourlyAt(15);
