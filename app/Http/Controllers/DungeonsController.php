@@ -22,7 +22,7 @@ class DungeonsController extends Controller
      * Returns view with empty panels
      */
     public function data() {
-        $dungeonsData = Dungeon::orderBy('min_level', 'asc')->orderBy('max_level', 'asc')->get();
+        $dungeonsData = Dungeon::where('instance_type', Dungeon::TYPE_DUNGEON)->orderBy('min_level', 'asc')->orderBy('max_level', 'asc')->get();
         return view('partials.dungeons')->with('dungeons', $dungeonsData);
     }
 
