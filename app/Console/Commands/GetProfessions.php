@@ -56,7 +56,11 @@ class GetProfessions extends Command
         // Loop over each character
         foreach ($characters as $char) {
 
-            $data = json_decode(BlizzardApi::getProfessions($char->name), true);
+            $data = BlizzardApi::getProfessions($char->name);
+            if (!$data) {
+                $progressBar->advance();
+                continue;
+            }
 
             $this->updateProfessionsForChar($char, $data['professions']['primary']);
             $this->updateProfessionsForChar($char, $data['professions']['secondary']);
@@ -120,7 +124,8 @@ class GetProfessions extends Command
                     $existing = Recipe::where('id_ext', $r)->first();
                     if (!$existing) {
 
-                        $recipe = json_decode(BlizzardApi::getRecipe($r), true);
+                        $recipe = BlizzardApi::getRecipe($r);
+                        if (!$recipe) continue;
 
                         $existing = new Recipe;
                         $existing->id_ext = $r;

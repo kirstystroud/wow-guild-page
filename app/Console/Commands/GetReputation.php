@@ -48,9 +48,10 @@ class GetReputation extends Command
 
         foreach($characters as $char) {
 
-            $data = json_decode(BlizzardApi::getReputation($char->name), true);
+            $data = BlizzardApi::getReputation($char->name);
 
             if (!$data) {
+                $progressBar->advance();
                 continue;
             }
 

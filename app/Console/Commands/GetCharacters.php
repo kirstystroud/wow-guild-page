@@ -53,8 +53,7 @@ class GetCharacters extends Command
 
         if (!$result) exit(2);
 
-        $decodedResult = json_decode($result, true);
-        $guildMembers = $decodedResult['members'];
+        $guildMembers = $result['members'];
 
         foreach($guildMembers as $member) {
             $this->updateCharacter($member['character']);

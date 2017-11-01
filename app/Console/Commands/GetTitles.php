@@ -47,27 +47,29 @@ class GetTitles extends Command
         $progressBar = $this->output->createProgressBar(count($characters));
 
         foreach($characters as $char) {
-            $data = json_decode(BlizzardApi::getTitles($char->name), true);
+            $data = BlizzardApi::getTitles($char->name);
 
-            // Nothing returned for some characters
-            if ($data) {
-                // loop over all titles
-                foreach($data['titles'] as $t) {
-                    $title = Title::where('id_ext', $t['id'])->first();
-                    if (!$title) {
-                        $title = new Title;
-                        $title->id_ext = $t['id'];
-                        $title->name = $t['name'];
-                        $title->save();
-                    }
+            if (!$data) {
+                $progressBar->advance();
+                continue;
+            }
 
-                    if(isset($t['selected']) && $t['selected'] && ($title->id != $char->title_id)) {
-                        $char->title_id = $title->id;
-                        $char->save();
-                        Log::info($char->name . '\'s title is now ' . trim(str_replace('%s', '', $title->name)));
-                    }
+            // loop over all titles
+            foreach($data['titles'] as $t) {
+                $title = Title::where('id_ext', $t['id'])->first();
+                if (!$title) {
+                    $title = new Title;
+                    $title->id_ext = $t['id'];
+                    $title->name = $t['name'];
+                    $title->save();
                 }
-            } 
+
+                if(isset($t['selected']) && $t['selected'] && ($title->id != $char->title_id)) {
+                    $char->title_id = $title->id;
+                    $char->save();
+                    Log::info($char->name . '\'s title is now ' . trim(str_replace('%s', '', $title->name)));
+                }
+            }
 
             $progressBar->advance();
         }

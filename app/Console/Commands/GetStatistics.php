@@ -46,7 +46,12 @@ class GetStatistics extends Command
         $progressBar = $this->output->createProgressBar(count($characters));
 
         foreach($characters as $char) {
-            $data = json_decode(BlizzardApi::getStats($char->name), true);
+            $data = BlizzardApi::getStats($char->name);
+            if (!$data) {
+                $progressBar->advance();
+                continue;
+            }
+
             $deaths = $data['statistics']['subCategories'][3]['statistics'][0]['quantity'];
             $kills = $data['statistics']['subCategories'][2]['statistics'][0]['quantity'];
             if (!$kills) {

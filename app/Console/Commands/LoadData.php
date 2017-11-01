@@ -54,7 +54,8 @@ class LoadData extends Command
     protected function loadDungeons() {
         Log::debug('Loading dungeons');
         // Make request to Blizzard API to load Dungeons and populate database
-        $zones = json_decode(BlizzardApi::getZones(), true);
+        $zones = BlizzardApi::getZones();
+        if (!$zones) return false;
 
         foreach ($zones['zones'] as $zone) {
             // Check if we already know about this

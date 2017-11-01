@@ -56,8 +56,9 @@ class GetItemLevels extends Command
     protected function getItemLevel($character) {
         // Low-level characters will not have this available
         try {
-            $itemData = BlizzardApi::getCharacterItems($character->name);
-            $itemObject = json_decode($itemData, true);
+            $itemObject = BlizzardApi::getCharacterItems($character->name);
+
+            if (!$itemObject) return false;
 
             if ($itemObject['items']['averageItemLevelEquipped']) {
                 if ($character->ilvl != $itemObject['items']['averageItemLevelEquipped']) {

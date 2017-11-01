@@ -100,7 +100,8 @@ class BlizzardApi
         try {
             $client = new GuzzleHttp\Client(['base_uri' => $baseUrl]);
             $req = $client->request('GET', $endpoint, [ 'query' => $data ]);
-            return (string) $req->getBody();
+            $requestBody = (string) $req->getBody();
+            return $requestBody ? json_decode($requestBody, true) : false;
         } catch (GuzzleHttp\Exception\ClientException $e) {
             error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
             return false;
