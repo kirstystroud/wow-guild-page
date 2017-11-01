@@ -12,6 +12,10 @@ class Dungeon extends Model
     const STATUS_PARTIALLY_AVAILABLE = 1;
     const STATUS_AVAILABLE = 2;
 
+    const TYPE_UNKNOWN = 0;
+    const TYPE_DUNGEON = 1;
+    const TYPE_RAID = 2;
+
     public $timestamps = false;
 
     public function getHeading() {

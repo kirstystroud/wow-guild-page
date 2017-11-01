@@ -59,9 +59,9 @@ class LoadData extends Command
 
         foreach ($zones['zones'] as $zone) {
             // Check if we already know about this
-            $existing = Dungeon::where('name', $zone['name'])->count();
+            $dungeon = Dungeon::where('name', $zone['name'])->first();
 
-            if (!$existing) {
+            if (!$dungeon) {
                 Log::info('Found new zone ' . $zone['name']);
                 $dungeon = new Dungeon;
                 $dungeon->name = $zone['name'];
@@ -70,6 +70,16 @@ class LoadData extends Command
                 $dungeon->location = $zone['location']['name'];
                 $dungeon->save();
             }
+
+            if (!$dungeon->instance_type) {
+                if ($zone['isRaid']) {
+                    $dungeon->instance_type = Dungeon::TYPE_RAID;
+                } else if($zone['isDungeon']) {
+                    $dungeon->instance_type = Dungeon::TYPE_DUNGEON;
+                }
+                $dungeon->save();
+            }
+
         }
     }
 
@@ -79,7 +89,8 @@ class LoadData extends Command
     protected function loadClasses() {
         Log::debug('Loading classes');
         // Make requests to Blizzard API to load classes
-        $classes = json_decode(BlizzardApi::getClasses(), true);
+        $classes = BlizzardApi::getClasses();
+        if (!$classes) return false;
 
         foreach ($classes['classes'] as $c) {
             $class = CharacterClass::where('id_ext', $c['id'])->first();
@@ -98,7 +109,8 @@ class LoadData extends Command
      */
     protected function loadRaces() {
         Log::debug('Loading races');
-        $races = json_decode(BlizzardApi::getRaces(), true);
+        $races = BlizzardApi::getRaces();
+        if (!$races) return false;
 
         foreach ($races['races'] as $r) {
             $race = Race::where('id_ext', $r['id'])->first();
