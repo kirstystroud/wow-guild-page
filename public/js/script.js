@@ -243,6 +243,17 @@ var attachEventHandlers = function() {
         }
     });
 
+    // Showing raid panels on a per-char basis
+    $('#raid-char-select').change(function() {
+        var selected = $(this).val();
+        if (selected && (selected != '0')) {
+            $('.dungeon-panel').css('display', 'none');
+            $('.char-' + selected).parents('.dungeon-panel').css('display', 'block');
+        } else {
+            $('.dungeon-panel').css('display', 'block');
+        }
+    });
+
     // Showing reputation panels on a per-char basis
     $('#reputation-char-select').change(function() {
         var selected = $(this).val();
