@@ -28,9 +28,9 @@ class RaidsController extends Controller
     }
 
     public function raidData(Dungeon $dungeon) {
-        $dungeonClass = $dungeon->getPanelClass();
+        $dungeonClass = count($dungeon->getCharacterRaidData()) ? 'panel-info profession-panel' : 'panel-danger';
         return [
-            'class' => 'panel-info profession-panel',
+            'class' => $dungeonClass,
             'view' => view('partials.raid-row')->with('raid', $dungeon)->render()
         ];
     }
