@@ -9,10 +9,10 @@ class CharacterRecipe extends Model
     public $timestamps = false;
 
     public function character() {
-        return $this->belongsTo('\App\Character');
+        return $this->belongsTo(Character::class);
     }
 
     public function recipe() {
-        return $this->belongsTo('\App\Recipe');
+        return $this->belongsTo(Recipe::class);
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Character;
-use App\Title;
-use App\Utilities\BlizzardApi;
+use Character;
+use Title;
+use BlizzardApi;
 
 use Log;
 use Illuminate\Console\Command;

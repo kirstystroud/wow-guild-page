@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Character;
-use App\Dungeon;
+use Character;
+use Dungeon;
 use Illuminate\Http\Request;
 
 class DungeonsController extends Controller

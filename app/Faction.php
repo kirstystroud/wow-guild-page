@@ -9,7 +9,7 @@ class Faction extends Model
     public $timestamps = false;
 
     public function reputations() {
-        return $this->hasMany('\App\Reputation');
+        return $this->hasMany(Reputation::class);
     }
 
     public function getCharacters() {

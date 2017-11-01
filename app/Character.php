@@ -17,23 +17,23 @@ class Character extends Model
 
 
     public function character_class() {
-        return $this->belongsTo('\App\CharacterClass', 'class_id');
+        return $this->belongsTo(CharacterClass::class, 'class_id');
     }
 
     public function race() {
-        return $this->belongsTo('\App\Race');
+        return $this->belongsTo(Race::class);
     }
 
     public function spec() {
-        return $this->belongsTo('\App\Spec');
+        return $this->belongsTo(Spec::class);
     }
 
     public function title() {
-        return $this->belongsTo('\App\Title');
+        return $this->belongsTo(Title::class);
     }
 
     public function reputation() {
-        return $this->hasMany('\App\Reputation');
+        return $this->hasMany(Reputation::class);
     }
 
     /**

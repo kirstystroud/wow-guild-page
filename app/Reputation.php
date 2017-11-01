@@ -31,11 +31,11 @@ class Reputation extends Model
     }
 
     public function faction() {
-        return $this->belongsTo('\App\Faction');
+        return $this->belongsTo(Faction::class);
     }
 
     public function character() {
-        return $this->belongsTo('\App\Character');
+        return $this->belongsTo(Character::class);
     }
 
     public function getProgress() {

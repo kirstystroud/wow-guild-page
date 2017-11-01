@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Character;
-use App\CharacterClass;
+use Character;
+use CharacterClass;
 
 use DB;
 use Illuminate\Http\Request;

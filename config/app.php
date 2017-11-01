@@ -226,6 +226,23 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        // WoW Models
+        'Character' => App\Character::class,
+        'CharacterClass' => App\CharacterClass::class,
+        'CharacterProfession' => App\CharacterProfession::class,
+        'CharacterRecipe' => App\CharacterRecipe::class,
+        'Dungeon' => App\Dungeon::class,
+        'Faction' => App\Faction::class,
+        'Profession' => App\Profession::class,
+        'Race' => App\Race::class,
+        'Recipe' => App\Recipe::class,
+        'Reputation' => App\Reputation::class,
+        'Spec' => App\Spec::class,
+        'Title' => App\Title::class,
+
+        // WoW Utilities
+        'BlizzardApi' => App\Utilities\BlizzardApi::class
+
     ],
 
 ];

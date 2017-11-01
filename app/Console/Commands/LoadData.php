@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\CharacterClass;
-use App\Dungeon;
-use App\Race;
-use App\Utilities\BlizzardApi;
+use CharacterClass;
+use Dungeon;
+use Race;
+use BlizzardApi;
 use Illuminate\Console\Command;
 use Log;
 

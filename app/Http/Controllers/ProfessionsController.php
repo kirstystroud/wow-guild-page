@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Profession;
-use App\Recipe;
+use Profession;
+use Recipe;
 
 use Illuminate\Http\Request;
 

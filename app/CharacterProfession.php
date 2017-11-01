@@ -9,10 +9,10 @@ class CharacterProfession extends Model
     public $timestamps = false;
 
     public static function character() {
-        return $this->belongsTo('\App\Character');
+        return $this->belongsTo(Character::class);
     }
 
     public static function profession() {
-        return $this->belongsTo('App\Profession');
+        return $this->belongsTo(Profession::class);
     }
 }

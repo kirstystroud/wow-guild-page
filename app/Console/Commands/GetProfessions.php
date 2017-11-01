@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Character;
-use App\Profession;
-use App\Recipe;
-use App\CharacterProfession;
-use App\CharacterRecipe;
-use App\Utilities\BlizzardApi;
+use Character;
+use Profession;
+use Recipe;
+use CharacterProfession;
+use CharacterRecipe;
+use BlizzardApi;
 
 use Illuminate\Console\Command;
 

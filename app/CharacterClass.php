@@ -13,6 +13,6 @@ class CharacterClass extends Model
     }
 
     public function characters() {
-        return $this->hasMany('\App\Character', 'class_id');
+        return $this->hasMany(Character::class, 'class_id');
     }
 }

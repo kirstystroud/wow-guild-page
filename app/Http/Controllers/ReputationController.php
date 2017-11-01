@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Character;
-use App\Faction;
+use Character;
+use Faction;
 
 use Illuminate\Http\Request;
 

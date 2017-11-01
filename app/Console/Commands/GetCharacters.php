@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Character;
-use App\CharacterClass;
-use App\Race;
-use App\Spec;
-use App\Utilities\BlizzardApi;
+use Character;
+use CharacterClass;
+use Race;
+use Spec;
+use BlizzardApi;
 
 use Illuminate\Console\Command;
 

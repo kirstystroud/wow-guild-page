@@ -9,10 +9,10 @@ class Recipe extends Model
     public $timestamps = false;
 
     public function profession() {
-        return $this->belongsTo('\App\Profession');
+        return $this->belongsTo(Profession::class);
     }
 
     public function character_recipes() {
-        return $this->hasMany('\App\CharacterRecipe');
+        return $this->hasMany(CharacterRecipe::class);
     }
 }

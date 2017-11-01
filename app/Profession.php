@@ -11,7 +11,7 @@ class Profession extends Model
     // Public relations
 
     public function character_professions() {
-        return $this->hasMany('\App\CharacterProfession');
+        return $this->hasMany(CharacterProfession::class);
     }
 
     /**

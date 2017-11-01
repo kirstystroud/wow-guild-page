@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Character;
-use App\Faction;
-use App\Reputation;
-use App\Utilities\BlizzardApi;
+use Character;
+use Faction;
+use Reputation;
+use BlizzardApi;
 
 use Log;
 use Illuminate\Console\Command;

@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('get:dungeons')->dailyAt('09:00');
+        $schedule->command('get:data')->dailyAt('09:00');
         $schedule->command('get:titles')->dailyAt('12:00');
         $schedule->command('get:reputation')->dailyAt('15:00');
 

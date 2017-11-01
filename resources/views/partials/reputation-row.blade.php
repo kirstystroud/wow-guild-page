@@ -16,7 +16,7 @@
             @foreach($reputation->getCharacters() as $char)
                 <tr class="members-tr-{{ $char->character->character_class->id_ext }} char-{{ $char->character->id }}">
                     <td><a href="{{ $char->character->getLinkAddr() }}" target="_blank">{{ $char->character->name }} <span>({{ $char->character->level }})</span></a></td>
-                    <td class="standing-{{ $char->standing }}">{{ \App\Reputation::getStandings()[$char->standing] }}</td>
+                    <td class="standing-{{ $char->standing }}">{{ Reputation::getStandings()[$char->standing] }}</td>
                     <td>{{ $char->getProgress() }}</td>
                 </tr>
             @endforeach
