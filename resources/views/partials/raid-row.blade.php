@@ -18,7 +18,7 @@
             </thead>
             @foreach($raid->getCharacterRaidData() as $row)
                 <tr class="members-tr members-tr-{{ $row->character->character_class->id_ext }}">
-                    <td><a href="{{ $row->character->getLinkAddr() }}" target="_blank">{{ $row->character->name }}</a> <span>({{ $row->character->level }})</span></td>
+                    <td>@include('partials.character-link', [ 'character' => $row->character ])</td>
                     <td>{{ $row->lfr }}</td>
                     <td>{{ $row->normal }}</td>
                     <td>{{ $row->heroic }}</td>

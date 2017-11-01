@@ -11,7 +11,7 @@
             <td>{{ $recipe->profession->name }}</td>
             <td>
                 @foreach($recipe->character_recipes as $char)
-                    <a class="char-link char-{{ $char->character->character_class->id_ext }}" href="{{ $char->character->getLinkAddr() }}" target="_blank">{{ $char->character->name }}</a> 
+                    @include('partials.character-link', [ 'character' => $char->character , 'omitLevel' => true , 'class' => 'char-link char-' . $char->character->character_class->id_ext ])
                 @endforeach
             </td>
         </tr>

@@ -31,7 +31,7 @@
                                 </thead>
                                 @foreach($profession->getCharacterData() as $char)
                                     <tr class="members-tr-{{ $char->character_class->id_ext }} char-{{ $char->id }}">
-                                        <td><a href="{{ $char->getLinkAddr() }}" target="_blank">{{ $char->name }}</a> <span>({{ $char->level }})</span></td>
+                                        <td>@include('partials.character-link', [ 'character' => $char ])</td>
                                         <td>{{ $char->skill }}</td>
                                     </tr>
                                 @endforeach

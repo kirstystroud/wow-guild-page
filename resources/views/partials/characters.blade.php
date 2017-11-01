@@ -52,7 +52,7 @@
     <tbody>
         @foreach($characters as $character)
             <tr class="members-tr members-tr-{{ $character->character_class->id_ext }}">
-                <td><a href="{{ $character->getLinkAddr() }}" target="_blank">{{ $character->name }}</a></td>
+                <td>@include('partials.character-link', [ 'character' => $character , 'omitLevel' => true ])</td>
                 <td>{{ $character->level }}</td>
                 <td>
                     <span>
