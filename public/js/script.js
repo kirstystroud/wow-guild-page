@@ -19,6 +19,11 @@ $(document).ready(function() {
         loadDungeons();
     }
 
+    // Load raids
+    if (window.location.pathname == '/raids') {
+        loadRaids();
+    }
+
     // Load reputation
     if (window.location.pathname == '/reputation') {
         loadReputation();
@@ -109,6 +114,46 @@ var loadDungeonRow = function(id) {
         method: 'GET',
         success : function(resp) {
             var $panel = $('#dungeon-panel-' + id);
+            $panel.empty();
+            $panel.append(resp.view);
+            $panel.removeClass('dungeon-panel-pending');
+            $panel.addClass(resp.class);
+        },
+        error : function(err) {
+            console.log(err);
+        }
+    });
+};
+
+/**
+ * Load content for raids page
+ */
+var loadRaids = function() {
+    $.ajax({
+        url : '/raids/data',
+        method : 'GET',
+        success : function(resp) {
+            $('#raids-panel-group').empty();
+            $('#raids-panel-group').append(resp);
+
+            $.each($('#raids-panel-group').find('.dungeon-panel-pending'), function() {
+                var raidId = $(this).attr('id');
+                var splitId = raidId.split('-');
+                loadRaidRow(splitId[2]);
+            });
+        },
+        error : function(err) {
+            console.log(err);
+        }
+    });
+};
+
+var loadRaidRow = function(id) {
+    $.ajax({
+        url : '/raids/data/' + id,
+        method : 'GET',
+        success : function(resp) {
+            var $panel = $('#raid-panel-' + id);
             $panel.empty();
             $panel.append(resp.view);
             $panel.removeClass('dungeon-panel-pending');

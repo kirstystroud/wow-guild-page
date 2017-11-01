@@ -2,6 +2,8 @@
 
 namespace App;
 
+use DB;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Dungeon extends Model
@@ -18,6 +20,10 @@ class Dungeon extends Model
 
     public $timestamps = false;
 
+    public function character_dungeons() {
+        return $this->hasMany(CharacterDungeon::class);
+    }
+
     public function getHeading() {
         return $this->name . ' (' . $this->min_level . ' - ' . $this->max_level . ')';
     }
@@ -28,6 +34,17 @@ class Dungeon extends Model
             ->orderBy('level', 'asc')
             ->get();
         return $chars;
+    }
+
+    public function getCharacterRaidData() {
+        return CharacterDungeon::where('dungeon_id', $this->id)
+            ->where(function($query) {
+                return $query->where('lfr', '>', 0)
+                    ->orWhere('normal', '>', 0)
+                    ->orWhere('heroic', '>', 0)
+                    ->orWhere('mythic', '>', 0);
+            })
+            ->get();
     }
 
     public function getPanelClass() {
