@@ -40,6 +40,9 @@ var updateNavBar = function() {
         case '/dungeons' :
             $('#navbar-dungeons').addClass('active');
             break;
+        case '/raids' :
+            $('#navbar-raids').addClass('active');
+            break;
         case '/professions' :
             $('#navbar-professions').addClass('active');
             break;

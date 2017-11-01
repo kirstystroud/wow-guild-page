@@ -14,6 +14,7 @@
             <ul class="nav navbar-nav nav-tabs">
                 <li nav-title="Characters" id="navbar-characters"><a href="/characters">Characters</a></li>
                 <li nav-title="Dungeons" id="navbar-dungeons"><a href="/dungeons">Dungeons</a></li>
+                <li nav-title="Raids" id="navbar-raids"><a href="/raids">Raids</a></li>
                 <li nav-title="Professions" id="navbar-professions"><a href="/professions">Professions</a></li>
                 <li nav-title="Reputation" id="navbar-reputation"><a href="/reputation">Reputation</a></li>
                 <li nav-title="Stats" id="navbar-stats"><a href="/stats">Stats</a></li>
