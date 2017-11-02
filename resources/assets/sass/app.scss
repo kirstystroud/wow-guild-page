@@ -184,3 +184,57 @@ select {
 }
 
 // End selects
+
+// Character links
+.char-link {
+    font-weight: bold;
+
+    &.char-link-1 {
+        color: $font-warrior!important;
+    }
+
+    &.char-link-2 {
+        color: $font-paladin!important;
+    }
+
+    &.char-link-3 {
+        color: $font-hunter!important;
+    }
+
+    &.char-link-4 {
+        color: $font-rogue!important;
+    }
+
+    &.char-link-5 {
+        color: $font-priest!important;
+    }
+
+    &.char-link-6 {
+        color: $font-death-knight!important;
+    }
+
+    &.char-link-7 {
+        color: $font-shaman!important;
+    }
+
+    &.char-link-8 {
+        color: $font-mage!important;
+    }
+
+    &.char-link-9 {
+        color: $font-warlock!important;
+    }
+
+    &.char-link-10 {
+        color: $font-monk!important;
+    }
+
+    &.char-link-11 {
+        color: $font-druid!important;
+    }
+
+    &.char-link-12 {
+        color: $font-demon-hunter!important;
+    }
+}
+// End character links
