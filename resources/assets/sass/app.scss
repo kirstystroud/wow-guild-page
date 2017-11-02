@@ -12,10 +12,29 @@ body {
     background: url('../background.jpg');
 }
 
+.close {
+    color: #ffae00;
+}
+
 .container-fmts {
     width: 95%;
     margin-right: auto;
     margin-left: auto;
+}
+
+.fmts-img {
+    width: 18px;
+    height: 18px;
+}
+
+.td-yes {
+    color: #3c763d;
+    font-weight: bold;
+}
+
+.td-no {
+    color: #b30000;
+    font-weight: bold;
 }
 
 // Navbar
@@ -172,6 +191,39 @@ div.panel-body {
 }
 
 // End panels
+
+// Tables
+
+th {
+    font-weight: bold;
+    color: $font-default;
+    padding-bottom: 10px;
+    border-bottom : 1px solid $font-default;
+    a {
+        color: $font-default;
+    }
+}
+
+td {
+    border: none!important;
+    color: $font-default;
+}
+
+tr {
+    &:nth-child(odd) {
+        background-color: $panel-background-default;
+    }
+    &:nth-child(even) {
+        background-color: $background-dark;
+    }
+
+    td:nth-child(1) span {
+        color: $font-default;
+        font-weight: normal;
+    }
+}
+
+// End tables
 
 // Selects
 
