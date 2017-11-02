@@ -58,4 +58,101 @@ body {
   border: none;
 }
 
+.panel {
+  border: none;
+}
+
+div.panel-body {
+  background-color: #231207;
+}
+
+.panel-main > .panel-heading {
+  background-color: #6a240b;
+  border-bottom: none;
+}
+
+.panel-main > .panel-heading h1, .panel-main > .panel-heading h2, .panel-main > .panel-heading h3, .panel-main > .panel-heading h4, .panel-main > .panel-heading h5, .panel-main > .panel-heading h6 {
+  color: #f5ebd1;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.panel-main .wow-panel-grouped > .panel-heading {
+  background-color: #2b1507;
+  border: none;
+}
+
+.panel-main .wow-panel-grouped h1, .panel-main .wow-panel-grouped h2, .panel-main .wow-panel-grouped h3, .panel-main .wow-panel-grouped h4, .panel-main .wow-panel-grouped h5, .panel-main .wow-panel-grouped h6, .panel-main .wow-panel-grouped p {
+  padding: 0 0 !important;
+  margin: 0 0 !important;
+}
+
+.panel-main .wow-panel-grouped p {
+  color: #f5ebd1;
+}
+
+.panel-main .panel-danger a {
+  color: #b30000;
+}
+
+.panel-main .panel-warning a {
+  color: #ffb100;
+}
+
+.panel-main .panel-success a {
+  color: #3c763d;
+}
+
+.panel-main .panel-pending a {
+  color: #444 !important;
+}
+
+.panel-main .profession-panel > .panel-heading {
+  color: #f5ebd1;
+}
+
+.panel-main .profession-panel > .panel-heading a {
+  color: #f5ebd1;
+}
+
+.panel-main .reputation-panel.reputation-panel-0 a {
+  color: #cc2222;
+}
+
+.panel-main .reputation-panel.reputation-panel-1 a {
+  color: red;
+}
+
+.panel-main .reputation-panel.reputation-panel-2 a {
+  color: #ee6622;
+}
+
+.panel-main .reputation-panel.reputation-panel-3 a {
+  color: yellow;
+}
+
+.panel-main .reputation-panel.reputation-panel-4 a {
+  color: lime;
+}
+
+.panel-main .reputation-panel.reputation-panel-5 a {
+  color: #00ff88;
+}
+
+.panel-main .reputation-panel.reputation-panel-6 a {
+  color: #00ffcc;
+}
+
+.panel-main .reputation-panel.reputation-panel-7 a {
+  color: cyan;
+}
+
+select {
+  background-color: #f1ebd7;
+  color: #171717;
+  border: none;
+  border-radius: 3px;
+  font: 11px system-ui;
+}
+
 /*# sourceMappingURL=app.css.map */

@@ -1,7 +1,7 @@
 @extends('welcome')
 
 @section('content')
-    <div class="panel panel-info" id="tab-professions">
+    <div class="panel panel-main" id="tab-professions">
         <div class="panel-heading">
             <h4>Professions</h4>
         </div>
@@ -13,7 +13,7 @@
             <br>
             <div class="panel-group">
                 @foreach($professions as $profession)
-                    <div class="panel panel-info profession-panel">
+                    <div class="panel panel-info profession-panel wow-panel-grouped">
                         <div class="panel-heading">
                             <h4>
                                 <span><img class="icon" src="{{ $profession->getIconLocation() }}"> </span>

@@ -69,3 +69,118 @@ body {
 }
 
 // End navbar
+
+// Panels
+
+.panel {
+    border: none;
+}
+
+div.panel-body {
+    background-color: $panel-background-default;
+}
+
+.panel-main {
+
+    > .panel-heading {
+        background-color: $title-background-default;
+        border-bottom: none;
+
+        h1, h2, h3, h4, h5, h6 {
+            color: $font-default;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    }
+
+    .wow-panel-grouped {
+        > .panel-heading {
+            background-color: $background-dark;
+            border: none;
+        }
+
+        h1, h2, h3, h4, h5, h6, p {
+            padding: 0 0!important;
+            margin: 0 0!important;
+        }
+
+        p {
+            color: $font-default;
+        }
+    }
+
+    .panel-danger a {
+        color: $font-danger;
+    }
+
+    .panel-warning a {
+        color: $font-warning;
+    }
+
+    .panel-success a {
+        color: $font-success;
+    }
+
+    .panel-pending a {
+        color: $font-pending!important;
+    }
+
+    .profession-panel {
+        > .panel-heading {
+            color: $font-default;
+
+            a {
+                color: $font-default;
+            }
+        }
+    }
+
+    .reputation-panel {
+
+        &.reputation-panel-0 a {
+            color: $font-reputation-hated;
+        }
+
+        &.reputation-panel-1 a {
+            color: $font-reputation-hostile;
+        }
+
+        &.reputation-panel-2 a {
+            color: $font-reputation-unfriendly;
+        }
+
+        &.reputation-panel-3 a {
+            color: $font-reputation-neutral;
+        }
+
+        &.reputation-panel-4 a {
+            color: $font-reputation-friendly;
+        }
+
+        &.reputation-panel-5 a {
+            color: $font-reputation-honored;
+        }
+
+        &.reputation-panel-6 a {
+            color: $font-reputation-revered;
+        }
+
+        &.reputation-panel-7 a {
+            color: $font-reputation-exalted;
+        }
+    }
+}
+
+// End panels
+
+// Selects
+
+select {
+    background-color: $select-background-color;
+    color: $select-text-color;
+    border: none;
+    border-radius: 3px;
+    font: 11px system-ui;
+}
+
+// End selects

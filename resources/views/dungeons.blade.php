@@ -1,7 +1,7 @@
 @extends('welcome')
 
 @section('content')
-    <div class="panel panel-info" id="tab-available-dungeons">
+    <div class="panel panel-main" id="tab-available-dungeons">
         <div class="panel-heading">
             <h4>
                 Available Dungeons

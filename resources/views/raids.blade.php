@@ -1,7 +1,7 @@
 @extends('welcome')
 
 @section('content')
-    <div class="panel panel-info" id="tab-raids">
+    <div class="panel panel-main" id="tab-raids">
         <div class="panel-heading">
             <h4>
                 Raid Progress

@@ -1,7 +1,7 @@
 @extends('welcome')
 
 @section('content')
-    <div class="panel panel-info" id="tab-stats">
+    <div class="panel panel-main" id="tab-stats">
         <div class="panel-heading">
             <h4>Stats</h4>
         </div>
