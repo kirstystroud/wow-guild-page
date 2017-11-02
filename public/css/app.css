@@ -197,6 +197,10 @@ th a {
   color: #f5ebd1;
 }
 
+th a:hover {
+  color: #f5ebd1;
+}
+
 td {
   border: none !important;
   color: #f5ebd1;

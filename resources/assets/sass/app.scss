@@ -224,6 +224,9 @@ th {
     border-bottom : 1px solid $font-default;
     a {
         color: $font-default;
+        &:hover {
+            color: $font-default;
+        }
     }
 }
 
