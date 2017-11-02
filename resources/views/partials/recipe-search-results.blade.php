@@ -11,7 +11,7 @@
             <td>{{ $recipe->profession->name }}</td>
             <td>
                 @foreach($recipe->character_recipes as $char)
-                    @include('partials.character-link', [ 'character' => $char->character , 'omitLevel' => true )
+                    @include('partials.character-link', [ 'character' => $char->character , 'omitLevel' => true ] )
                 @endforeach
             </td>
         </tr>

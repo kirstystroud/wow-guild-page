@@ -3,6 +3,18 @@ body {
   background: url("../background.jpg");
 }
 
+.btn {
+  color: #ffb100;
+}
+
+.btn-search {
+  background-color: #6a240b;
+}
+
+.btn-search:hover, .btn-search:focus {
+  color: #f5ebd1;
+}
+
 .close {
   color: #ffae00;
 }
@@ -18,14 +30,18 @@ body {
   height: 18px;
 }
 
-.td-yes {
-  color: #3c763d;
-  font-weight: bold;
+.form-control {
+  background-color: #f5ebd1;
 }
 
-.td-no {
-  color: #b30000;
-  font-weight: bold;
+.wow-modal-header {
+  background-color: #6a240b;
+  border: none;
+}
+
+.wow-modal-body {
+  background-color: #231207;
+  color: #f5ebd1;
 }
 
 .navbar-default {
@@ -94,6 +110,10 @@ div.panel-body {
   color: #f5ebd1;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.panel-main .panel-body h1, .panel-main .panel-body h2, .panel-main .panel-body h3, .panel-main .panel-body h4, .panel-main .panel-body h5, .panel-main .panel-body h6 {
+  color: #f5ebd1;
 }
 
 .panel-main .wow-panel-grouped > .panel-heading {
@@ -195,6 +215,16 @@ tr td:nth-child(1) span {
   font-weight: normal;
 }
 
+.td-yes {
+  color: #3c763d;
+  font-weight: bold;
+}
+
+.td-no {
+  color: #b30000;
+  font-weight: bold;
+}
+
 select {
   background-color: #f1ebd7;
   color: #171717;
@@ -253,6 +283,25 @@ select {
 
 .char-link.char-link-12 {
   color: #a330c9 !important;
+}
+
+.chart-tooltip {
+  background-color: #222;
+  color: #fff;
+  position: absolute;
+  padding: 5px;
+  font-size: 0.8em;
+  max-width: 75px;
+}
+
+div.google-visualization-tooltip {
+  background-color: #222 !important;
+  border: none;
+}
+
+div.google-visualization-tooltip > ul > li > span {
+  font-size: 0.8em;
+  color: #f5ebd1 !important;
 }
 
 /*# sourceMappingURL=app.css.map */

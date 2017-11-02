@@ -12,6 +12,17 @@ body {
     background: url('../background.jpg');
 }
 
+.btn {
+    color: $font-orange;
+}
+
+.btn-search {
+    background-color: $title-background-default;
+    &:hover, &:focus {
+        color : $font-default;
+    }
+}
+
 .close {
     color: #ffae00;
 }
@@ -27,15 +38,21 @@ body {
     height: 18px;
 }
 
-.td-yes {
-    color: #3c763d;
-    font-weight: bold;
+.form-control {
+    background-color: $font-default;
 }
 
-.td-no {
-    color: #b30000;
-    font-weight: bold;
+.wow-modal-header {
+    background-color: $title-background-default;
+    border: none;
 }
+
+.wow-modal-body {
+    background-color: $panel-background-default;
+    color: $font-default;
+}
+
+
 
 // Navbar
 
@@ -109,6 +126,12 @@ div.panel-body {
             color: $font-default;
             margin-top: 10px;
             margin-bottom: 10px;
+        }
+    }
+
+    .panel-body {
+        h1, h2, h3, h4, h5, h6 {
+            color: $font-default;
         }
     }
 
@@ -223,6 +246,16 @@ tr {
     }
 }
 
+.td-yes {
+    color: #3c763d;
+    font-weight: bold;
+}
+
+.td-no {
+    color: #b30000;
+    font-weight: bold;
+}
+
 // End tables
 
 // Selects
@@ -290,3 +323,25 @@ select {
     }
 }
 // End character links
+
+// For charts
+
+.chart-tooltip {
+    background-color: $tooltip-background-color;
+    color: $tooltip-color;
+    position: absolute;
+    padding: 5px;
+    font-size: 0.8em;
+    max-width: 75px;
+}
+
+div.google-visualization-tooltip {
+    background-color: $tooltip-background-color!important;
+    border: none;
+    > ul > li > span {
+        font-size: 0.8em;
+        color: $font-default!important;
+    }
+}
+
+// End for charts
