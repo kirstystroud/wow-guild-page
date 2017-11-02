@@ -6,4 +6,66 @@
 @import "variables";
 
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+body {
+    background: url('../background.jpg');
+}
+
+.container-fmts {
+    width: 95%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+// Navbar
+
+.navbar-default {
+    background-color: $background-dark;
+    border: none;
+    margin-bottom: 0px;
+
+    .navbar-toggle {
+        color: $font-default;
+        border-color: $font-default;
+        background-color: $background-dark;
+
+        .icon-bar {
+            color: $font-default;
+            background-color: $font-default;
+        }
+
+        &:focus, &:hover {
+            background-color: $title-background-default;
+        }
+    }
+}
+
+.nav-tabs {
+    border-bottom: none;
+
+    li {
+        background-color: $background-dark;
+        border: none;
+
+        a {
+           color: $font-orange!important;
+           &:hover {
+                background-color: $title-background-default!important;
+                border: none;
+           }
+        }
+
+        &.active a {
+            border: none!important;
+            background-color: $title-background-default!important;
+        }
+
+        &:hover {
+            background-color: $title-background-default!important;
+            border: none;
+        }
+    }
+}
+
+// End navbar
