@@ -1,7 +1,7 @@
 @extends('welcome')
 
 @section('content')
-    <div class="panel panel-info" id="tab-reputations">
+    <div class="panel panel-main" id="tab-reputations">
         <div class="panel-heading">
             <h4>
                 Factions

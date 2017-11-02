@@ -1,8 +1,5 @@
-@if(isset($class))
-    <a href="{{ $character->getLinkAddr() }}" target="_blank" class="{{ $class }}">
-@else
-    <a href="{{ $character->getLinkAddr() }}" target="_blank">
-@endif
+<a href="{{ $character->getLinkAddr() }}" target="_blank" class="char-link char-link-{{ $character->character_class->id_ext }}">
+
 
 @if(isset($title))
     {{ $char->getTitle() }}

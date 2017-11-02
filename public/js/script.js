@@ -56,6 +56,7 @@ var updateNavBar = function() {
             break;
         case '/reputation' :
             $('#navbar-reputation').addClass('active');
+            break;
         default :
             console.log(`Unknown path ${pathname}`);
     }
@@ -93,7 +94,7 @@ var loadDungeons = function() {
             $('#dungeons-panel-group').empty();
             $('#dungeons-panel-group').append(resp);
 
-            $.each($('#dungeons-panel-group').find('.dungeon-panel-pending'), function() {
+            $.each($('#dungeons-panel-group').find('.panel-pending'), function() {
                 var dungeonId = $(this).attr('id');
                 var splitId = dungeonId.split('-');
                 loadDungeonRow(splitId[2]);
@@ -116,7 +117,7 @@ var loadDungeonRow = function(id) {
             var $panel = $('#dungeon-panel-' + id);
             $panel.empty();
             $panel.append(resp.view);
-            $panel.removeClass('dungeon-panel-pending');
+            $panel.removeClass('panel-pending');
             $panel.addClass(resp.class);
         },
         error : function(err) {
@@ -136,7 +137,7 @@ var loadRaids = function() {
             $('#raids-panel-group').empty();
             $('#raids-panel-group').append(resp);
 
-            $.each($('#raids-panel-group').find('.dungeon-panel-pending'), function() {
+            $.each($('#raids-panel-group').find('.panel-pending'), function() {
                 var raidId = $(this).attr('id');
                 var splitId = raidId.split('-');
                 loadRaidRow(splitId[2]);
@@ -156,7 +157,7 @@ var loadRaidRow = function(id) {
             var $panel = $('#raid-panel-' + id);
             $panel.empty();
             $panel.append(resp.view);
-            $panel.removeClass('dungeon-panel-pending');
+            $panel.removeClass('panel-pending');
             $panel.addClass(resp.class);
         },
         error : function(err) {
@@ -177,7 +178,7 @@ var loadReputation = function() {
             $('#reputations-panel-group').append(resp);
 
             // Loop over and pull in data
-            $.each($('#reputations-panel-group').find('.reputation-panel-pending'), function() {
+            $.each($('#reputations-panel-group').find('.panel-pending'), function() {
                 var factionId = $(this).attr('id');
                 var splitId = factionId.split('-');
                 loadReputationRow(splitId[2]);
@@ -200,7 +201,7 @@ var loadReputationRow = function(id) {
             var $panel = $('#reputation-panel-' + id);
             $panel.empty();
             $panel.append(resp.view);
-            $panel.removeClass('reputation-panel-pending');
+            $panel.removeClass('panel-pending');
             $panel.addClass(resp.class);
         },
         error : function(err) {

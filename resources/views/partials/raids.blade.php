@@ -1,6 +1,6 @@
 <div class="panel-group">
     @foreach($raids as $raid)
-        <div class="panel dungeon-panel-pending dungeon-panel" id="raid-panel-{{ $raid->id }}">
+        <div class="panel panel-pending dungeon-panel wow-panel-grouped" id="raid-panel-{{ $raid->id }}">
             <div class="panel-heading">
                 <h4>
                     <a data-toggle="collapse" href="#raid-row-{{ $raid->id }}">

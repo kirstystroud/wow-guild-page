@@ -2,7 +2,7 @@
 
 @section('content')
     <div id="tab-chars" class="tab-pane fade in active">
-        <div class="panel panel-info">
+        <div class="panel panel-main">
             <div class="panel-heading">
                 <h4>Characters</h4>
             </div>

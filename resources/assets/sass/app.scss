@@ -6,4 +6,345 @@
 @import "variables";
 
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+body {
+    background: url('../background.jpg');
+}
+
+.btn {
+    color: $font-orange;
+}
+
+.btn-search {
+    background-color: $title-background-default;
+    &:hover, &:focus {
+        color : $font-default;
+    }
+}
+
+.close {
+    color: #ffae00;
+}
+
+.container-fmts {
+    width: 95%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.fmts-img {
+    width: 18px;
+    height: 18px;
+}
+
+.form-control {
+    background-color: $font-default;
+}
+
+.wow-modal-header {
+    background-color: $title-background-default;
+    border: none;
+}
+
+.wow-modal-body {
+    background-color: $panel-background-default;
+    color: $font-default;
+}
+
+
+
+// Navbar
+
+.navbar-default {
+    background-color: $background-dark;
+    border: none;
+    margin-bottom: 0px;
+
+    .navbar-toggle {
+        color: $font-default;
+        border-color: $font-default;
+        background-color: $background-dark;
+
+        .icon-bar {
+            color: $font-default;
+            background-color: $font-default;
+        }
+
+        &:focus, &:hover {
+            background-color: $title-background-default;
+        }
+    }
+}
+
+.nav-tabs {
+    border-bottom: none;
+
+    li {
+        background-color: $background-dark;
+        border: none;
+
+        a {
+           color: $font-orange!important;
+           &:hover {
+                background-color: $title-background-default!important;
+                border: none;
+           }
+        }
+
+        &.active a {
+            border: none!important;
+            background-color: $title-background-default!important;
+        }
+
+        &:hover {
+            background-color: $title-background-default!important;
+            border: none;
+        }
+    }
+}
+
+// End navbar
+
+// Panels
+
+.panel {
+    border: none;
+}
+
+div.panel-body {
+    background-color: $panel-background-default;
+}
+
+.panel-main {
+
+    > .panel-heading {
+        background-color: $title-background-default;
+        border-bottom: none;
+
+        h1, h2, h3, h4, h5, h6 {
+            color: $font-default;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    }
+
+    .panel-body {
+        h1, h2, h3, h4, h5, h6 {
+            color: $font-default;
+        }
+    }
+
+    .wow-panel-grouped {
+        > .panel-heading {
+            background-color: $background-dark;
+            border: none;
+        }
+
+        h1, h2, h3, h4, h5, h6, p {
+            padding: 0 0!important;
+            margin: 0 0!important;
+        }
+
+        p {
+            color: $font-default;
+        }
+    }
+
+    .panel-danger a {
+        color: $font-danger;
+    }
+
+    .panel-warning a {
+        color: $font-warning;
+    }
+
+    .panel-success a {
+        color: $font-success;
+    }
+
+    .panel-pending a {
+        color: $font-pending!important;
+    }
+
+    .profession-panel {
+        > .panel-heading {
+            color: $font-default;
+
+            a {
+                color: $font-default;
+            }
+        }
+    }
+
+    .reputation-panel {
+
+        &.reputation-panel-0 a {
+            color: $font-reputation-hated;
+        }
+
+        &.reputation-panel-1 a {
+            color: $font-reputation-hostile;
+        }
+
+        &.reputation-panel-2 a {
+            color: $font-reputation-unfriendly;
+        }
+
+        &.reputation-panel-3 a {
+            color: $font-reputation-neutral;
+        }
+
+        &.reputation-panel-4 a {
+            color: $font-reputation-friendly;
+        }
+
+        &.reputation-panel-5 a {
+            color: $font-reputation-honored;
+        }
+
+        &.reputation-panel-6 a {
+            color: $font-reputation-revered;
+        }
+
+        &.reputation-panel-7 a {
+            color: $font-reputation-exalted;
+        }
+    }
+}
+
+// End panels
+
+// Tables
+
+th {
+    font-weight: bold;
+    color: $font-default;
+    padding-bottom: 10px;
+    border-bottom : 1px solid $font-default;
+    a {
+        color: $font-default;
+        &:hover {
+            color: $font-default;
+        }
+    }
+}
+
+td {
+    border: none!important;
+    color: $font-default;
+}
+
+tr {
+    &:nth-child(odd) {
+        background-color: $panel-background-default;
+    }
+    &:nth-child(even) {
+        background-color: $background-dark;
+    }
+
+    td:nth-child(1) span {
+        color: $font-default;
+        font-weight: normal;
+    }
+}
+
+.td-yes {
+    color: #3c763d;
+    font-weight: bold;
+}
+
+.td-no {
+    color: #b30000;
+    font-weight: bold;
+}
+
+// End tables
+
+// Selects
+
+select {
+    background-color: $select-background-color;
+    color: $select-text-color;
+    border: none;
+    border-radius: 3px;
+    font: 11px system-ui;
+}
+
+// End selects
+
+// Character links
+.char-link {
+    font-weight: bold;
+
+    &.char-link-1 {
+        color: $font-warrior!important;
+    }
+
+    &.char-link-2 {
+        color: $font-paladin!important;
+    }
+
+    &.char-link-3 {
+        color: $font-hunter!important;
+    }
+
+    &.char-link-4 {
+        color: $font-rogue!important;
+    }
+
+    &.char-link-5 {
+        color: $font-priest!important;
+    }
+
+    &.char-link-6 {
+        color: $font-death-knight!important;
+    }
+
+    &.char-link-7 {
+        color: $font-shaman!important;
+    }
+
+    &.char-link-8 {
+        color: $font-mage!important;
+    }
+
+    &.char-link-9 {
+        color: $font-warlock!important;
+    }
+
+    &.char-link-10 {
+        color: $font-monk!important;
+    }
+
+    &.char-link-11 {
+        color: $font-druid!important;
+    }
+
+    &.char-link-12 {
+        color: $font-demon-hunter!important;
+    }
+}
+// End character links
+
+// For charts
+
+.chart-tooltip {
+    background-color: $tooltip-background-color;
+    color: $tooltip-color;
+    position: absolute;
+    padding: 5px;
+    font-size: 0.8em;
+    max-width: 75px;
+}
+
+div.google-visualization-tooltip {
+    background-color: $tooltip-background-color!important;
+    border: none;
+    > ul > li > span {
+        font-size: 0.8em;
+        color: $font-default!important;
+    }
+}
+
+// End for charts

@@ -1,6 +1,6 @@
 <div class="panel-group">
     @foreach($reputation as $r)
-        <div class="panel reputation-panel-pending reputation-panel" id="reputation-panel-{{ $r->id }}">
+        <div class="panel wow-panel-grouped panel-pending reputation-panel" id="reputation-panel-{{ $r->id }}">
             <div class="panel-heading">
                 <h4>
                     <a data-toggle="collapse" href="#reputation-row-{{ $r->id }}">
