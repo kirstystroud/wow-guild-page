@@ -117,9 +117,16 @@ class GetProfessions extends Command
                 if (!count($p['recipes'])) {
                     return true;
                 }
-                Log::debug('Checking ' . count($p['recipes']) . ' ' . $profession->name . ' recipes for ' . $char->name);
+
+                $existingRecipes = $char->getKnownRecipesForProfession($profession->id);
+                $recipesToCheck = array_diff($p['recipes'], $existingRecipes);
+                if (!count($recipesToCheck)) {
+                    return true;
+                }
+
+                Log::debug('Checking ' . count($recipesToCheck) . ' ' . $profession->name . ' recipes for ' . $char->name);
                 // Loop over recipes
-                foreach($p['recipes'] as $r) {
+                foreach($recipesToCheck as $r) {
                     // Do we have an existing entry for this recipe
                     $existing = Recipe::where('id_ext', $r)->first();
                     if (!$existing) {

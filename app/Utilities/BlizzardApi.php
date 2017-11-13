@@ -51,6 +51,15 @@ class BlizzardApi
     }
 
     /**
+     * Load information on a single quest
+     */
+    public static function getQuest($id) {
+        $endpoint = '/wow/quest/' . $id;
+        $data = [];
+        return self::makeRequest($endpoint, $data);
+    }
+
+    /**
      * Make a request to load classes
      */
     public static function getClasses() {
@@ -102,6 +111,15 @@ class BlizzardApi
         return self::makeRequest($endpoint, $data);
     }
 
+    /**
+     * Make a request to load character quest progress
+     */
+    public static function getQuests($charName) {
+        $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
+        $data = [ 'fields' => 'quests' ];
+        return self::makeRequest($endpoint, $data);
+    }
+
     protected static function makeRequest($endpoint, $data = []) {
         $baseUrl = 'https://' . env('WOW_REGION') . '.api.battle.net/';
 
@@ -115,10 +133,10 @@ class BlizzardApi
             $requestBody = (string) $req->getBody();
             return $requestBody ? json_decode($requestBody, true) : false;
         } catch (GuzzleHttp\Exception\ClientException $e) {
-            error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
+            // error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
             return false;
         } catch (Exception $e) {
-            error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
+            // error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
             return false;
         }
     }

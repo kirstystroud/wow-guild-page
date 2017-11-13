@@ -21,6 +21,7 @@ class Kernel extends ConsoleKernel
         Commands\GetTitles::class,
         Commands\GetReputation::class,
         Commands\GetRaids::class,
+        Commands\GetQuests::class,
         Commands\SchedulerDaemon::class
     ];
 

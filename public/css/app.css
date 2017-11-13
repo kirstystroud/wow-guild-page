@@ -206,6 +206,38 @@ td {
   color: #f5ebd1;
 }
 
+td.standing-0 {
+  color: #cc2222;
+}
+
+td.standing-1 {
+  color: red;
+}
+
+td.standing-2 {
+  color: #ee6622;
+}
+
+td.standing-3 {
+  color: yellow;
+}
+
+td.standing-4 {
+  color: lime;
+}
+
+td.standing-5 {
+  color: #00ff88;
+}
+
+td.standing-6 {
+  color: #00ffcc;
+}
+
+td.standing-7 {
+  color: cyan;
+}
+
 tr:nth-child(odd) {
   background-color: #231207;
 }

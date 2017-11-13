@@ -227,14 +227,17 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         // WoW Models
+        'Category' => App\Category::class,
         'Character' => App\Character::class,
         'CharacterClass' => App\CharacterClass::class,
         'CharacterDungeon' => App\CharacterDungeon::class,
         'CharacterProfession' => App\CharacterProfession::class,
+        'CharacterQuest' => App\CharacterQuest::class,
         'CharacterRecipe' => App\CharacterRecipe::class,
         'Dungeon' => App\Dungeon::class,
         'Faction' => App\Faction::class,
         'Profession' => App\Profession::class,
+        'Quest' => App\Quest::class,
         'Race' => App\Race::class,
         'Recipe' => App\Recipe::class,
         'Reputation' => App\Reputation::class,

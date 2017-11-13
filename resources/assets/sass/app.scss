@@ -233,6 +233,31 @@ th {
 td {
     border: none!important;
     color: $font-default;
+
+    &.standing-0 {
+        color: $font-reputation-hated;
+    }
+    &.standing-1 {
+        color: $font-reputation-hostile;
+    }
+    &.standing-2 {
+        color: $font-reputation-unfriendly;
+    }
+    &.standing-3 {
+        color: $font-reputation-neutral;
+    }
+    &.standing-4 {
+        color: $font-reputation-friendly;
+    }
+    &.standing-5 {
+        color: $font-reputation-honored;
+    }
+    &.standing-6 {
+        color: $font-reputation-revered;
+    }
+    &.standing-7 {
+        color: $font-reputation-exalted;
+    }
 }
 
 tr {
