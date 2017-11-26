@@ -227,8 +227,10 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         // WoW Models
+        'Achievement' => App\Achievement::class,
         'Category' => App\Category::class,
         'Character' => App\Character::class,
+        'CharacterAchievement' => App\CharacterAchievement::class,
         'CharacterClass' => App\CharacterClass::class,
         'CharacterDungeon' => App\CharacterDungeon::class,
         'CharacterProfession' => App\CharacterProfession::class,

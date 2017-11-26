@@ -46,8 +46,7 @@ class BlizzardApi
 
     public static function getRecipe($id) {
         $endpoint = '/wow/recipe/' . $id;
-        $data = [];
-        return self::makeRequest($endpoint, $data);
+        return self::makeRequest($endpoint);
     }
 
     /**
@@ -55,8 +54,15 @@ class BlizzardApi
      */
     public static function getQuest($id) {
         $endpoint = '/wow/quest/' . $id;
-        $data = [];
-        return self::makeRequest($endpoint, $data);
+        return self::makeRequest($endpoint);
+    }
+
+    /**
+     * Load information on a single achievement
+     */
+    public static function getAchievement($id) {
+        $endpoint = '/wow/achievement/' . $id;
+        return self::makeRequest($endpoint);
     }
 
     /**
@@ -120,6 +126,18 @@ class BlizzardApi
         return self::makeRequest($endpoint, $data);
     }
 
+    /**
+     * Make a request to load character achievements
+     */
+    public static function getAchievements($charName) {
+        $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
+        $data = [ 'fields' => 'achievements' ];
+        return self::makeRequest($endpoint, $data);
+    }
+
+    /**
+     * Make a request
+     */
     protected static function makeRequest($endpoint, $data = []) {
         $baseUrl = 'https://' . env('WOW_REGION') . '.api.battle.net/';
 

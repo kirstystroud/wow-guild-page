@@ -115,4 +115,20 @@ class Character extends Model
         $formattedResults = array_column($results, 'id_ext');
         return $formattedResults ? $formattedResults : [];
     }
+
+    public function getEarnedAchievements() {
+        $results = DB::select('
+            SELECT id_ext
+            FROM character_achievements
+            LEFT JOIN achievements ON character_achievements.achievement_id = achievements.id
+            WHERE character_achievements.character_id = ?
+        ', [$this->id]);
+
+        $results = array_map(function ($value) {
+            return (array)$value;
+        }, $results);
+
+        $formattedResults = array_column($results, 'id_ext');
+        return $formattedResults ? $formattedResults : [];
+    }
 }

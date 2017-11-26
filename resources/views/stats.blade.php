@@ -7,9 +7,9 @@
         </div>
         <div class="panel-body" id="panel-stats" >
             <div class="row">
-                <div class="col-md-5">
-                    <div id="stats-div" style="width: 800px; height: 500px;"></div>
-                    <div id="stats-pie-div" style="width:800px;height:500px"></div>
+                <div class="col-md-6">
+                    <div id="stats-div" style="width:100%;min-width:500px;height:400px;"></div>
+                    <div id="stats-pie-div" style="width:100%;min-width:500px;height:400px"></div>
                 </div>
                 <div class="col-md-3" id="most-deaths"></div>
                 <div class="col-md-3" id="most-kills"></div>

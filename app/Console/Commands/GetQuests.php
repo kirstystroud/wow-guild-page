@@ -45,7 +45,7 @@ class GetQuests extends Command
     public function handle()
     {
         $characters = Character::all();
-        // $progressBar = $this->output->createProgressBar(count($characters));
+        $progressBar = $this->output->createProgressBar(count($characters));
 
         foreach($characters as $char) {
             Log::debug('Checking quests for ' . $char->name);
@@ -58,7 +58,6 @@ class GetQuests extends Command
 
             Log::info('Checking ' . count($toCheck) . ' quests for ' . $char->name);
             echo 'Checking ' . count($toCheck) . ' quests for ' . $char->name . PHP_EOL;
-            $progressBar = $this->output->createProgressBar(count($toCheck));
             foreach ($toCheck as $q) {
                 // Do we already know about this quest
                 $quest = Quest::where('id_ext', $q)->first();
@@ -97,14 +96,11 @@ class GetQuests extends Command
                     $link->quest_id = $quest->id;
                     $link->save();
                 }
-                $progressBar->advance();
             }
-            $progressBar->finish();
-            $this->line('');
-            // $progressBar->advance();
+            $progressBar->advance();
         }
 
-        // $progressBar->finish();
+        $progressBar->finish();
         $this->line('');
     }
 }
