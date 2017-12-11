@@ -28,6 +28,7 @@
                     <span class="wow-help-icon" data-toggle="modal" data-target="#quests-help-modal">?</span>
                     @include('partials.quests-help')
                 </div>
+                <hr>
                 <div id="quest-results">
                 </div>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Character;
+use CharacterQuest;
 use Category;
 
 use Illuminate\Http\Request;
@@ -47,6 +48,7 @@ class QuestsController extends Controller
     }
 
     protected function searchAll() {
-        return 'All data';
+        $characters = CharacterQuest::select('character_id', \DB::raw('COUNT(*) as count'))->groupBy('character_id')->orderBy('count', 'desc')->get();
+        return view('partials.quests.all')->with('characters', $characters);
     }
 }
