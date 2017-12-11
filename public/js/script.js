@@ -310,6 +310,14 @@ var attachEventHandlers = function() {
             success : function(resp) {
                 $('#quest-results').empty();
                 $('#quest-results').append(resp);
+
+                // Attach event handlers to links
+                $('.td-category').click(function() {
+                    event.preventDefault();
+                    $('#quests-categories-select').val($(this).attr('category-id'));
+                    $('#wow-button-submit-quests').click();
+                });
+
             },
             error : function(err) {
                 console.log(err);

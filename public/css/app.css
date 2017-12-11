@@ -258,6 +258,10 @@ td.standing-7 {
   color: cyan;
 }
 
+td.td-category a {
+  color: #f5ebd1;
+}
+
 tr:nth-child(odd) {
   background-color: #231207;
 }

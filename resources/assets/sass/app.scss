@@ -275,6 +275,10 @@ td {
     &.standing-7 {
         color: $font-reputation-exalted;
     }
+
+    &.td-category a {
+        color: $font-default;
+    }
 }
 
 tr {

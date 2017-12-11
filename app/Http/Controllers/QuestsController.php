@@ -40,7 +40,14 @@ class QuestsController extends Controller
     }
 
     protected function searchByCharacter($characterId) {
-        return 'Data for character ' . $characterId;
+        $characterQuests = CharacterQuest::select('categories.name', 'categories.id AS category_id', \DB::raw('COUNT(*) as count'))
+                            ->join('quests', 'quest_id', 'quests.id')
+                            ->join('categories', 'category_id', 'categories.id')
+                            ->groupBy('categories.name')
+                            ->groupBy('categories.id')
+                            ->orderBy('categories.name')
+                            ->get();
+        return view('partials.quests.characters')->with('categories', $characterQuests);
     }
 
     protected function searchByCategory($categoryId) {
@@ -48,7 +55,10 @@ class QuestsController extends Controller
     }
 
     protected function searchAll() {
-        $characters = CharacterQuest::select('character_id', \DB::raw('COUNT(*) as count'))->groupBy('character_id')->orderBy('count', 'desc')->get();
+        $characters = CharacterQuest::select('character_id', \DB::raw('COUNT(*) as count'))
+                            ->groupBy('character_id')
+                            ->orderBy('count', 'desc')
+                            ->get();
         return view('partials.quests.all')->with('characters', $characters);
     }
 }
