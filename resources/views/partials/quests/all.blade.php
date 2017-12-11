@@ -8,7 +8,11 @@
             @if($char->character['name'])
                 <tr class="members-tr">
                     <td>@include('partials.character-link', [ 'character' => $char->character ])</td>
-                    <td>{{ $char->count }}</td>
+                    <td character-id="{{ $char->character['id'] }}" category-id="0" class="td-category">
+                        <a href="/">
+                            <strong>{{ $char->count }}</strong>
+                        </a>
+                    </td>
                 </tr>
             @endif
         @endforeach

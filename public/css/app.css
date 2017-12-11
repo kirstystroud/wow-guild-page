@@ -136,6 +136,10 @@ div.panel-body {
   color: #ffb100;
 }
 
+.panel-main .panel-body .quest-list {
+  color: #f5ebd1;
+}
+
 .panel-main .wow-panel-grouped > .panel-heading {
   background-color: #2b1507;
   border: none;

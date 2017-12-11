@@ -36,7 +36,14 @@ class QuestsController extends Controller
     }
 
     protected function searchByCharacterAndCategory($characterId, $categoryId) {
-        return 'Data for character ' . $characterId . ' and category ' . $categoryId;
+        $characterQuests = CharacterQuest::select('quests.name')
+                            ->join('quests', 'quest_id', 'quests.id')
+                            ->where('character_id', $characterId)
+                            ->where('category_id', $categoryId)
+                            ->groupBy('quests.name')
+                            ->orderBy('quests.name', 'asc')
+                            ->get();
+        return view('partials.quests.character-categories')->with('quests', $characterQuests);
     }
 
     protected function searchByCharacter($characterId) {
