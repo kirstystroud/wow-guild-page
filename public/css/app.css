@@ -34,6 +34,18 @@ body {
   background-color: #f5ebd1;
 }
 
+.wow-filter-form label {
+  color: #f5ebd1;
+}
+
+.wow-help-icon {
+  font-weight: bold;
+  width: 10px;
+  height: 10px;
+  color: #ffb100;
+  cursor: pointer;
+}
+
 .wow-modal-header {
   background-color: #6a240b;
   border: none;
@@ -42,6 +54,10 @@ body {
 .wow-modal-body {
   background-color: #231207;
   color: #f5ebd1;
+}
+
+.wow-modal-body .header-orange {
+  color: #ffb100;
 }
 
 .navbar-default {
@@ -114,6 +130,10 @@ div.panel-body {
 
 .panel-main .panel-body h1, .panel-main .panel-body h2, .panel-main .panel-body h3, .panel-main .panel-body h4, .panel-main .panel-body h5, .panel-main .panel-body h6 {
   color: #f5ebd1;
+}
+
+.panel-main .panel-body h1.header-orange, .panel-main .panel-body h2.header-orange, .panel-main .panel-body h3.header-orange, .panel-main .panel-body h4.header-orange, .panel-main .panel-body h5.header-orange, .panel-main .panel-body h6.header-orange {
+  color: #ffb100;
 }
 
 .panel-main .wow-panel-grouped > .panel-heading {

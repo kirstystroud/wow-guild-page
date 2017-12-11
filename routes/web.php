@@ -39,6 +39,7 @@ Route::get('/reputation/data/{faction}', '\App\Http\Controllers\ReputationContro
 
 // Quests page
 Route::get('/quests', '\App\Http\Controllers\QuestsController@get');
+Route::get('/quests/search', '\App\Http\Controllers\QuestsController@search');
 
 // Stats page
 Route::get('/stats', '\App\Http\Controllers\StatsController@get');

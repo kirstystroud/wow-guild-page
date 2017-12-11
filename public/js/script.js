@@ -59,6 +59,7 @@ var updateNavBar = function() {
             break;
         case '/quests' :
             $('#navbar-quests').addClass('active');
+            break;
         default :
             console.log(`Unknown path ${pathname}`);
     }
@@ -291,6 +292,30 @@ var attachEventHandlers = function() {
             }
         });
     });
+
+    // Quests searching
+    $('#wow-button-submit-quests').click(function() {
+        event.preventDefault();
+        $('#quest-results').empty();
+        $('#quest-results').append('<br>', '<p class="wow-searching">Searching...</p>');
+
+        var data = {
+            character : $('#quests-characters-select').val(),
+            category : $('#quests-categories-select').val()
+        };
+        $.ajax({
+            url : '/quests/search',
+            data : data,
+            method : 'GET',
+            success : function(resp) {
+                $('#quest-results').empty();
+                $('#quest-results').append(resp);
+            },
+            error : function(err) {
+                console.log(err);
+            }
+        });
+    });
 };
 
 /**
@@ -345,7 +370,6 @@ var loadGraphs = function() {
         url: '/stats/data/pie',
         method : 'GET',
         success : function(resp) {
-            console.log(resp);
             drawPieChart(resp);
         },
         error : function(err) {

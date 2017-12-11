@@ -42,6 +42,18 @@ body {
     background-color: $font-default;
 }
 
+.wow-filter-form label {
+    color: $font-default;
+}
+
+.wow-help-icon {
+    font-weight: bold;
+    width: 10px;
+    height: 10px;
+    color: $font-orange;
+    cursor: pointer;
+}
+
 .wow-modal-header {
     background-color: $title-background-default;
     border: none;
@@ -50,9 +62,11 @@ body {
 .wow-modal-body {
     background-color: $panel-background-default;
     color: $font-default;
+
+    .header-orange {
+        color: $font-orange;
+    }
 }
-
-
 
 // Navbar
 
@@ -132,6 +146,9 @@ div.panel-body {
     .panel-body {
         h1, h2, h3, h4, h5, h6 {
             color: $font-default;
+            &.header-orange {
+                color: $font-orange;
+            }
         }
     }
 
