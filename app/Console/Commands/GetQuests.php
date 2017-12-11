@@ -48,7 +48,6 @@ class GetQuests extends Command
         $progressBar = $this->output->createProgressBar(count($characters));
 
         foreach($characters as $char) {
-            Log::debug('Checking quests for ' . $char->name);
             $data = BlizzardApi::getQuests($char->name);
             if (!$data) continue;
 
@@ -57,7 +56,6 @@ class GetQuests extends Command
             if (!count($toCheck)) continue;
 
             Log::info('Checking ' . count($toCheck) . ' quests for ' . $char->name);
-            echo 'Checking ' . count($toCheck) . ' quests for ' . $char->name . PHP_EOL;
             foreach ($toCheck as $q) {
                 // Do we already know about this quest
                 $quest = Quest::where('id_ext', $q)->first();

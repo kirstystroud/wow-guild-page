@@ -59,7 +59,6 @@ class GetAchievements extends Command
             if (!count($toCheck)) continue;
 
             Log::debug('Checking ' . count($toCheck) . ' achievements for ' . $char->name);
-            echo 'Checking ' . count($toCheck) . ' achievements for ' . $char->name . PHP_EOL;
 
             // Loop over achievements
             foreach($toCheck as $a) {
