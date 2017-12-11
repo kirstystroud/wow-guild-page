@@ -315,6 +315,7 @@ var attachEventHandlers = function() {
                 $('.td-category').click(function() {
                     event.preventDefault();
                     $('#quests-categories-select').val($(this).attr('category-id'));
+                    $('#quests-characters-select').val($(this).attr('character-id'));
                     $('#wow-button-submit-quests').click();
                 });
 
