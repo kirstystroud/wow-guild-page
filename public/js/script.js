@@ -57,6 +57,8 @@ var updateNavBar = function() {
         case '/reputation' :
             $('#navbar-reputation').addClass('active');
             break;
+        case '/quests' :
+            $('#navbar-quests').addClass('active');
         default :
             console.log(`Unknown path ${pathname}`);
     }

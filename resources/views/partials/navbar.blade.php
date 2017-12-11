@@ -17,6 +17,7 @@
                 <li nav-title="Raids" id="navbar-raids"><a href="/raids">Raids</a></li>
                 <li nav-title="Professions" id="navbar-professions"><a href="/professions">Professions</a></li>
                 <li nav-title="Reputation" id="navbar-reputation"><a href="/reputation">Reputation</a></li>
+                <li nav-title="Quests" id="navbar-quests"><a href="/quests">Quests</a></li>
                 <li nav-title="Stats" id="navbar-stats"><a href="/stats">Stats</a></li>
             </ul>          
         </div>
