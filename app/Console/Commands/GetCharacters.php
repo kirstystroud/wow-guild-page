@@ -76,6 +76,24 @@ class GetCharacters extends Command
                     $link->delete();
                 }
             }
+            // Achievements
+            if ($char->achievements) {
+                foreach ($char->achievements as $link) {
+                    $link->delete();
+                }
+            }
+            // Quests
+            if ($char->quests) {
+                foreach($char->quests as $link) {
+                    $link->delete();
+                }
+            }
+            // Dungeons
+            if ($char->dungeons) {
+                foreach($char->dungeons as $link) {
+                    $link->delete();
+                }
+            }
             Log::info('Deleting character ' . $char->name);
             $char->delete();
         }
