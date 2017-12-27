@@ -129,8 +129,8 @@ class BlizzardApi
     /**
      * Make a request to load character achievements
      */
-    public static function getAchievements($charName) {
-        $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
+    public static function getAchievements($char) {
+        $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
         $data = [ 'fields' => 'achievements' ];
         return self::makeRequest($endpoint, $data);
     }

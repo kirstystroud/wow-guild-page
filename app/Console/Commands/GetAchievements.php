@@ -49,14 +49,20 @@ class GetAchievements extends Command
 
         foreach($characters as $char) {
             // Pull down list of achievements
-            $data = BlizzardApi::getAchievements($char->name);
+            $data = BlizzardApi::getAchievements($char);
 
-            if (!$data) continue;
+            if (!$data) {
+                $progressBar->advance();
+                continue;
+            }
 
             // Exclude known
             $existingLinks = $char->getEarnedAchievements();
             $toCheck = array_diff($data['achievements']['achievementsCompleted'], $existingLinks);
-            if (!count($toCheck)) continue;
+            if (!count($toCheck)) {
+                $progressBar->advance();
+                continue;
+            }
 
             Log::debug('Checking ' . count($toCheck) . ' achievements for ' . $char->name);
 
