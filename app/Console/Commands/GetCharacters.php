@@ -47,6 +47,11 @@ class GetCharacters extends Command
      */
     public function handle()
     {
+        if (!CharacterClass::count()) {
+            Log::error('No supporting data found, please run get:data');
+            exit(1);
+        }
+
         Log::debug('Updating characters');
         // Make call to Blizzard API to get a list of characters in the guild
         $result = BlizzardApi::getGuildCharacters();

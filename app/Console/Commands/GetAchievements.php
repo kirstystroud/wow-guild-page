@@ -45,6 +45,11 @@ class GetAchievements extends Command
     {
         $characters = Character::all();
 
+        if (!$characters) {
+            Log::error('No characters found, please run get:characters');
+            exit(1);
+        }
+
         $progressBar = $this->output->createProgressBar(count($characters));
 
         foreach($characters as $char) {

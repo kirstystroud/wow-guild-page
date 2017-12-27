@@ -50,8 +50,15 @@ class GetProfessions extends Command
     {
         $this->_withRecipes = isset($this->options()['recipes']) && ($this->options()['recipes'] == 'true');
 
-        Log::debug('Updating character professions');
         $characters = Character::all();
+
+        if (!$characters) {
+            Log::error('No characters found, please run get:characters');
+            exit(1);
+        }
+
+        Log::debug('Updating character professions');
+
         $progressBar = $this->output->createProgressBar(count($characters));
         // Loop over each character
         foreach ($characters as $char) {

@@ -41,8 +41,15 @@ class GetItemLevels extends Command
      */
     public function handle()
     {
-        Log::debug('Updating item levels');
         $characters = Character::all();
+
+        if (!$characters) {
+            Log::error('No characters found, please run get:characters');
+            exit(1);
+        }
+
+        Log::debug('Updating item levels');
+
         $progressBar = $this->output->createProgressBar(count($characters));
 
         foreach($characters as $character) {

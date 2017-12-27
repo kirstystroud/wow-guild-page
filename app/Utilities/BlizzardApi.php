@@ -4,8 +4,14 @@ namespace App\Utilities;
 
 use GuzzleHttp;
 
-class BlizzardApi
-{
+class BlizzardApi {
+
+
+    /**
+     * ------------------------------------------------
+     * GENERIC DATA CALLS
+     * ------------------------------------------------
+     */
 
     /** 
      * Make a request to get a list of characters in the guild
@@ -13,16 +19,6 @@ class BlizzardApi
     public static function getGuildCharacters() {
         $endpoint = '/wow/guild/' . env('WOW_REALM') . '/' . env('WOW_GUILD');
         $data = [ 'fields' => 'members' ];
-        return self::makeRequest($endpoint, $data);
-    }
-
-    /**
-     * Make a request to get information on character items
-     * @param {Character} $char
-     */
-    public static function getCharacterItems($char) {
-        $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
-        $data = [ 'fields' => 'items' ];
         return self::makeRequest($endpoint, $data);
     }
 
@@ -35,14 +31,29 @@ class BlizzardApi
     }
 
     /**
-     * Make a request to get information on character professions
-     * @param {Character} $char
+     * Make a request to load classes
      */
-    public static function getProfessions($char) {
-        $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
-        $data = [ 'fields' => 'professions' ];
-        return self::makeRequest($endpoint, $data);
+    public static function getClasses() {
+        $endpoint = '/wow/data/character/classes';
+        return self::makeRequest($endpoint);
     }
+
+    /**
+     * Make a request to load races
+     */
+    public static function getRaces() {
+        $endpoint = '/wow/data/character/races';
+        return self::makeRequest($endpoint);
+    }
+
+
+
+    /**
+     * ------------------------------------------------
+     * EXTERNAL RESOURCE BY ID CALLS
+     * ------------------------------------------------
+     */
+
 
     /**
      * Make a request to get information on a single recipe
@@ -71,20 +82,32 @@ class BlizzardApi
         return self::makeRequest($endpoint);
     }
 
+
+
     /**
-     * Make a request to load classes
+     * ------------------------------------------------
+     * CHARACTER DATA CALLS
+     * ------------------------------------------------
      */
-    public static function getClasses() {
-        $endpoint = '/wow/data/character/classes';
-        return self::makeRequest($endpoint);
+
+    /**
+     * Make a request to get information on character items
+     * @param {Character} $char
+     */
+    public static function getCharacterItems($char) {
+        $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
+        $data = [ 'fields' => 'items' ];
+        return self::makeRequest($endpoint, $data);
     }
 
     /**
-     * Make a request to load races
+     * Make a request to get information on character professions
+     * @param {Character} $char
      */
-    public static function getRaces() {
-        $endpoint = '/wow/data/character/races';
-        return self::makeRequest($endpoint);
+    public static function getProfessions($char) {
+        $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
+        $data = [ 'fields' => 'professions' ];
+        return self::makeRequest($endpoint, $data);
     }
 
     /**
@@ -146,6 +169,10 @@ class BlizzardApi
         $data = [ 'fields' => 'achievements' ];
         return self::makeRequest($endpoint, $data);
     }
+
+
+
+
 
     /**
      * Make a request

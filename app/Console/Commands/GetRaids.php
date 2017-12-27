@@ -46,6 +46,13 @@ class GetRaids extends Command
     {
         $characters = Character::all();
 
+        if (!$characters) {
+            Log::error('No characters found, please run get:characters');
+            exit(1);
+        }
+
+        Log::debug('Updated raids');
+
         $progressBar = $this->output->createProgressBar(count($characters));
 
         foreach($characters as $char) {

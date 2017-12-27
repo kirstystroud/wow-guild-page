@@ -44,6 +44,14 @@ class GetTitles extends Command
     public function handle()
     {
         $characters = Character::all();
+
+        if (!$characters) {
+            Log::error('No characters found, please run get:characters');
+            exit(1);
+        }
+
+        Log::debug('Updating character titles');
+
         $progressBar = $this->output->createProgressBar(count($characters));
 
         foreach($characters as $char) {
