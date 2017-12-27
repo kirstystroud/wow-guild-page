@@ -4,19 +4,22 @@ namespace App\Console\Commands;
 
 use CharacterClass;
 use Dungeon;
+use Meta;
 use Race;
 use BlizzardApi;
 use Illuminate\Console\Command;
 use Log;
 
-class LoadData extends Command
-{
+class LoadData extends Command {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
     protected $signature = 'get:data';
+
+    const SIDE_ALLIANCE = 0;
+    const SIDE_HORDE = 1;
 
     /**
      * The console command description.
@@ -25,13 +28,25 @@ class LoadData extends Command
      */
     protected $description = 'Check dungeons, races, classes and specs data for changes';
 
+    // Full color map
+    protected $_colorMap = [
+        'background' => [
+            [215,32,112],[171,0,76],[87,0,0],[225,105,26],[180,56,0],[133,11,0],[237,151,22],[205,110,0],[155,61,0],[239,207,20],[207,162,0],[158,113,0],[226,216,20],[183,177,0],[133,128,0],[206,209,24],[159,161,3],[112,115,0],[153,206,27],[108,154,3],[65,108,0],[30,210,96],[4,157,63],[0,110,11],[29,206,169],[4,152,122],[0,107,74],[33,177,214],[3,109,139],[0,81,111],[72,125,193],[38,85,145],[0,39,98],[188,75,195],[145,42,155],[108,8,128],[202,17,191],[173,0,162],[124,0,116],[219,30,160],[149,0,97],[121,0,68],[160,108,44],[108,66,15],[53,16,0],[15,26,31],[117,124,120],[136,145,139],[156,166,159],[211,211,198],[229,107,140]
+        ],
+        'border' => [
+            [97,42,44],[109,69,46],[119,101,36],[118,114,36],[108,118,36],[85,108,48],[76,109,48],[48,108,66],[48,105,107],[48,80,108],[55,60,100],[87,54,100],[100,55,76],[103,51,53],[153,159,149],[38,46,38],[155,94,28]
+        ],
+        'icon' => [
+            [102,0,32],[103,35,0],[103,69,0],[103,86,0],[98,102,0],[80,102,0],[54,102,0],[0,102,30],[0,102,86],[0,72,102],[9,42,94],[86,9,94],[93,10,79],[84,54,10],[177,183,176],[16,20,22],[221,163,90]
+        ]
+    ];
+
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
     }
 
@@ -40,12 +55,12 @@ class LoadData extends Command
      *
      * @return mixed
      */
-    public function handle()
-    {
+    public function handle() {
         Log::debug('Loading data');
         $this->loadClasses();
         $this->loadRaces();
         $this->loadDungeons();
+        $this->loadGuildMeta();
     }
 
     /**
@@ -121,6 +136,79 @@ class LoadData extends Command
                 $race->name = $r['name'];
                 $race->save();
             }
+        }
+    }
+
+    /**
+     * Update guild meta information
+     */
+    protected function loadGuildMeta() {
+        Log::debug('Loading guild meta');
+        $guildData = BlizzardApi::getGuildProfile();
+        if (!$guildData) return false;
+
+        // Store meta information on icon
+        $metaValue = [
+            Meta::TABARD_ICON => (int) $guildData['emblem']['icon'],
+            Meta::TABARD_ICON_COLOR => $guildData['emblem']['iconColor'],
+            Meta::TABARD_ICON_COLOR_DATA => $this->_colorMap['icon'][$guildData['emblem']['iconColorId']],
+            Meta::TABARD_BORDER => (int) $guildData['emblem']['border'],
+            Meta::TABARD_BORDER_COLOR => $guildData['emblem']['borderColor'],
+            Meta::TABARD_BORDER_COLOR_DATA => $this->_colorMap['border'][$guildData['emblem']['borderColorId']],
+            Meta::TABARD_BACKGROUND_COLOR => $guildData['emblem']['backgroundColor'],
+            Meta::TABARD_BACKGROUND_COLOR_DATA => $this->_colorMap['background'][$guildData['emblem']['backgroundColorId']]
+        ];
+
+        // Add JSON meta
+        Meta::addMeta(Meta::KEY_TABARD, json_encode($metaValue));
+
+        // Download image files into public directory
+
+        // Ring
+        switch ($guildData['side']) {
+            case self::SIDE_ALLIANCE :
+                $ringPath = 'ring-alliance.png';
+                break;
+            case self::SIDE_HORDE :
+                $ringPath = 'ring-horde.png';
+                break;
+            default : 
+                throw new Exception('Unknown guild side');
+        }
+        $this->downloadToFile($ringPath, 'ring.png');
+        // Shadow
+        $this->downloadToFile('shadow_00.png', 'shadow.png');
+        // Background
+        $this->downloadToFile('bg_00.png', 'background.png');
+        // Overlay
+        $this->downloadToFile('overlay_00.png', 'overlay.png');
+        // Border
+        $borderPath = 'border_' . $this->zeroFill($guildData['emblem']['border']) . '.png';
+        $this->downloadToFile($borderPath, 'border.png');
+        // Emblem
+        $emblemPath = 'emblem_' . $this->zeroFill($guildData['emblem']['icon']) . '.png';
+        $this->downloadToFile($emblemPath, 'emblem.png');
+        // Hooks
+        $this->downloadToFile('hooks.png', 'hooks.png');
+
+    }
+
+    protected function downloadToFile($remotePath, $localPath) {
+        $remoteBasePath = 'http://eu.battle.net/wow/static/images/guild/tabards/';
+        $localBasePath = __DIR__ . '/../../../public/images/';
+
+        $result = file_get_contents($remoteBasePath . $remotePath);
+        if (!$result) {
+            throw new Exception('Failed to download file from ' . $remoteBasePath . $remotePath);
+        }
+        file_put_contents($localBasePath . $localPath, $result);
+    }
+
+    protected function zeroFill($value) {
+        if ($value > 9) {
+            return $value;
+        } else {
+            return '0' . $value;
         }
     }
 }

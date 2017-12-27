@@ -1,7 +1,17 @@
 $(document).ready(function() {
-    var tabard = new GuildTabard();
 
-    function GuildTabard() {
+    $.ajax({
+        url : '/tabard',
+        method : 'GET',
+        success : function(resp) {
+            var tabard = new GuildTabard(JSON.parse(resp));
+        },
+        error : function(err) {
+            console.log(err);
+        }
+    });
+
+    function GuildTabard(guildMeta) {
 
         var canvas = document.getElementById('guild-tabard');
         var context = canvas.getContext('2d');
@@ -10,24 +20,26 @@ $(document).ready(function() {
             _width = canvas.width,
             _height = canvas.height,
             _src = [
-                '/images/ring-horde.png',
-                '/images/shadow_00.png',
-                '/images/bg_00.png',
-                '/images/overlay_00.png',
-                '/images/border_03.png',
-                '/images/emblem_104.png',
+                '/images/ring.png',
+                '/images/shadow.png',
+                '/images/background.png',
+                '/images/overlay.png',
+                '/images/border.png',
+                '/images/emblem.png',
                 '/images/hooks.png'
             ],
+
             // Colors that need to be applied to each layer
             _color = [
                 null,
                 null,
-                [ 206, 209, 24 ],
+                guildMeta['background_color_data'],
                 null,
-                [ 85, 108, 48 ],
-                [ 16, 20, 22 ],
+                guildMeta['border_color_data'],
+                guildMeta['icon_color_data'],
                 null
             ],
+
             // Positions to overlay each image at
             _position = [
                 [ 0, 0, (_width*216/240), (_width*216/240) ],

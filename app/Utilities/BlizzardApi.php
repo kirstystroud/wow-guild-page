@@ -46,6 +46,14 @@ class BlizzardApi {
         return self::makeRequest($endpoint);
     }
 
+    /**
+     * Make a request to load guild profile
+     */
+    public static function getGuildProfile() {
+        $endpoint = '/wow/guild/' . env('WOW_REALM') . '/' . env('WOW_GUILD');
+        return self::makeRequest($endpoint);
+    }
+
 
 
     /**

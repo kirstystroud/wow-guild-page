@@ -13,6 +13,7 @@
 
 // Default
 Route::get('/', '\App\Http\Controllers\HomeController@get');
+Route::get('/tabard', '\App\Http\Controllers\HomeController@tabardData');
 
 // Character pages
 Route::get('/characters', '\App\Http\Controllers\CharactersController@get');
