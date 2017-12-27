@@ -238,6 +238,7 @@ return [
         'CharacterRecipe' => App\CharacterRecipe::class,
         'Dungeon' => App\Dungeon::class,
         'Faction' => App\Faction::class,
+        'Meta' => App\Meta::class,
         'Profession' => App\Profession::class,
         'Quest' => App\Quest::class,
         'Race' => App\Race::class,
