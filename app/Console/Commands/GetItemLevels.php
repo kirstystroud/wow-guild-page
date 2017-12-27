@@ -25,22 +25,12 @@ class GetItemLevels extends Command
     protected $description = 'Make requests to pull down character item levels';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle()
-    {
+    public function handle() {
+
         $characters = Character::all();
 
         if (!$characters) {

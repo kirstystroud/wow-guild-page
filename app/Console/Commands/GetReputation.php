@@ -27,22 +27,12 @@ class GetReputation extends Command
     protected $description = 'Load character reputation standings';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle()
-    {
+    public function handle() {
+
         $characters = Character::all();
 
         if (!$characters) {

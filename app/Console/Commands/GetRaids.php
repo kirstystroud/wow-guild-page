@@ -28,22 +28,12 @@ class GetRaids extends Command
     protected $description = '';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle()
-    {
+    public function handle() {
+
         $characters = Character::all();
 
         if (!$characters) {
