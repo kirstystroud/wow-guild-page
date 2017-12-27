@@ -99,9 +99,10 @@ class BlizzardApi
 
     /**
      * Make a request to get character titles
+     * @param {Character} $char
      */
-    public static function getTitles($charName) {
-        $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
+    public static function getTitles($char) {
+        $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
         $data = [ 'fields' => 'titles' ];
         return self::makeRequest($endpoint, $data);
     }

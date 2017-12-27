@@ -47,7 +47,7 @@ class GetTitles extends Command
         $progressBar = $this->output->createProgressBar(count($characters));
 
         foreach($characters as $char) {
-            $data = BlizzardApi::getTitles($char->name);
+            $data = BlizzardApi::getTitles($char);
 
             if (!$data) {
                 $progressBar->advance();
