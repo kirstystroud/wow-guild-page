@@ -136,6 +136,11 @@ class GetCharacters extends Command
                 $char->spec_id = $spec->id;
             }
         }
+
+        // Check realm
+        if ($characterData['realm'] != $char->server ) {
+            $char->server = $characterData['realm'];
+        }
         
         $char->save();
 
