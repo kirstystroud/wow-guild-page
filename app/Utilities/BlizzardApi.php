@@ -89,9 +89,10 @@ class BlizzardApi
 
     /**
      * Make a request to get character statistics
+     * @param {Character} $char
      */
-    public static function getStats($charName) {
-        $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
+    public static function getStats($char) {
+        $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
         $data = [ 'fields' => 'statistics' ];
         return self::makeRequest($endpoint, $data);
     }

@@ -46,7 +46,7 @@ class GetStatistics extends Command
         $progressBar = $this->output->createProgressBar(count($characters));
 
         foreach($characters as $char) {
-            $data = BlizzardApi::getStats($char->name);
+            $data = BlizzardApi::getStats($char);
             if (!$data) {
                 $progressBar->advance();
                 continue;
