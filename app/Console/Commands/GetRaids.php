@@ -50,7 +50,7 @@ class GetRaids extends Command
 
         foreach($characters as $char) {
 
-            $data = BlizzardApi::getRaids($char->name);
+            $data = BlizzardApi::getRaids($char);
 
             if (!$data) {
                 $progressBar->advance();

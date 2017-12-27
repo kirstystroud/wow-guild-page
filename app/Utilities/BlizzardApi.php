@@ -116,9 +116,10 @@ class BlizzardApi
 
     /**
      * Make a request to get character raid runs
+     * @param {Chracter} $char
      */
-    public static function getRaids($charName) {
-        $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
+    public static function getRaids($char) {
+        $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
         $data = [ 'fields' => 'progression' ];
         return self::makeRequest($endpoint, $data);
     }
