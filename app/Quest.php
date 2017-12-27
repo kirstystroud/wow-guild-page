@@ -4,9 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Quest extends Model
-{
+class Quest extends Model {
+
     public $timestamps = false;
+
+
+    // Public relations
 
     public function category() {
         return $this->belongsTo(Category::class);

@@ -4,8 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Reputation extends Model
-{
+class Reputation extends Model {
+
+    // List of reputation standings
     const STANDING_HATED      = 0;
     const STANDING_HOSTILE    = 1;
     const STANDING_UNFRIENDLY = 2;
@@ -17,6 +18,10 @@ class Reputation extends Model
 
     public $timestamps = 0;
 
+    /**
+     * Get human-friendly mappings for standings
+     * @return {array}
+     */
     public static function getStandings() {
         return [
             self::STANDING_HATED => 'Hated',
@@ -30,6 +35,9 @@ class Reputation extends Model
         ];
     }
 
+
+    // Public relations
+
     public function faction() {
         return $this->belongsTo(Faction::class);
     }
@@ -38,6 +46,13 @@ class Reputation extends Model
         return $this->belongsTo(Character::class);
     }
 
+
+    // Helper functions
+
+    /**
+     * Get progress through this standing as a percentage
+     * @return {string}
+     */
     public function getProgress() {
         return $this->max == 0 ? '100%' : floor(100 * ($this->current / $this->max)) . '%';
     }

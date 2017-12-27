@@ -5,17 +5,22 @@ namespace App;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Character extends Model
-{
+class Character extends Model {
+
+    // Character spec is unknown
     const NO_SPEC = '-';
 
     public $timestamps = false;
 
-    // Need to figure out how to pull all specs in through API for this
+    // Classes which can tank
     protected $tanks = [ 1, 2, 6, 10, 11, 12 ];
 
+    // Classes which can heal
     protected $healers = [ 2, 5, 7, 10, 11 ];
 
+
+
+    // Public relations
 
     public function character_class() {
         return $this->belongsTo(CharacterClass::class, 'class_id');
@@ -41,8 +46,13 @@ class Character extends Model
         return $this->hasMany(CharacterQuest::class);
     }
 
+
+
+    // Public helper functions
+
     /**
      * Get class icon
+     * @return {string}
      */
     public function getClassImg() {
         return 'https://render-eu.worldofwarcraft.com/icons/18/class_' . $this->character_class->id_ext . '.jpg';
@@ -50,6 +60,7 @@ class Character extends Model
 
     /**
      * Get race icon
+     * @return {string}
      */
     public function getRaceImg() {
         return 'https://render-eu.worldofwarcraft.com/icons/18/race_' . $this->race->id_ext . '_0.jpg';
@@ -57,6 +68,7 @@ class Character extends Model
 
     /**
      * Get link to external character page
+     * @return {string}
      */
     public function getLinkAddr() {
         return 'https://worldofwarcraft.com/en-gb/character/' . $this->server . '/' . $this->name;
@@ -64,6 +76,7 @@ class Character extends Model
 
     /**
      * Can this character tank
+     * @return {bool}
      */
     public function canTank() {
         return (bool) in_array($this->character_class->id_ext, $this->tanks);
@@ -71,11 +84,16 @@ class Character extends Model
 
     /**
      * Can this character heal
+     * @return {bool}
      */
     public function canHeal() {
         return (bool) in_array($this->character_class->id_ext, $this->healers);
     }
 
+    /**
+     * Construct title for this character
+     * @return {string}
+     */
     public function getTitle() {
         if (!$this->title_id) {
             return $this->name;
@@ -83,6 +101,10 @@ class Character extends Model
         return str_replace('%s', $this->name, $this->title->name);
     }
 
+    /**
+     * Get a list of quest id_exts completed by this character
+     * @return {array}
+     */
     public function getCompletedQuestIdExts() {
         $results = DB::select('
             SELECT id_ext
@@ -99,6 +121,10 @@ class Character extends Model
         return $formattedResults ? $formattedResults : [];
     }
 
+    /**
+     * Get a list of recipe id_exts known by this character
+     * @return {array}
+     */
     public function getKnownRecipesForProfession($professionId) {
         $results = DB::select('
             SELECT recipes.id_ext FROM character_recipes
@@ -115,6 +141,10 @@ class Character extends Model
         return $formattedResults ? $formattedResults : [];
     }
 
+    /**
+     * Get a list of achievement id_exts completed by this character
+     * @return {array}
+     */
     public function getEarnedAchievements() {
         $results = DB::select('
             SELECT id_ext
@@ -130,4 +160,5 @@ class Character extends Model
         $formattedResults = array_column($results, 'id_ext');
         return $formattedResults ? $formattedResults : [];
     }
+
 }

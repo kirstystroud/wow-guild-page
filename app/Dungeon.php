@@ -6,19 +6,25 @@ use DB;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Dungeon extends Model
-{
+class Dungeon extends Model {
+
+    // Minimum character required to run a dungeon
     const MIN_REQUIRED = 5;
 
+    // Status mappings for front end
     const STATUS_UNAVAILABLE = 0;
     const STATUS_PARTIALLY_AVAILABLE = 1;
     const STATUS_AVAILABLE = 2;
 
+    // Dungeon type mappings
     const TYPE_UNKNOWN = 0;
     const TYPE_DUNGEON = 1;
     const TYPE_RAID = 2;
 
     public $timestamps = false;
+
+
+    // Public relations
 
     public function character_dungeons() {
         return $this->hasMany(CharacterDungeon::class);
@@ -28,6 +34,13 @@ class Dungeon extends Model
         return $this->name . ' (' . $this->min_level . ' - ' . $this->max_level . ')';
     }
 
+
+    // Helper functions
+
+    /**
+     * Get characters who are able to run this dungeon
+     * @return {Object}
+     */
     public function getAvailableChars() {
         $chars = Character::where('level',  '>=', $this->min_level)
             ->where('level',  '<=', $this->max_level)
@@ -36,6 +49,10 @@ class Dungeon extends Model
         return $chars;
     }
 
+    /** 
+     * Get summary of characters who have run this raid
+     * @return {Object}
+     */
     public function getCharacterRaidData() {
         return CharacterDungeon::where('dungeon_id', $this->id)
             ->where(function($query) {
@@ -47,6 +64,10 @@ class Dungeon extends Model
             ->get();
     }
 
+    /**
+     * Get class to be applied to this panel in dungeons view
+     * @return {string}
+     */
     public function getPanelClass() {
         $status = $this->getStatus();
         switch($status) {
@@ -61,6 +82,9 @@ class Dungeon extends Model
         }
     }
 
+    /**
+     * Get status of this dungeon based on the characters who are able to run it
+     */
     public function getStatus() {
         $chars = $this->getAvailableChars();
         if (!count($chars)) {

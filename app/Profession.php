@@ -4,9 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Profession extends Model
-{
+class Profession extends Model {
+
     public $timestamps = false;
+
 
     // Public relations
 
@@ -16,6 +17,7 @@ class Profession extends Model
 
     /**
      * Get list of characters with this profession ordered by skill
+     * @return {Object}
      */
     public function getCharacterData() {
         $chars = Character::join('character_professions', 'characters.id', 'character_professions.character_id')
