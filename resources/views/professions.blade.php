@@ -6,10 +6,12 @@
             <h4>Professions</h4>
         </div>
         <div class="panel-body">
-            <div>
-                <button class="btn btn-search" data-toggle="modal" data-target="#recipe-search-modal">Recipe Search</button>
-                @include('partials.recipe-search')
-            </div>
+            @if ( CharacterRecipe::count() )
+                <div>
+                    <button class="btn btn-search" data-toggle="modal" data-target="#recipe-search-modal">Recipe Search</button>
+                    @include('partials.recipe-search')
+                </div>
+            @endif
             <br>
             <div class="panel-group">
                 @foreach($professions as $profession)

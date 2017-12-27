@@ -32,17 +32,26 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule)
-    {
-        $schedule->command('get:data')->dailyAt('09:00');
-        $schedule->command('get:titles')->dailyAt('12:00');
-        $schedule->command('get:reputation')->dailyAt('15:00');
-        $schedule->command('get:raids')->dailyAt('18:00');
+    protected function schedule(Schedule $schedule) {
 
-        $schedule->command('get:characters')->hourlyAt(0);
-        $schedule->command('get:ilvls')->hourlyAt(15);
-        $schedule->command('get:professions')->hourlyAt(30);
-        $schedule->command('get:statistics')->hourlyAt(45);
+        // Generic commands
+        $schedule->command('get:data')->dailyAt('09:00');
+        $schedule->command('get:titles')->dailyAt('10:00');
+        $schedule->command('get:characters')->hourlyAt(10);
+        $schedule->command('get:ilvls')->hourlyAt(30);
+        $schedule->command('get:statistics')->hourlyAt(50);
+
+        // Local only
+        if (env('APP_ENV') == 'local') {
+            $schedule->command('get:professions --recipes=true')->dailyAt('11:00');
+            $schedule->command('get:raids')->dailyAt('12:00');
+            $schedule->command('get:quests')->dailyAt('13:00');
+            $schedule->command('get:achievements')->dailyAt('14:00');
+            $schedule->command('get:reputation')->dailyAt('15:00');
+        } else {
+            // Production only
+            $schedule->command('get:professions')->dailyAt('11:00');
+        }
     }
 
     /**
