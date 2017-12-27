@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Character;
 use Illuminate\Http\Request;
 
-class CharactersController extends Controller
-{
+class CharactersController extends Controller {
 
     /**
      * Handles GET request to /characters

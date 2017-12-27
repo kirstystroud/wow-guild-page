@@ -47,6 +47,9 @@ class StatsController extends Controller
         return view('partials.kills')->with('data', $data);
     }
 
+    /**
+     * Get data for candlestick chart of levels by class
+     */
     protected function getClassData() {
         $data = [];
 
@@ -82,6 +85,9 @@ class StatsController extends Controller
         return $data;
     }
 
+    /**
+     * Get data for pie chart of total kills by class
+     */
     protected function getPieData() {
         $data = CharacterClass::select(
                     'classes.id_ext',
@@ -110,6 +116,9 @@ class StatsController extends Controller
         return $data[$lowerIndex] + ($fraction * ($data[$upperIndex] - $data[$lowerIndex]));
     }
 
+    /**
+     * Get data on character deaths for table
+     */
     protected function getDeathStats() {
         $mostDeaths = Character::orderBy('deaths', 'DESC')->limit(11)->get();
         $leastDeaths = Character::orderBy('deaths', 'DESC')->offset(Character::count() - 11)->limit(11)->get();
@@ -119,6 +128,9 @@ class StatsController extends Controller
         ];
     }
 
+    /**
+     * Get data on character kills for table
+     */
     protected function getKillStats() {
         $mostKills = Character::orderBy('kdr', 'DESC')->limit(10)->get();
         $leastKills = Character::orderBy('kills', 'DESC')->limit(10)->get();

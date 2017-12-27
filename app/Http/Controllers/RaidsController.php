@@ -27,6 +27,10 @@ class RaidsController extends Controller
         return view('partials.raids')->with('raids', $raidsData);
     }
 
+    /**
+     * Handles GET requests to /raids/data/{$dungeon}
+     * Returns view with summary of runs by character for this raid
+     */
     public function raidData(Dungeon $dungeon) {
         $dungeonClass = count($dungeon->getCharacterRaidData()) ? 'panel-info profession-panel' : 'panel-danger';
         return [

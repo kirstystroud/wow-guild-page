@@ -6,8 +6,7 @@ use Character;
 use Dungeon;
 use Illuminate\Http\Request;
 
-class DungeonsController extends Controller
-{
+class DungeonsController extends Controller {
     /**
      * Handles GET requests to /dungeons
      * Returns page framework
@@ -26,6 +25,10 @@ class DungeonsController extends Controller
         return view('partials.dungeons')->with('dungeons', $dungeonsData);
     }
 
+    /**
+     * Handles GET requetss to /dungeons/data/$dungeon
+     * Returns panel contents for that dungeon row
+     */
     public function dungeonData(Dungeon $dungeon) {
         $dungeonClass = $dungeon->getPanelClass();
         return [
