@@ -125,9 +125,10 @@ class BlizzardApi
 
     /**
      * Make a request to load character quest progress
+     * @param {Character} $char
      */
-    public static function getQuests($charName) {
-        $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
+    public static function getQuests($char) {
+        $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
         $data = [ 'fields' => 'quests' ];
         return self::makeRequest($endpoint, $data);
     }
