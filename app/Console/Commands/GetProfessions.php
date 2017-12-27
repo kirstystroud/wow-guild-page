@@ -56,7 +56,7 @@ class GetProfessions extends Command
         // Loop over each character
         foreach ($characters as $char) {
 
-            $data = BlizzardApi::getProfessions($char->name);
+            $data = BlizzardApi::getProfessions($char);
             if (!$data) {
                 $progressBar->advance();
                 continue;

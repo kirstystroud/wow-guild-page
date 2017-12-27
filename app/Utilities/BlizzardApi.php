@@ -36,10 +36,10 @@ class BlizzardApi
 
     /**
      * Make a request to get information on character professions
-     * @param {string} $charName
+     * @param {Character} $char
      */
-    public static function getProfessions($charName) {
-        $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
+    public static function getProfessions($char) {
+        $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
         $data = [ 'fields' => 'professions' ];
         return self::makeRequest($endpoint, $data);
     }
