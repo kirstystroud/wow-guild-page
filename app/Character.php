@@ -59,8 +59,7 @@ class Character extends Model
      * Get link to external character page
      */
     public function getLinkAddr() {
-        // https://worldofwarcraft.com/en-gb/character/mazrigos/gribblez
-        return 'https://worldofwarcraft.com/en-gb/character/' . env('WOW_REALM') . '/' . $this->name;
+        return 'https://worldofwarcraft.com/en-gb/character/' . $this->server . '/' . $this->name;
     }
 
     /**
