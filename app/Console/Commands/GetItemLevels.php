@@ -56,7 +56,7 @@ class GetItemLevels extends Command
     protected function getItemLevel($character) {
         // Low-level characters will not have this available
         try {
-            $itemObject = BlizzardApi::getCharacterItems($character->name);
+            $itemObject = BlizzardApi::getCharacterItems($character);
 
             if (!$itemObject) return false;
 

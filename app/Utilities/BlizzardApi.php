@@ -18,10 +18,10 @@ class BlizzardApi
 
     /**
      * Make a request to get information on character items
-     * @param {string} $charName
+     * @param {Character} $char
      */
-    public static function getCharacterItems($charName) {
-        $endpoint = '/wow/character/' . env('WOW_REALM') . '/' . $charName;
+    public static function getCharacterItems($char) {
+        $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
         $data = [ 'fields' => 'items' ];
         return self::makeRequest($endpoint, $data);
     }
@@ -44,6 +44,10 @@ class BlizzardApi
         return self::makeRequest($endpoint, $data);
     }
 
+    /**
+     * Make a request to get information on a single recipe
+     * @param {int} $id
+     */
     public static function getRecipe($id) {
         $endpoint = '/wow/recipe/' . $id;
         return self::makeRequest($endpoint);
@@ -51,6 +55,7 @@ class BlizzardApi
 
     /**
      * Load information on a single quest
+     * @param {int} $id
      */
     public static function getQuest($id) {
         $endpoint = '/wow/quest/' . $id;
@@ -59,6 +64,7 @@ class BlizzardApi
 
     /**
      * Load information on a single achievement
+     * @param {int} $id
      */
     public static function getAchievement($id) {
         $endpoint = '/wow/achievement/' . $id;
@@ -128,6 +134,7 @@ class BlizzardApi
 
     /**
      * Make a request to load character achievements
+     * @param {Character} $char
      */
     public static function getAchievements($char) {
         $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
@@ -137,6 +144,9 @@ class BlizzardApi
 
     /**
      * Make a request
+     * @param {string} $endpoint
+     * @param {array} $data
+     * @return {array} JSON formatted response data
      */
     protected static function makeRequest($endpoint, $data = []) {
         $baseUrl = 'https://' . env('WOW_REGION') . '.api.battle.net/';
