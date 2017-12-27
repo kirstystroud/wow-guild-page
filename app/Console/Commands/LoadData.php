@@ -194,14 +194,18 @@ class LoadData extends Command {
     }
 
     protected function downloadToFile($remotePath, $localPath) {
-        $remoteBasePath = 'http://eu.battle.net/wow/static/images/guild/tabards/';
-        $localBasePath = __DIR__ . '/../../../public/images/';
+        $remoteFullPath = 'http://eu.battle.net/wow/static/images/guild/tabards/' . $remotePath;
+        $localFullPath = __DIR__ . '/../../../public/images/' . $localPath;
 
-        $result = file_get_contents($remoteBasePath . $remotePath);
+        $result = file_get_contents($remoteFullPath);
         if (!$result) {
-            throw new Exception('Failed to download file from ' . $remoteBasePath . $remotePath);
+            throw new Exception('Failed to download file from ' . $remoteFullPath);
         }
-        file_put_contents($localBasePath . $localPath, $result);
+        file_put_contents($localFullPath, $result);
+
+        if (!file_exists($localFullPath)) {
+            throw new Exception('Failed to write to ' . $localFullPath);
+        }
     }
 
     protected function zeroFill($value) {
