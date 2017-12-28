@@ -97,6 +97,22 @@ class BlizzardApi {
         return self::makeRequest($endpoint);
     }
 
+    /**
+     * Load information on a single item
+     */
+    public static function getItem($id) {
+        $endpoint = '/wow/item/' . $id;
+        return self::makeRequest($endpoint);
+    }
+
+    /**
+     * Load information on a single pet
+     */
+    public static function getPetSpecies($id) {
+        $endpoint = '/wow/pet/species/' . $id;
+        return self::makeRequest($endpoint);
+    }
+
 
 
     /**
