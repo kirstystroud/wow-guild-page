@@ -228,6 +228,7 @@ return [
 
         // WoW Models
         'Achievement' => App\Achievement::class,
+        'Auction' => App\Auction::class,
         'Category' => App\Category::class,
         'Character' => App\Character::class,
         'CharacterAchievement' => App\CharacterAchievement::class,
@@ -239,6 +240,7 @@ return [
         'Dungeon' => App\Dungeon::class,
         'Faction' => App\Faction::class,
         'Meta' => App\Meta::class,
+        'PetType' => App\PetType::class,
         'Profession' => App\Profession::class,
         'Quest' => App\Quest::class,
         'Race' => App\Race::class,

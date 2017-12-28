@@ -54,6 +54,13 @@ class BlizzardApi {
         return self::makeRequest($endpoint);
     }
 
+    /**
+     * Make a request to load pet types
+     */
+    public static function getPetTypes() {
+        $endpoint = '/wow/data/pet/types';
+        return self::makeRequest($endpoint);
+    }
 
 
     /**

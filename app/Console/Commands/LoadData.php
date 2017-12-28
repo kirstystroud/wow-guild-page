@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use CharacterClass;
 use Dungeon;
 use Meta;
+use PetType;
 use Race;
 use BlizzardApi;
 use Illuminate\Console\Command;
@@ -61,6 +62,7 @@ class LoadData extends Command {
         $this->loadRaces();
         $this->loadDungeons();
         $this->loadGuildMeta();
+        $this->loadPetTypes();
     }
 
     /**
@@ -135,6 +137,45 @@ class LoadData extends Command {
                 $race->id_ext = $r['id'];
                 $race->name = $r['name'];
                 $race->save();
+            }
+        }
+    }
+
+    /**
+     * Load pet types
+     */
+    protected function loadPetTypes() {
+        Log::debug('Loading pet types');
+        $petData = BlizzardApi::getPetTypes();
+        if (!$petData) return false;
+
+        // Add new entries as required
+        foreach($petData['petTypes'] as $type) {
+            $existing = PetType::where('id_ext', $type['id'])->first();
+
+            if (!$existing) {
+                $existing = new PetType;
+                $existing->id_ext = $type['id'];
+                $existing->name = $type['name'];
+                $existing->save();
+            }
+        }
+
+        // Make sure strong/weak against properly set
+        $notSet = PetType::where('strong_against', 0)->count();
+        if ($notSet) {
+            foreach($petData['petTypes'] as $type) {
+                // Load this row
+                $existing = PetType::where('id_ext', $type['id'])->first();
+
+                // Load rows for strong/weak against
+                $strongAgainst = PetType::where('id_ext', $type['strongAgainstId'])->first();
+                $existing->strong_against = $strongAgainst->id;
+
+                $weakAgainst = PetType::where('id_ext', $type['weakAgainstId'])->first();
+                $existing->weak_against = $weakAgainst->id;
+
+                $existing->save();
             }
         }
     }
