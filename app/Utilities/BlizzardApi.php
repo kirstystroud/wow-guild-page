@@ -62,6 +62,15 @@ class BlizzardApi {
         return self::makeRequest($endpoint);
     }
 
+    /**
+     * Make a request to get a link to auctions.json
+     */
+    public static function getAuctionDataUrl() {
+        $endpoint = '/wow/auction/data/' . env('WOW_REALM');
+        $data = self::makeRequest($endpoint);
+        return $data['files'][0]['url'];
+    }
+
 
     /**
      * ------------------------------------------------

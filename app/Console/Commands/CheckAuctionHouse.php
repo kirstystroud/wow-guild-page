@@ -33,9 +33,18 @@ class CheckAuctionHouse extends Command {
      * @return mixed
      */
     public function handle() {
-        // TODO load data from remote, currently loading from file
+        echo 'Loading file' . PHP_EOL;
         $filePath = __DIR__ . '/../../../auctions.json';
-        $auctionData = json_decode(file_get_contents($filePath), true);
+
+        // Pull down file from remote and put into auctions.json so have local copy
+        $auctionDataRemote = BlizzardApi::getAuctionDataUrl();
+        $auctionData = file_get_contents($auctionDataRemote);
+        file_put_contents($filePath, $auctionData);
+
+        echo 'Downloaded auction data' . PHP_EOL;
+
+        // TODO load data from remote, currently loading from file
+        $auctionData = json_decode($auctionData, true);
 
         Log::debug('Checking ' . count($auctionData['auctions']) . ' auctions for pet data');
 
@@ -46,17 +55,28 @@ class CheckAuctionHouse extends Command {
 
         Log::debug('Found ' . count($petAuctions) . ' pet related auctions to check');
 
+        $progressBar = $this->output->createProgressBar(count($petAuctions));
+
         // Loop over pet auctions
+        $existingAuctions = [];
         foreach($petAuctions as $p) {
             $this->checkAuctionData($p);
+            $existingAuctions[] = $p['auc'];
+            $progressBar->advance();
         }
 
-        // Look for auctions which have not been updated in the last hour
-        $dateLimit = Date('Y-m-d H:i:s', time() - 3600);
-        // Set status to sold where status = selling
-        Auction::where('updated_at', '<', $dateLimit)->where('status', Auction::STATUS_SELLING)->update(['status' => Auction::STATUS_SOLD]);
-        // Set status to ended where status = active
-        Auction::where('updated_at', '<', $dateLimit)->where('status', Auction::STATUS_ACTIVE)->update(['status' => Auction::STATUS_ENDED]);
+        $progressBar->finish();
+        $this->line('');
+
+        echo 'Cleaning up old auctions' . PHP_EOL;
+
+        // Look for auctions with status active / expired where id not in $existingAuctions
+        $expiredAuctions = Auction::whereNotIn('id_ext', $existingAuctions)->whereIn('status', [Auction::STATUS_ACTIVE, Auction::STATUS_SELLING])->get();
+        echo 'Found ' . count($expiredAuctions) . ' expired auctions to check' . PHP_EOL;
+
+        foreach($expiredAuctions as $auction) {
+            $this->expireAuction($auction);
+        }
     }
 
     protected function checkAuctionData($data) {
@@ -116,6 +136,7 @@ class CheckAuctionHouse extends Command {
             $auction->bid = $data['bid'];
             $auction->buyout = $data['buyout'];
             $auction->status = Auction::STATUS_ACTIVE;
+            $auction->time_left = $this->timeLeftToInteger($data['timeLeft']);
 
             if (isset($data['petSpeciesId'])) {
                 $auction->pet_id = $pet->id;
@@ -131,7 +152,6 @@ class CheckAuctionHouse extends Command {
             if ($auction->bid != $data['bid']) {
                 $auction->bid = $data['bid'];
                 $auction->status = Auction::STATUS_SELLING;
-                $auction->save();
 
                 if (isset($data['petSpeciesId'])) {
                     Log::debug('Auction for ' . $pet->name . ' has bids');
@@ -139,7 +159,69 @@ class CheckAuctionHouse extends Command {
                     Log::debug('Auction for ' . $item->name . ' has bids');
                 }
             }
+
+            $auction->time_left = $this->timeLeftToInteger($data['timeLeft']);
+            $auction->save();
         }
 
+    }
+
+    /**
+     * Auction has expired, update database according to status and time left
+     * @param {Auction} $auction
+     */
+    protected function expireAuction($auction) {
+        if ($auction->pet_id) {
+            $auctionName = $auction->pet->name;
+        } else {
+            $auctionName = $auction->item->name;
+        }
+
+        if ($auction->time_left == Auction::TIME_LEFT_SHORT) {
+            if ($auction->status == Auction::STATUS_ACTIVE) {
+                // No bids, timed out
+                $auction->status = Auction::STATUS_ENDED;
+                Log::debug('Auction for ' . $auctionName . ' has expired');
+            } else {
+                // Go for last bid price
+                $auction->status = Auction::STATUS_SOLD;
+                $auction->sell_price = $auction->bid;
+                Log::debug('Auction for ' . $auctionName . ' has sold for ' . $auction->bidToGold());
+            }
+        } else {
+            // Buyout occured
+            $auction->status = Auction::STATUS_SOLD;
+            // Account for auctions with no buyout price
+            $auction->sell_price = $auction->buyout ? $auction->buyout : $auction->bid;
+            Log::debug('Auction for ' . $auctionName . ' has been bought out for ' . $auction->buyoutToGold());
+        }
+        $auction->save();
+    }
+
+    /**
+     * Convert time left string into integer mapping for database
+     * @param {string} $timeLeft
+     * @return {int}
+     */
+    protected function timeLeftToInteger($timeLeft) {
+        $rtn = false;
+        switch ($timeLeft) {
+            case 'VERY_LONG' :
+                $rtn = Auction::TIME_LEFT_VERY_LONG;
+                break;
+            case 'LONG' :
+                $rtn = Auction::TIME_LEFT_LONG;
+                break;
+            case 'MEDIUM' :
+                $rtn = Auction::TIME_LEFT_MEDIUM;
+                break;
+            case 'SHORT' :
+                $rtn = Auction::TIME_LEFT_SHORT;
+                break;
+            default :
+                throw new Exception('Unknown time left ' . $timeLeft);
+        }
+
+        return $rtn;
     }
 }
