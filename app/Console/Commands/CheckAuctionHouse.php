@@ -50,6 +50,13 @@ class CheckAuctionHouse extends Command {
         foreach($petAuctions as $p) {
             $this->checkAuctionData($p);
         }
+
+        // Look for auctions which have not been updated in the last hour
+        $dateLimit = Date('Y-m-d H:i:s', time() - 3600);
+        // Set status to sold where status = selling
+        Auction::where('updated_at', '<', $dateLimit)->where('status', Auction::STATUS_SELLING)->update(['status' => Auction::STATUS_SOLD]);
+        // Set status to ended where status = active
+        Auction::where('updated_at', '<', $dateLimit)->where('status', Auction::STATUS_ACTIVE)->update(['status' => Auction::STATUS_ENDED]);
     }
 
     protected function checkAuctionData($data) {
@@ -99,7 +106,7 @@ class CheckAuctionHouse extends Command {
         }
 
         // Do we have an existing entry for this auction ?
-        $auction = Auction::where('id_ext', $data['auc'])->first();
+        $auction = Auction::where('id_ext', $data['auc'])->whereIn('status', [Auction::STATUS_SELLING, Auction::STATUS_ACTIVE])->first();
 
         if (!$auction) {
             // New auction
