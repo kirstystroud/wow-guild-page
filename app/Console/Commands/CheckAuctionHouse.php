@@ -177,24 +177,71 @@ class CheckAuctionHouse extends Command {
             $auctionName = $auction->item->name;
         }
 
-        if ($auction->time_left == Auction::TIME_LEFT_SHORT) {
-            if ($auction->status == Auction::STATUS_ACTIVE) {
-                // No bids, timed out
-                $auction->status = Auction::STATUS_ENDED;
-                Log::debug('Auction for ' . $auctionName . ' has expired');
-            } else {
-                // Go for last bid price
-                $auction->status = Auction::STATUS_SOLD;
-                $auction->sell_price = $auction->bid;
-                Log::debug('Auction for ' . $auctionName . ' has sold for ' . $auction->bidToGold());
-            }
-        } else {
-            // Buyout occured
+        // Track possible states
+        $timedOut = false;
+        $wentToBuyout = false;
+        $sinceLastUpdated = strtotime(time()) - strtotime($auction->updated_at);
+        // echo $sinceLastUpdated . PHP_EOL;
+        // exit();
+
+        switch($auction->time_left) {
+            case Auction::TIME_LEFT_SHORT :
+                // Short time left, have to assume expired
+                $timedOut = true;
+                break;
+            case Auction::TIME_LEFT_MEDIUM :
+                // 30min - 2hr to go
+                if ($sinceLastUpdated > 1800) {
+                    // not heard in last half hour, have to assume timed out
+                    $timedOut = true;
+                } else {
+                    // Updated less than 30min ago, must have been bought out
+                    $wentToBuyout = true;
+                }
+                break;
+            case Auction::TIME_LEFT_LONG :
+                // 2-12 hr to go
+                if ($sinceLastUpdated > 7200) {
+                    // Not heard in last two hours, have to assume timed out
+                    $timedOut = true;
+                } else {
+                    $wentToBuyout = true;
+                }
+                break;
+            case Auction::TIME_LEFT_VERY_LONG :
+                // Over 12 hr to go
+                if ($sinceLastUpdated > 43200) {
+                    // Not heard in last 12 hours, have to assume timed out
+                    $timedOut = true;
+                } else {
+                    $wentToBuyout = true;
+                }
+                break;
+            default :
+                throw new Exception('Unknown time left ' . $auction->time_left);
+        }
+
+        if ($wentToBuyout) {
+            // Update with buyout price
             $auction->status = Auction::STATUS_SOLD;
             // Account for auctions with no buyout price
             $auction->sell_price = $auction->buyout ? $auction->buyout : $auction->bid;
             Log::debug('Auction for ' . $auctionName . ' has been bought out for ' . $auction->buyoutToGold());
+        } elseif ($timedOut) {
+            if ($auction->status == Auction::STATUS_SELLING) {
+                // Assume auction went for latest bid
+                $auction->status = Auction::STATUS_SOLD;
+                $auction->sell_price = $auction->bid;
+                Log::debug('Auction for ' . $auctionName . ' has sold for ' . $auction->bidToGold());
+            } else {
+                // Assume auction expired
+                $auction->status = Auction::STATUS_ENDED;
+                Log::debug('Auction for ' . $auctionName . ' has expired');
+            }
+        } else {
+            // Should not get in here
         }
+
         $auction->save();
     }
 
