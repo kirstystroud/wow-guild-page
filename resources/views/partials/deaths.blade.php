@@ -12,7 +12,7 @@
                 <td>
                     @include('partials.character-link', [ 'character' => $char , 'title' => true ])
                 </td>
-                <td>{{ $char->deaths }}</td>
+                <td>{{ number_format($char->deaths) }}</td>
             </tr>
         @endforeach
         <tr>
@@ -24,7 +24,7 @@
                 <td>
                     @include('partials.character-link', [ 'character' => $char , 'title' => true ])
                 </td>
-                <td>{{ $char->deaths }}</td>
+                <td>{{ number_format($char->deaths) }}</td>
             </tr>
         @endforeach
     </tbody>
