@@ -19,6 +19,9 @@ class CreateDatabaseIndices extends Migration
 
         Schema::table('character_professions', function (Blueprint $table) {
             $table->integer('character_id')->index()->change();
+        });
+
+        Schema::table('character_professions', function (Blueprint $table) {
             $table->integer('profession_id')->index()->change();
         });
     }
@@ -33,8 +36,12 @@ class CreateDatabaseIndices extends Migration
         Schema::table('characters', function (Blueprint $table) {
             $table->dropIndex('characters_class_id_index');
         });
+
         Schema::table('character_professions', function (Blueprint $table) {
             $table->dropIndex('character_professions_character_id_index');
+        });
+
+        Schema::table('character_professions', function (Blueprint $table) {
             $table->dropIndex('character_professions_profession_id_index');
         });
     }

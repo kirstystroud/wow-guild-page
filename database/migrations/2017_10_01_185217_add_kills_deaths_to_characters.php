@@ -15,7 +15,13 @@ class AddKillsDeathsToCharacters extends Migration
     {
         Schema::table('characters', function (Blueprint $table) {
             $table->integer('deaths')->default(0);
+        });
+
+        Schema::table('characters', function (Blueprint $table) {
             $table->integer('kills')->default(0);
+        });
+
+        Schema::table('characters', function (Blueprint $table) {
             $table->integer('kdr')->default(0);
         });
     }
@@ -29,7 +35,13 @@ class AddKillsDeathsToCharacters extends Migration
     {
         Schema::table('characters', function (Blueprint $table) {
             $table->dropColumn('deaths');
+        });
+
+        Schema::table('characters', function (Blueprint $table) {
             $table->dropColumn('kills');
+        });
+
+        Schema::table('characters', function (Blueprint $table) {
             $table->dropColumn('kdr');
         });
     }

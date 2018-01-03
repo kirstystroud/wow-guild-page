@@ -15,6 +15,9 @@ class ModifyCharactersSpecToSpecId extends Migration
     {
         Schema::table('characters', function (Blueprint $table) {
             $table->integer('spec_id')->default(0);
+        });
+
+        Schema::table('characters', function (Blueprint $table) {
             $table->dropColumn('spec');
         });
     }
@@ -28,6 +31,9 @@ class ModifyCharactersSpecToSpecId extends Migration
     {
         Schema::table('characters', function (Blueprint $table) {
             $table->string('spec')->nullable();
+        });
+
+        Schema::table('characters', function (Blueprint $table) {
             $table->dropColumn('spec_id');
         });
     }

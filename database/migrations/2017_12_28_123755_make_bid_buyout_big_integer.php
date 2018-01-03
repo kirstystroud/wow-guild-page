@@ -15,6 +15,9 @@ class MakeBidBuyoutBigInteger extends Migration
     {
         Schema::table('auctions', function (Blueprint $table) {
             $table->bigInteger('bid')->default(0)->change();
+        });
+
+        Schema::table('auctions', function (Blueprint $table) {
             $table->bigInteger('buyout')->default(0)->change();
         });
     }
@@ -28,6 +31,9 @@ class MakeBidBuyoutBigInteger extends Migration
     {
         Schema::table('auctions', function (Blueprint $table) {
             $table->integer('bid')->default(0)->change();
+        });
+
+        Schema::table('auctions', function (Blueprint $table) {
             $table->integer('buyout')->default(0)->change();
         });
     }

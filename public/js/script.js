@@ -398,10 +398,10 @@ var drawChart = function(respData) {
         var row = respData[item];
         var newDataItem = [
             row.name,
-            row.min_level,
-            row.lower_q,
-            row.upper_q,
-            row.max_level
+            parseInt(row.min_level),
+            parseInt(row.lower_q),
+            parseInt(row.upper_q),
+            parseInt(row.max_level)
         ];
 
         chartData.push(newDataItem);
