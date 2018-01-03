@@ -10,7 +10,7 @@
                     <td>@include('partials.character-link', [ 'character' => $char->character ])</td>
                     <td character-id="{{ $char->character['id'] }}" category-id="0" class="td-category">
                         <a href="/">
-                            <strong>{{ $char->count }}</strong>
+                            <strong>{{ number_format($char->count) }}</strong>
                         </a>
                     </td>
                 </tr>
