@@ -48,6 +48,8 @@ class CheckAuctionHouse extends Command {
 
         Log::debug('Checking ' . count($auctionData['auctions']) . ' auctions for pet data');
 
+        if(!$auctionData['auctions']) return false;
+
         // Filter for pet related data only
         $petAuctions = array_filter($auctionData['auctions'], function($k) {
             return isset($k['petSpeciesId']);
