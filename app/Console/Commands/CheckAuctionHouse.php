@@ -55,6 +55,9 @@ class CheckAuctionHouse extends Command {
             return isset($k['petSpeciesId']);
         });
 
+        // Update poll status on all active auctions
+        Auction::where('poll_status', Auction::POLL_STATUS_PROCESSED)->update(['poll_status' => Auction::POLL_STATUS_PENDING]);
+
         Log::debug('Found ' . count($petAuctions) . ' pet related auctions to check');
 
         $progressBar = $this->output->createProgressBar(count($petAuctions));
@@ -72,8 +75,8 @@ class CheckAuctionHouse extends Command {
 
         echo 'Cleaning up old auctions' . PHP_EOL;
 
-        // Look for auctions with status active / expired where id not in $existingAuctions
-        $expiredAuctions = Auction::whereNotIn('id_ext', $existingAuctions)->whereIn('status', [Auction::STATUS_ACTIVE, Auction::STATUS_SELLING])->get();
+        // Look for auctions with poll_status pending
+        $expiredAuctions = Auction::where('poll_status', Auction::POLL_STATUS_PENDING)->get();
         echo 'Found ' . count($expiredAuctions) . ' expired auctions to check' . PHP_EOL;
 
         foreach($expiredAuctions as $auction) {
@@ -138,15 +141,12 @@ class CheckAuctionHouse extends Command {
             $auction->bid = $data['bid'];
             $auction->buyout = $data['buyout'];
             $auction->status = Auction::STATUS_ACTIVE;
-            $auction->time_left = $this->timeLeftToInteger($data['timeLeft']);
 
             if (isset($data['petSpeciesId'])) {
                 $auction->pet_id = $pet->id;
                 $auction->pet_level = $data['petLevel'];
                 $auction->pet_quality = $data['petQualityId'];
             }
-
-            $auction->save();
 
             Log::debug('Found new auction for ' . $pet->name);
         } else {
@@ -162,9 +162,11 @@ class CheckAuctionHouse extends Command {
                 }
             }
 
-            $auction->time_left = $this->timeLeftToInteger($data['timeLeft']);
-            $auction->save();
         }
+
+        $auction->time_left = $this->timeLeftToInteger($data['timeLeft']);
+        $auction->poll_status = Auction::POLL_STATUS_PROCESSED;
+        $auction->save();
 
     }
 
@@ -183,8 +185,6 @@ class CheckAuctionHouse extends Command {
         $timedOut = false;
         $wentToBuyout = false;
         $sinceLastUpdated = strtotime(time()) - strtotime($auction->updated_at);
-        // echo $sinceLastUpdated . PHP_EOL;
-        // exit();
 
         switch($auction->time_left) {
             case Auction::TIME_LEFT_SHORT :
@@ -244,6 +244,8 @@ class CheckAuctionHouse extends Command {
             // Should not get in here
         }
 
+        // Update poll status
+        $auction->poll_status = Auction::POLL_STATUS_ENDED;
         $auction->save();
     }
 

@@ -11,6 +11,10 @@ class Auction extends Model {
     const STATUS_SOLD = 2;
     const STATUS_ENDED = -1;
 
+    const POLL_STATUS_ENDED = -1;
+    const POLL_STATUS_PENDING = 0;
+    const POLL_STATUS_PROCESSED = 1;
+
     const TIME_LEFT_VERY_LONG = 0;
     const TIME_LEFT_LONG = 1;
     const TIME_LEFT_MEDIUM = 2;
