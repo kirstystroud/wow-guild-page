@@ -13,6 +13,9 @@ use BlizzardApi;
 use Log;
 
 class CheckAuctionHouse extends Command {
+
+    private $_dateRun = false;
+
     /**
      * The name and signature of the console command.
      *
@@ -33,6 +36,8 @@ class CheckAuctionHouse extends Command {
      * @return mixed
      */
     public function handle() {
+        $this->_dateRun = Date('Y-m-d H:i:s');
+
         echo 'Loading file' . PHP_EOL;
         $filePath = __DIR__ . '/../../../auctions.json';
 
@@ -79,9 +84,15 @@ class CheckAuctionHouse extends Command {
         $expiredAuctions = Auction::where('poll_status', Auction::POLL_STATUS_PENDING)->get();
         echo 'Found ' . count($expiredAuctions) . ' expired auctions to check' . PHP_EOL;
 
+        if (!count($expiredAuctions)) return true;
+
+        $expiredProgressBar = $this->output->createProgressBar(count($expiredAuctions));
         foreach($expiredAuctions as $auction) {
-            $this->expireAuction($auction);
+            $auction->expire();
+            $expiredProgressBar->advance();
         }
+        $expiredProgressBar->finish();
+        $this->line('');
     }
 
     protected function checkAuctionData($data) {
@@ -165,88 +176,10 @@ class CheckAuctionHouse extends Command {
         }
 
         $auction->time_left = $this->timeLeftToInteger($data['timeLeft']);
+        $auction->date_last_seen = $this->_dateRun;
         $auction->poll_status = Auction::POLL_STATUS_PROCESSED;
         $auction->save();
 
-    }
-
-    /**
-     * Auction has expired, update database according to status and time left
-     * @param {Auction} $auction
-     */
-    protected function expireAuction($auction) {
-        if ($auction->pet_id) {
-            $auctionName = $auction->pet->name;
-        } else {
-            $auctionName = $auction->item->name;
-        }
-
-        // Track possible states
-        $timedOut = false;
-        $wentToBuyout = false;
-        $sinceLastUpdated = strtotime(time()) - strtotime($auction->updated_at);
-
-        switch($auction->time_left) {
-            case Auction::TIME_LEFT_SHORT :
-                // Short time left, have to assume expired
-                $timedOut = true;
-                break;
-            case Auction::TIME_LEFT_MEDIUM :
-                // 30min - 2hr to go
-                if ($sinceLastUpdated > 1800) {
-                    // not heard in last half hour, have to assume timed out
-                    $timedOut = true;
-                } else {
-                    // Updated less than 30min ago, must have been bought out
-                    $wentToBuyout = true;
-                }
-                break;
-            case Auction::TIME_LEFT_LONG :
-                // 2-12 hr to go
-                if ($sinceLastUpdated > 7200) {
-                    // Not heard in last two hours, have to assume timed out
-                    $timedOut = true;
-                } else {
-                    $wentToBuyout = true;
-                }
-                break;
-            case Auction::TIME_LEFT_VERY_LONG :
-                // Over 12 hr to go
-                if ($sinceLastUpdated > 43200) {
-                    // Not heard in last 12 hours, have to assume timed out
-                    $timedOut = true;
-                } else {
-                    $wentToBuyout = true;
-                }
-                break;
-            default :
-                throw new Exception('Unknown time left ' . $auction->time_left);
-        }
-
-        if ($wentToBuyout) {
-            // Update with buyout price
-            $auction->status = Auction::STATUS_SOLD;
-            // Account for auctions with no buyout price
-            $auction->sell_price = $auction->buyout ? $auction->buyout : $auction->bid;
-            Log::debug('Auction for ' . $auctionName . ' has been bought out for ' . $auction->buyoutToGold());
-        } elseif ($timedOut) {
-            if ($auction->status == Auction::STATUS_SELLING) {
-                // Assume auction went for latest bid
-                $auction->status = Auction::STATUS_SOLD;
-                $auction->sell_price = $auction->bid;
-                Log::debug('Auction for ' . $auctionName . ' has sold for ' . $auction->bidToGold());
-            } else {
-                // Assume auction expired
-                $auction->status = Auction::STATUS_ENDED;
-                Log::debug('Auction for ' . $auctionName . ' has expired');
-            }
-        } else {
-            // Should not get in here
-        }
-
-        // Update poll status
-        $auction->poll_status = Auction::POLL_STATUS_ENDED;
-        $auction->save();
     }
 
     /**
