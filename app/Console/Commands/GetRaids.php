@@ -25,7 +25,7 @@ class GetRaids extends Command
      *
      * @var string
      */
-    protected $description = '';
+    protected $description = 'Check for updates on how many times characters have run each raid';
 
     /**
      * Execute the console command.

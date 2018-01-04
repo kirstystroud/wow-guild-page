@@ -35,24 +35,22 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule) {
 
-        // Generic commands
+        // Daily commands
         $schedule->command('get:data')->dailyAt('09:00');
         $schedule->command('get:titles')->dailyAt('10:00');
+        $schedule->command('get:professions --recipes=true')->dailyAt('11:00');
+        $schedule->command('get:raids')->dailyAt('12:00');
+        $schedule->command('get:quests')->dailyAt('13:00');
+        $schedule->command('get:achievements')->dailyAt('14:00');
+        $schedule->command('get:reputation')->dailyAt('15:00');
+
+        // Hourly commands
         $schedule->command('get:characters')->hourlyAt(10);
         $schedule->command('get:ilvls')->hourlyAt(30);
         $schedule->command('get:statistics')->hourlyAt(50);
 
-        // Local only
-        if (env('APP_ENV') == 'local') {
-            $schedule->command('get:professions --recipes=true')->dailyAt('11:00');
-            $schedule->command('get:raids')->dailyAt('12:00');
-            $schedule->command('get:quests')->dailyAt('13:00');
-            $schedule->command('get:achievements')->dailyAt('14:00');
-            $schedule->command('get:reputation')->dailyAt('15:00');
-        } else {
-            // Production only
-            $schedule->command('get:professions')->dailyAt('11:00');
-        }
+        // Load auction data more often
+        $schedule->command('get:auctions')->everyTenMinutes();
     }
 
     /**
