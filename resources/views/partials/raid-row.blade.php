@@ -19,10 +19,10 @@
             @foreach($raid->getCharacterRaidData() as $row)
                 <tr class="members-tr members-tr-{{ $row->character->character_class->id_ext }} char-{{ $row->character->id }}">
                     <td>@include('partials.character-link', [ 'character' => $row->character ])</td>
-                    <td>{{ $row->lfr }}</td>
-                    <td>{{ $row->normal }}</td>
-                    <td>{{ $row->heroic }}</td>
-                    <td>{{ $row->mythic }}</td>
+                    <td>{{ $row->lfr ? $row->lfr : ' ' }}</td>
+                    <td>{{ $row->normal ? $row->normal : ' ' }}</td>
+                    <td>{{ $row->heroic ? $row->heroic : ' ' }}</td>
+                    <td>{{ $row->mythic ? $row->mythic : ' ' }}</td>
                 </tr>
             @endforeach
         </table>
