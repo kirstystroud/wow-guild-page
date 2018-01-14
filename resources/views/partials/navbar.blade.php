@@ -24,6 +24,9 @@
                 @if ( CharacterQuest::count() )
                     <li nav-title="Quests" id="navbar-quests"><a href="/quests">Quests</a></li>
                 @endif
+                @if ( Auction::count() )
+                    <li nav-title="Auctions" id="navbar-auctions"><a href="/auctions">Auctions</a></li>
+                @endif
                 <li nav-title="Stats" id="navbar-stats"><a href="/stats">Stats</a></li>
             </ul>          
         </div>

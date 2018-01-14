@@ -60,6 +60,9 @@ var updateNavBar = function() {
         case '/quests' :
             $('#navbar-quests').addClass('active');
             break;
+        case '/auctions' :
+            $('#navbar-auctions').addClass('active');
+            break;
         default :
             console.log(`Unknown path ${pathname}`);
     }
