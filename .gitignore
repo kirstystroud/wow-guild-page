@@ -14,3 +14,5 @@ yarn-error.log
 
 #sublime files
 *.sublime-*
+
+auctions.json
