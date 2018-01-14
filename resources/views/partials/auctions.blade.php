@@ -18,8 +18,8 @@
                 <tr>
                     <td>{{ $auction->id }}</td>
                     <td>{{ $auction->itemName() }}</td>
-                    <td>{{ $auction->bidToGold() }}</td>
-                    <td>{{ $auction->buyoutToGold() }}</td>
+                    <td>{!! $auction->bidToGoldFormatted() !!}</td>
+                    <td>{!! $auction->buyoutToGoldFormatted() !!}</td>
                     <td>{{ $auction->timeLeft() }}</td>
                     <td>{{ $auction->getStatus() }}</td>
                 </tr>

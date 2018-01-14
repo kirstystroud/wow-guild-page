@@ -41,6 +41,14 @@ class Auction extends Model {
 
     // Helper functions
 
+    public function bidToGoldFormatted() {
+        return $this->formatMoneyString($this->bidToGold());
+    }
+
+    public function buyoutToGoldFormatted() {
+        return $this->formatMoneyString($this->buyoutToGold());
+    }
+
     /**
      * Convert bid into human readable gold silver copper
      * @return {string}
@@ -218,5 +226,17 @@ class Auction extends Model {
         $rtn .= $copper . ' Copper ';
 
         return trim($rtn);
+    }
+
+    /**
+     * Replace text with icons for front end
+     * @param {string} $input
+     * @return {string}
+     */
+    protected function formatMoneyString($input) {
+        $result = str_replace('Gold,', '<span class="span-gold"><img src="https://worldofwarcraft.com/static/components/GameTooltip/GameTooltip-gold.gif"></img></span>', $input);
+        $result = str_replace('Silver,', '<span class="span-silver"><img src="https://worldofwarcraft.com/static/components/GameTooltip/GameTooltip-silver.gif"></img></span>', $result);
+        $result = str_replace('Copper', '<span class="span-copper"><img src="https://worldofwarcraft.com/static/components/GameTooltip/GameTooltip-copper.gif"></img></span>', $result);
+        return $result;
     }
 }
