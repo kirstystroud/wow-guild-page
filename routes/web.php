@@ -44,6 +44,7 @@ Route::get('/quests/search', '\App\Http\Controllers\QuestsController@search');
 
 // Auction pages
 Route::get('/auctions', '\App\Http\Controllers\AuctionsController@get');
+Route::get('/auctions/data', '\App\Http\Controllers\AuctionsController@data');
 
 // Stats page
 Route::get('/stats', '\App\Http\Controllers\StatsController@get');

@@ -311,6 +311,36 @@ tr {
 
 // End tables
 
+// Pagination links
+
+div.auction-pagination {
+    ul.pagination {
+        li {
+            a {
+                color: $font-orange;
+                background-color: $background-dark;
+                border-color: $background-dark;
+            }
+            &.active {
+                span {
+                    background-color: $title-background-default;
+                    border-color: $title-background-default;
+                    color: $font-default;
+                }
+            }
+            &.disabled {
+                span {
+                    background-color: $panel-background-default;
+                    border-color: $panel-background-default;
+                    color: $font-default;
+                }
+            }
+        }
+    }
+}
+
+// End pagination links
+
 // Selects
 
 select {

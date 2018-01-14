@@ -33,6 +33,12 @@ class Auction extends Model {
     }
 
 
+    // Enable filtering
+
+    public function scopeFilter($builder, AuctionFilter $filters) {
+        return $filters->apply($builder);
+    }
+
     // Helper functions
 
     /**
@@ -52,14 +58,70 @@ class Auction extends Model {
     }
 
     /**
-     * Expire an auction, updating statuses based on last seen / previous status
+     * Get human-friendly item name
+     * @return {string}
      */
-    public function expire() {
+    public function itemName() {
         if ($this->pet_id) {
             $name = $this->pet->name;
         } else {
             $name = $this->item->name;
         }
+
+        return $name;
+    }
+
+    /**
+     * Get human-readable time left
+     * @return {string}
+     */
+    public function timeLeft() {
+        switch($this->time_left) {
+            case Auction::TIME_LEFT_SHORT :
+                return 'Short';
+                break;
+            case Auction::TIME_LEFT_MEDIUM :
+                return 'Medium';
+                break;
+            case Auction::TIME_LEFT_LONG :
+                return 'Long';
+                break;
+            case Auction::TIME_LEFT_VERY_LONG :
+                return 'Very Long';
+                break;
+            default :
+                return 'Unknown';
+        }
+    }
+
+    /**
+     * Get human-readable status
+     * @return {string}
+     */
+    public function getStatus() {
+        switch($this->status) {
+            case Auction::STATUS_SOLD :
+                return 'Sold';
+                break;
+            case Auction::STATUS_SELLING :
+                return 'Selling';
+                break;
+            case Auction::STATUS_ENDED :
+                return 'Ended';
+                break;
+            case Auction::STATUS_ACTIVE :
+                return 'Active';
+                break;
+            default :
+                return 'Unknown';
+        }
+    }
+
+    /**
+     * Expire an auction, updating statuses based on last seen / previous status
+     */
+    public function expire() {
+        $name = $this->itemName();
 
         // Track possible states
         $timedOut = false;

@@ -229,6 +229,7 @@ return [
         // WoW Models
         'Achievement' => App\Achievement::class,
         'Auction' => App\Auction::class,
+        'AuctionFilter' => App\AuctionFilter::class,
         'Category' => App\Category::class,
         'Character' => App\Character::class,
         'CharacterAchievement' => App\CharacterAchievement::class,
@@ -239,6 +240,7 @@ return [
         'CharacterRecipe' => App\CharacterRecipe::class,
         'Dungeon' => App\Dungeon::class,
         'Faction' => App\Faction::class,
+        'Filter' => App\Filter::class,
         'Item' => App\Item::class,
         'Meta' => App\Meta::class,
         'Pet' => App\Pet::class,

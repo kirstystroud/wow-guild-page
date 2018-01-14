@@ -289,6 +289,24 @@ tr td:nth-child(1) span {
   font-weight: bold;
 }
 
+div.auction-pagination ul.pagination li a {
+  color: #ffb100;
+  background-color: #2b1507;
+  border-color: #2b1507;
+}
+
+div.auction-pagination ul.pagination li.active span {
+  background-color: #6a240b;
+  border-color: #6a240b;
+  color: #f5ebd1;
+}
+
+div.auction-pagination ul.pagination li.disabled span {
+  background-color: #231207;
+  border-color: #231207;
+  color: #f5ebd1;
+}
+
 select {
   background-color: #f1ebd7;
   color: #171717;

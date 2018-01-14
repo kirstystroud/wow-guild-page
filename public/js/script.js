@@ -29,6 +29,11 @@ $(document).ready(function() {
         loadReputation();
     }
 
+    // Load auctions
+    if (window.location.pathname == '/auctions') {
+        loadAuctions();
+    }
+
     attachEventHandlers();
 });
 
@@ -217,6 +222,24 @@ var loadReputationRow = function(id) {
 };
 
 /**
+ * Load content for auctions page
+ */
+var loadAuctions = function() {
+    $.ajax({
+        url : '/auctions/data',
+        method : 'GET',
+        success : function(resp) {
+            $('#auctions-panel').empty();
+            $('#auctions-panel').append(resp);
+            attachEventHandlers();
+        },
+        error : function(err) {
+            console.log(err);
+        }
+    });
+};
+
+/**
  * Attach page event handlers
  */
 var attachEventHandlers = function() {
@@ -328,6 +351,24 @@ var attachEventHandlers = function() {
             }
         });
     });
+
+    // Set pagination links on auction page to make ajax not redirect to page
+    $('.pagination a').click(function() {
+        var href = $(this).attr('href');
+        $(this).removeAttr('href');
+        $.ajax({
+            url : href,
+            method : 'GET',
+            success : function(resp) {
+                $('#auctions-panel').empty();
+                $('#auctions-panel').append(resp);
+                attachEventHandlers();
+            },
+            error : function(err) {
+                console.log(err);
+            }
+        });
+    });
 };
 
 /**
@@ -362,7 +403,7 @@ var loadKills = function() {
             console.log(err);
         }
     });
-}
+};
 
 /**
  * Load stats for graphs

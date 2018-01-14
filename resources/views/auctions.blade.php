@@ -6,7 +6,7 @@
             <div class="panel-heading">
                 <h4>Auctions</h4>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" id="auctions-panel">
                 Loading ...
             </div>
         </div>
