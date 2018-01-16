@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Log;
+use AuctionFilter;
 use Illuminate\Database\Eloquent\Model;
 
 class Auction extends Model {

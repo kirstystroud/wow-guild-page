@@ -3,6 +3,7 @@
 namespace App;
 
 use Filter;
+use Auction;
 
 class AuctionFilter extends Filter {
 
