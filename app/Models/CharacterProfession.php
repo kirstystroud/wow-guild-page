@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CharacterRecipe extends Model {
+class CharacterProfession extends Model {
 
     public $timestamps = false;
 
@@ -15,7 +15,7 @@ class CharacterRecipe extends Model {
         return $this->belongsTo(Character::class);
     }
 
-    public function recipe() {
-        return $this->belongsTo(Recipe::class);
+    public function profession() {
+        return $this->belongsTo(Profession::class);
     }
 }

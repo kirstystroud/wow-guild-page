@@ -1,11 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PetType extends Model {
-    
+class Title extends Model {
+
     public $timestamps = false;
 
 }

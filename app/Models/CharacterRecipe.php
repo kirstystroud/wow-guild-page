@@ -1,21 +1,21 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CharacterQuest extends Model {
+class CharacterRecipe extends Model {
 
     public $timestamps = false;
 
 
     // Public relations
 
-    public function quest() {
-        return $this->belongsTo(Quest::class);
-    }
-
     public function character() {
         return $this->belongsTo(Character::class);
+    }
+
+    public function recipe() {
+        return $this->belongsTo(Recipe::class);
     }
 }
