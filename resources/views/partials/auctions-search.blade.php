@@ -12,6 +12,15 @@
                         <label for="item">Item</label>
                         <input type="text" id="item" class="form-control"></input>
                     </div>
+                    <div class="checkbox">
+                        <label for="sold" class="checkbox-inline">
+                            @if(isset($filters['sold']) && ($filters['sold']))
+                                <input type="checkbox" id="sold" checked="checked">Sold</input>
+                            @else
+                                <input type="checkbox" id="sold">Sold</input>
+                            @endif
+                        </label>
+                    </div>
                     <div class="form-group">
                         <label for="status">Status</label>
                         <select id="status" class="form-control" name="status">

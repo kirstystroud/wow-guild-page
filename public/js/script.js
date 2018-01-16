@@ -361,7 +361,8 @@ var attachEventHandlers = function() {
         var data = {
             item : $('#item').val(),
             status : $('#status').val(),
-            time : $('#time').val()
+            time : $('#time').val(),
+            sold : $('#sold').is(':checked')
         };
 
         $.ajax({
@@ -386,7 +387,8 @@ var attachEventHandlers = function() {
         var data = {
             item : $('#item').val(),
             status : $('#status').val(),
-            time : $('#time').val()
+            time : $('#time').val(),
+            sold : $('#sold').is(':checked')
         };
 
         $('#auctions-search-modal').modal('hide');

@@ -14,6 +14,7 @@
                 <th>Item</th>
                 <th>Bid</th>
                 <th>Buyout</th>
+                <th>Sell Price</th>
                 <th>Time Left</th>
                 <th>Status</th>
             </thead>
@@ -23,6 +24,7 @@
                         <td>{{ $auction->itemName() }}</td>
                         <td>{!! $auction->bidToGoldFormatted() !!}</td>
                         <td>{!! $auction->buyoutToGoldFormatted() !!}</td>
+                        <td>{!! $auction->sellPriceToGoldFormatted() !!}</td>
                         <td>{{ $auction->timeLeft() }}</td>
                         <td>{{ $auction->getStatus() }}</td>
                     </tr>

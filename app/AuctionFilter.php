@@ -10,11 +10,18 @@ class AuctionFilter extends Filter {
         return $this->_builder->where('auctions.id', $id);
     }
 
-    public function item($item) {
+    public function item($item = '') {
         if (strlen($item)) {
             $this->_builder->whereHas('pet', function($q) use ($item) {
                 $q->where('pets.name', 'LIKE', '%' . $item . '%');
             });
+        }
+        return $this->_builder;
+    }
+
+    public function sold($sold = false) {
+        if ($sold && ($sold != 'false')) {
+            $this->_builder->where('sell_price', 'IS NOT NULL');
         }
         return $this->_builder;
     }

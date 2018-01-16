@@ -81,6 +81,14 @@ class Auction extends Model {
     }
 
     /**
+     * Convert sell price to human-readable with icons
+     * @return {string}
+     */
+    public function sellPriceToGoldFormatted() {
+        return $this->formatMoneyString($this->sellPriceToGold());
+    }
+
+    /**
      * Convert bid into human readable gold silver copper
      * @return {string}
      */
@@ -94,6 +102,14 @@ class Auction extends Model {
      */
     public function buyoutToGold() {
         return $this->intToGold($this->buyout);
+    }
+
+    /**
+     * Convert sell price into human readable gold silver copper
+     * @return {string}
+     */
+    public function sellPriceToGold() {
+        return $this->intToGold($this->sell_price);
     }
 
     /**
@@ -206,6 +222,11 @@ class Auction extends Model {
      * @return {string}
      */
     protected function intToGold($value) {
+
+        if (is_null($value)) {
+            return '';
+        }
+
         $rtn = '';
 
         $gold = floor($value / 10000);
