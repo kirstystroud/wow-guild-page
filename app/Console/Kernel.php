@@ -50,7 +50,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('get:statistics')->hourlyAt(50);
 
         // Load auction data more often
-        $schedule->command('get:auctions')->everyTenMinutes();
+        $schedule->command('get:auctions')->everyThirtyMinutes();
     }
 
     /**
