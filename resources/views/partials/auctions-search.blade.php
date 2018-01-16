@@ -10,7 +10,11 @@
                 <form id="search-auctions-form">
                     <div class="form-group">
                         <label for="item">Item</label>
-                        <input type="text" id="item" class="form-control"></input>
+                        @if(isset($filters['item']) && $filters['item'])
+                            <input type="text" id="item" class="form-control" value="{{ $filters['item'] }}"></input>
+                        @else
+                            <input type="text" id="item" class="form-control"></input>
+                        @endif
                     </div>
                     <div class="checkbox">
                         <label for="sold" class="checkbox-inline">
