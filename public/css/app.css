@@ -307,6 +307,12 @@ div.auction-pagination ul.pagination li.disabled span {
   color: #f5ebd1;
 }
 
+div.auction-pagination p {
+  color: #f5ebd1;
+  padding-top: 25px;
+  padding-bottom: 0px;
+}
+
 select {
   background-color: #f1ebd7;
   color: #171717;

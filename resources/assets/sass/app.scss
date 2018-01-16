@@ -337,6 +337,11 @@ div.auction-pagination {
             }
         }
     }
+    p {
+        color: $font-default;
+        padding-top: 25px;
+        padding-bottom: 0px;
+    }
 }
 
 // End pagination links

@@ -14,7 +14,7 @@
                     </div>
                     <div class="checkbox">
                         <label for="sold" class="checkbox-inline">
-                            @if(isset($filters['sold']) && ($filters['sold']))
+                            @if(isset($filters['sold']) && ($filters['sold']) && ($filters['sold'] != 'false'))
                                 <input type="checkbox" id="sold" checked="checked">Sold</input>
                             @else
                                 <input type="checkbox" id="sold">Sold</input>

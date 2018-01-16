@@ -6,8 +6,11 @@
         <br>
         <div>No results found</div>
     @else
-        <div class="auction-pagination">
-            {{ $auctions->links() }}
+        <div>
+            <div class="auction-pagination">
+                {{ $auctions->links() }}
+                <p class="float-right pull-right">Showing auctions {{ $auctions->firstItem() }} to {{ $auctions->lastItem() }} of {{ $auctions->total() }}</p>
+            </div>
         </div>
         <table class="table">
             <thead>
