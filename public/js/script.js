@@ -359,6 +359,7 @@ var attachEventHandlers = function() {
 
         // Pull data out of form
         var data = {
+            item : $('#item').val(),
             status : $('#status').val(),
             time : $('#time').val()
         };
@@ -383,6 +384,7 @@ var attachEventHandlers = function() {
 
         // Pull data out of form before resetting view
         var data = {
+            item : $('#item').val(),
             status : $('#status').val(),
             time : $('#time').val()
         };

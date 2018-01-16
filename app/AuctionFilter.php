@@ -10,6 +10,15 @@ class AuctionFilter extends Filter {
         return $this->_builder->where('auctions.id', $id);
     }
 
+    public function item($item) {
+        if (strlen($item)) {
+            $this->_builder->whereHas('pet', function($q) use ($item) {
+                $q->where('pets.name', 'LIKE', '%' . $item . '%');
+            });
+        }
+        return $this->_builder;
+    }
+
     public function status($status) {
         if ($status != Auction::STATUS_UNKNOWN) {
             $this->_builder->where('status', $status);

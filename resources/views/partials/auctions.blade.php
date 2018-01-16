@@ -11,7 +11,6 @@
         </div>
         <table class="table">
             <thead>
-                <th>Id</th>
                 <th>Item</th>
                 <th>Bid</th>
                 <th>Buyout</th>
@@ -21,7 +20,6 @@
             <tbody>
                 @foreach($auctions as $auction)
                     <tr>
-                        <td>{{ $auction->id }}</td>
                         <td>{{ $auction->itemName() }}</td>
                         <td>{!! $auction->bidToGoldFormatted() !!}</td>
                         <td>{!! $auction->buyoutToGoldFormatted() !!}</td>
