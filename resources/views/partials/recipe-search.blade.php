@@ -15,9 +15,9 @@
                         <label for="profession">Profession (optional)</label>
                         <select id="profession" class="form-control" name="profession">
                             <option value="0">-</option>
-                                @foreach($professions as $profession)
-                                    <option value="{{ $profession->id }}">{{ $profession->name }}</option>
-                                @endforeach
+                            @foreach($professions as $profession)
+                                <option value="{{ $profession->id }}">{{ $profession->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <button type="submit" class="btn btn-search" id="wow-button-submit">Go</button>

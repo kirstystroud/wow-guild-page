@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Auction extends Model {
 
+    const STATUS_UNKNOWN = -5;
     const STATUS_ACTIVE = 0;
     const STATUS_SELLING = 1;
     const STATUS_SOLD = 2;
@@ -39,12 +40,32 @@ class Auction extends Model {
         return $filters->apply($builder);
     }
 
+    // Static helper functions
+
+    public static function getStatuses() {
+        return [
+            self::STATUS_ACTIVE => 'Active',
+            self::STATUS_SELLING => 'Selling',
+            self::STATUS_SOLD => 'Sold',
+            self::STATUS_ENDED => 'Ended'
+        ];
+    }
+
+
     // Helper functions
 
+    /**
+     * Convert bid to human-readable with icons
+     * @return {string}
+     */
     public function bidToGoldFormatted() {
         return $this->formatMoneyString($this->bidToGold());
     }
 
+    /**
+     * Convert buyout to human-readable with icons
+     * @return {string}
+     */
     public function buyoutToGoldFormatted() {
         return $this->formatMoneyString($this->buyoutToGold());
     }
@@ -107,22 +128,7 @@ class Auction extends Model {
      * @return {string}
      */
     public function getStatus() {
-        switch($this->status) {
-            case Auction::STATUS_SOLD :
-                return 'Sold';
-                break;
-            case Auction::STATUS_SELLING :
-                return 'Selling';
-                break;
-            case Auction::STATUS_ENDED :
-                return 'Ended';
-                break;
-            case Auction::STATUS_ACTIVE :
-                return 'Active';
-                break;
-            default :
-                return 'Unknown';
-        }
+        return self::getStatuses()[$this->status];
     }
 
     /**

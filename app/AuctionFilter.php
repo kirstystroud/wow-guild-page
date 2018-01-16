@@ -10,6 +10,13 @@ class AuctionFilter extends Filter {
         return $this->_builder->where('auctions.id', $id);
     }
 
+    public function status($status) {
+        if ($status != Auction::STATUS_UNKNOWN) {
+            $this->_builder->where('status', $status);
+        }
+        return $this->_builder;
+    }
+
     public function sort($sortBy){
         $sortBy = explode(" ", $sortBy);
         $this->_builder->orderBy($sortBy[0], $sortBy[1]);

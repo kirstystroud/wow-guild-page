@@ -369,6 +369,32 @@ var attachEventHandlers = function() {
             }
         });
     });
+
+    // Auctions searching
+    $('#wow-button-auctions-search').click(function(event) {
+
+        // Pull data out of form before resetting view
+        var data = {
+            status : $('#status').val()
+        };
+
+        $('#auctions-search-modal').modal('hide');
+        $('#auctions-panel').empty();
+        $('#auctions-panel').append('Loading ...');
+        $.ajax({
+            url : '/auctions/data',
+            method : 'GET',
+            data : data,
+            success : function(resp) {
+                $('#auctions-panel').empty();
+                $('#auctions-panel').append(resp);
+                attachEventHandlers();
+            },
+            error : function(err) {
+                console.log(err);
+            }
+        });
+    });
 };
 
 /**
