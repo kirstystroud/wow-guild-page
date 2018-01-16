@@ -17,6 +17,13 @@ class AuctionFilter extends Filter {
         return $this->_builder;
     }
 
+    public function time($time) {
+        if ($time != Auction::TIME_LEFT_UNKNOWN) {
+            $this->_builder->where('time_left', $time);
+        }
+        return $this->_builder;
+    }
+
     public function sort($sortBy){
         $sortBy = explode(" ", $sortBy);
         $this->_builder->orderBy($sortBy[0], $sortBy[1]);

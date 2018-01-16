@@ -17,6 +17,7 @@ class Auction extends Model {
     const POLL_STATUS_PENDING = 0;
     const POLL_STATUS_PROCESSED = 1;
 
+    const TIME_LEFT_UNKNOWN = -5;
     const TIME_LEFT_VERY_LONG = 0;
     const TIME_LEFT_LONG = 1;
     const TIME_LEFT_MEDIUM = 2;
@@ -48,6 +49,15 @@ class Auction extends Model {
             self::STATUS_SELLING => 'Selling',
             self::STATUS_SOLD => 'Sold',
             self::STATUS_ENDED => 'Ended'
+        ];
+    }
+
+    public static function getTimeRemaining() {
+        return [
+            self::TIME_LEFT_VERY_LONG => 'Very Long',
+            self::TIME_LEFT_LONG => 'Long',
+            self::TIME_LEFT_MEDIUM => 'Medium',
+            self::TIME_LEFT_SHORT => 'Short'
         ];
     }
 
@@ -105,22 +115,7 @@ class Auction extends Model {
      * @return {string}
      */
     public function timeLeft() {
-        switch($this->time_left) {
-            case Auction::TIME_LEFT_SHORT :
-                return 'Short';
-                break;
-            case Auction::TIME_LEFT_MEDIUM :
-                return 'Medium';
-                break;
-            case Auction::TIME_LEFT_LONG :
-                return 'Long';
-                break;
-            case Auction::TIME_LEFT_VERY_LONG :
-                return 'Very Long';
-                break;
-            default :
-                return 'Unknown';
-        }
+        return self::getTimeRemaining()[$this->time_left];
     }
 
     /**

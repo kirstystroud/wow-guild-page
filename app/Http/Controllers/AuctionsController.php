@@ -17,7 +17,7 @@ class AuctionsController extends Controller {
 
         $auctions = Auction::filter($filters)->paginate(20);
 
-        return view('partials.auctions')->with('auctions', $auctions)->with('filters', $filters);
+        return view('partials.auctions')->with('auctions', $auctions)->with('filters', $filters->filters());
     }
 
 }

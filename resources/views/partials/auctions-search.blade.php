@@ -11,9 +11,26 @@
                     <div class="form-group">
                         <label for="status">Status</label>
                         <select id="status" class="form-control" name="status">
-                            <option value="{{ Auction::STATUS_UNKNOWN }}">Choose Status ....</option>
+                            <option value="{{ Auction::STATUS_UNKNOWN }}">Select ...</option>
                             @foreach(Auction::getStatuses() as $key => $value)
-                                <option value="{{ $key }}">{{ $value }}</option>
+                                @if(isset($filters['status']) && ($filters['status'] == $key))
+                                    <option value="{{ $key }}" selected="selected">{{ $value }}</option>
+                                @else
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Time Remaining</label>
+                        <select id="time" class="form-control" name="time">
+                            <option value="{{ Auction::TIME_LEFT_UNKNOWN }}">Select ...</option>
+                            @foreach(Auction::getTimeRemaining() as $key => $value)
+                                @if(isset($filters['time']) && ($filters['time'] == $key))
+                                    <option value="{{ $key }}" selected="selected">{{ $value }}</option>
+                                @else
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>

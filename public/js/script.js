@@ -356,9 +356,17 @@ var attachEventHandlers = function() {
     $('.pagination a').click(function() {
         var href = $(this).attr('href');
         $(this).removeAttr('href');
+
+        // Pull data out of form
+        var data = {
+            status : $('#status').val(),
+            time : $('#time').val()
+        };
+
         $.ajax({
             url : href,
             method : 'GET',
+            data : data,
             success : function(resp) {
                 $('#auctions-panel').empty();
                 $('#auctions-panel').append(resp);
@@ -375,7 +383,8 @@ var attachEventHandlers = function() {
 
         // Pull data out of form before resetting view
         var data = {
-            status : $('#status').val()
+            status : $('#status').val(),
+            time : $('#time').val()
         };
 
         $('#auctions-search-modal').modal('hide');
