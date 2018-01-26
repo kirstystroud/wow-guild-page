@@ -66,7 +66,7 @@ class QuestsController extends Controller {
      * @param {int} $characterId
      */
     protected function searchByCharacter($characterId) {
-        $characterQuests = CharacterQuest::select('categories.name', 'categories.id AS category_id', \DB::raw('COUNT(*) as count'))
+        $characterQuests = CharacterQuest::select('categories.name', 'categories.id AS category_id', \DB::raw('COUNT(DISTINCT quests.name) as count'))
                             ->join('quests', 'quest_id', 'quests.id')
                             ->join('categories', 'category_id', 'categories.id')
                             ->where('character_quests.character_id', $characterId)
@@ -83,7 +83,7 @@ class QuestsController extends Controller {
      * @param {int} $categoryId
      */
     protected function searchByCategory($categoryId) {
-        $characterQuests = CharacterQuest::select('characters.name', 'characters.id AS character_id', \DB::raw('COUNT(*) as count'))
+        $characterQuests = CharacterQuest::select('characters.name', 'characters.id AS character_id', \DB::raw('COUNT(DISTINCT quests.name) as count'))
                             ->join('quests', 'quest_id', 'quests.id')
                             ->join('characters', 'character_id', 'characters.id')
                             ->where('quests.category_id', $categoryId)
@@ -99,7 +99,8 @@ class QuestsController extends Controller {
      * Returns view with summary of total quests completed by each character
      */
     protected function searchAll() {
-        $characters = CharacterQuest::select('character_id', \DB::raw('COUNT(*) as count'))
+        $characters = CharacterQuest::select('character_id', \DB::raw('COUNT(DISTINCT quests.name) as count'))
+                            ->join('quests', 'quest_id', 'quests.id')
                             ->groupBy('character_id')
                             ->orderBy('count', 'desc')
                             ->get();
