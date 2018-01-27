@@ -16,10 +16,9 @@
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
         <!-- Application CSS / JS -->
-        <!-- <link href="/css/styles.css" type="text/css" rel="stylesheet"> -->
         <link href="/css/app.css" type="text/css" rel="stylesheet">
         <script type="text/javascript" src="/js/script.js"></script>
-        <script type="text/javascript" src="/js/helper/tabard.js"></script>
+        <script type="text/javascript" src="/js/wow.js"></script>
 
         <!-- Fonts -->
         <!-- <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css"> -->
