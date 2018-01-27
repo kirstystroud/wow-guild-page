@@ -18,6 +18,7 @@ elixir((mix) => {
        .webpack('app.js');
     mix.scripts([
             'characters.js',
+            'dungeons.js',
             'stats.js',
             'tabard.js'
         ],
