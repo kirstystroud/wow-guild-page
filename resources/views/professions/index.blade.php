@@ -9,7 +9,7 @@
             @if ( CharacterRecipe::count() )
                 <div>
                     <button class="btn btn-search" data-toggle="modal" data-target="#recipe-search-modal">Recipe Search</button>
-                    @include('partials.recipe-search')
+                    @include('professions.partials.recipe-search')
                 </div>
             @endif
             <br>

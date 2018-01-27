@@ -17,7 +17,7 @@ class ProfessionsController extends Controller {
      */
     public function get() {
         $professions = Profession::orderBy('name', 'asc')->get();
-        return view('professions')->with('professions', $professions);
+        return view('professions.index')->with('professions', $professions);
     }
 
     /**
@@ -42,6 +42,6 @@ class ProfessionsController extends Controller {
 
         $recipes = $query->orderBy('profession_id')->orderBy('name')->get();
 
-        return view('partials.recipe-search-results')->with('recipes', $recipes);
+        return view('professions.partials.recipe-search-results')->with('recipes', $recipes);
     }
 }
