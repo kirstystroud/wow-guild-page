@@ -1,4 +1,4 @@
-@include('partials.quests.compare-form')
+@include('quests.partials.compare-form')
 <div class="quest-list">
     <table class="table table-hover">
         <thead>

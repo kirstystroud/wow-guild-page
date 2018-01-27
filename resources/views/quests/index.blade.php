@@ -26,7 +26,7 @@
                     <button type="submit" class="btn btn-search" id="wow-button-submit-quests">Search</button>
                     &nbsp
                     <span class="wow-help-icon" data-toggle="modal" data-target="#quests-help-modal">?</span>
-                    @include('partials.quests-help')
+                    @include('quests.partials.help')
                 </div>
                 <hr>
                 <div id="quest-results">

@@ -87,7 +87,7 @@ class QuestsController extends Controller {
             $summary[$quest->name]['compare'] = true;
         }
 
-        return view('partials.quests.character-categories-compare')
+        return view('quests.partials.character-categories-compare')
                 ->with('character', $character)
                 ->with('compareCharacter', $compareCharacter)
                 ->with('quests', $summary)
@@ -106,7 +106,7 @@ class QuestsController extends Controller {
         $characterQuests = $this->getQuestListByCharacterCategory($characterId, $categoryId);
         $otherCharacters = $this->getOtherCharacters($characterId, $categoryId);
 
-        return view('partials.quests.character-categories')->with('quests', $characterQuests)->with('otherCharacters', $otherCharacters);
+        return view('quests.partials.character-categories')->with('quests', $characterQuests)->with('otherCharacters', $otherCharacters);
     }
 
     /**
@@ -159,7 +159,7 @@ class QuestsController extends Controller {
                             ->groupBy('categories.id')
                             ->orderBy('categories.name')
                             ->get();
-        return view('partials.quests.characters')->with('categories', $characterQuests)->with('character_id', $characterId);
+        return view('quests.partials.characters')->with('categories', $characterQuests)->with('character_id', $characterId);
     }
 
     /**
@@ -176,7 +176,7 @@ class QuestsController extends Controller {
                             ->groupBy('characters.id')
                             ->orderBy('characters.name')
                             ->get();
-        return view('partials.quests.categories')->with('characters', $characterQuests)->with('category_id', $categoryId);
+        return view('quests.partials.categories')->with('characters', $characterQuests)->with('category_id', $categoryId);
     }
 
     /**
@@ -189,6 +189,6 @@ class QuestsController extends Controller {
                             ->groupBy('character_id')
                             ->orderBy('count', 'desc')
                             ->get();
-        return view('partials.quests.all')->with('characters', $characters);
+        return view('quests.partials.all')->with('characters', $characters);
     }
 }
