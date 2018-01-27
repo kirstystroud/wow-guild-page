@@ -19,6 +19,7 @@ elixir((mix) => {
     mix.scripts([
             'characters.js',
             'dungeons.js',
+            'raids.js',
             'stats.js',
             'tabard.js'
         ],

@@ -6,7 +6,7 @@
             <h4>
                 Raid Progress
                 <p class="pull-right text-right">
-                    <select id="dungeon-char-select">
+                    <select id="raid-char-select">
                         <option value="0">Select Character ...</option>
                         @foreach($characters as $char)
                             <option value="{{ $char->id }}">{{ $char->name }}</option>
