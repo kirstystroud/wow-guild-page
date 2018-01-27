@@ -299,6 +299,10 @@ tr {
     }
 }
 
+.table-hover>tbody>tr:hover {
+    background-color: $title-background-default;
+}
+
 .td-yes {
     color: #3c763d;
     font-weight: bold;

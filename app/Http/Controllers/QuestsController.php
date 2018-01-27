@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Character;
 use CharacterQuest;
 use Category;
+use Quest;
 
 use Illuminate\Http\Request;
 
@@ -27,8 +28,12 @@ class QuestsController extends Controller {
     public function search(Request $request) {
         $characterProvided = (bool) ($request->character > 0);
         $categoryProvided = (bool) ($request->category > 0);
+        $compareProvided = (bool) ($request->compare > 0);
 
         switch (true) {
+            case ($characterProvided && $categoryProvided && $compareProvided) :
+                return $this->searchByCharacterAndCategoryWithCompare($request->character, $request->category, $request->compare);
+                break;
             case ($characterProvided && $categoryProvided) :
                 return $this->searchByCharacterAndCategory($request->character, $request->category);
                 break;
@@ -44,12 +49,92 @@ class QuestsController extends Controller {
     }
 
     /**
+     * Search for a specific character and category whilsts comparing against another character
+     * @param {int} $characterId
+     * @param {int} $categoryId
+     * @param {int} $compareId
+     */
+    protected function searchByCharacterAndCategoryWithCompare($characterId, $categoryId, $compareId) {
+        $otherCharacters = $this->getOtherCharacters($characterId, $categoryId);
+
+        // Load characters for view
+        $character = Character::find($characterId);
+        $compareCharacter = Character::find($compareId);
+
+        // List of all quests in this category
+        $quests = Quest::select('name')->where('category_id', $categoryId)->groupBy('name')->get();
+
+        // List of all quests completed by each character
+        $firstCharacterQuests = $this->getQuestListByCharacterCategory($characterId, $categoryId);
+        $compareCharacterQuests = $this->getQuestListByCharacterCategory($compareId, $categoryId);
+
+        // Construct empty summary
+        $summary = array();
+        foreach($quests as $quest) {
+            $summary[$quest->name] = [
+                'character' => false,
+                'compare' => false
+            ];
+        }
+
+        // Add in quests for first character
+        foreach($firstCharacterQuests as $quest) {
+            $summary[$quest->name]['character'] = true;
+        }
+
+        // Add in quests for second character
+        foreach($compareCharacterQuests as $quest) {
+            $summary[$quest->name]['compare'] = true;
+        }
+
+        return view('partials.quests.character-categories-compare')
+                ->with('character', $character)
+                ->with('compareCharacter', $compareCharacter)
+                ->with('quests', $summary)
+                ->with('otherCharacters', $otherCharacters)
+                ->with('compare', $compareId);
+    }
+
+    /**
      * Search for a specific character and a specific category
      * Returns view with list of all quests completed by that character in that category
      * @param {int} $characterId
      * @param {int} $categoryId
      */
     protected function searchByCharacterAndCategory($characterId, $categoryId) {
+
+        $characterQuests = $this->getQuestListByCharacterCategory($characterId, $categoryId);
+        $otherCharacters = $this->getOtherCharacters($characterId, $categoryId);
+
+        return view('partials.quests.character-categories')->with('quests', $characterQuests)->with('otherCharacters', $otherCharacters);
+    }
+
+    /**
+     * Get a list of characters who have completed quests in a zone with an exclusion
+     * @param {int} $characterId
+     * @param {int} $categoryId
+     * @return {Array}
+     */
+    protected function getOtherCharacters($characterId, $categoryId) {
+        $otherCharacters = Character::select('characters.id', 'characters.name')
+                            ->join('character_quests', 'characters.id', 'character_id')
+                            ->join('quests', 'quest_id', 'quests.id')
+                            ->where('category_id', $categoryId)
+                            ->where('characters.id', '!=', $characterId)
+                            ->whereNotNull('character_quests.id')
+                            ->groupBy('characters.id')
+                            ->orderBy('characters.name')
+                            ->get();
+        return $otherCharacters;
+    }
+
+    /**
+     * Get a lit of characters completed by a specific character in a specific category
+     * @param {int} $characterId
+     * @param {int} $categoryId
+     * @return {Array}
+     */
+    protected function getQuestListByCharacterCategory($characterId, $categoryId) {
         $characterQuests = CharacterQuest::select('quests.name')
                             ->join('quests', 'quest_id', 'quests.id')
                             ->where('character_id', $characterId)
@@ -57,7 +142,7 @@ class QuestsController extends Controller {
                             ->groupBy('quests.name')
                             ->orderBy('quests.name', 'asc')
                             ->get();
-        return view('partials.quests.character-categories')->with('quests', $characterQuests);
+        return $characterQuests;
     }
 
     /**

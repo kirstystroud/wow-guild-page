@@ -279,6 +279,10 @@ tr td:nth-child(1) span {
   font-weight: normal;
 }
 
+.table-hover > tbody > tr:hover {
+  background-color: #6a240b;
+}
+
 .td-yes {
   color: #3c763d;
   font-weight: bold;
