@@ -11,7 +11,7 @@ class CharactersController extends Controller {
      * Handles GET request to /characters
      */
     public function get(Request $request) {
-        return view('characters');
+        return view('characters.index');
     }
 
     /**
@@ -54,6 +54,6 @@ class CharactersController extends Controller {
             $sortOutcome = [$sortKeys[0] => $sorting[$sortKeys[0]]];
         }
 
-        return view('partials.characters')->with('characters', $characters)->with('sorting', $sortOutcome);
+        return view('characters.data')->with('characters', $characters)->with('sorting', $sortOutcome);
     }
 }
