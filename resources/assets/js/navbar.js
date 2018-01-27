@@ -1,12 +1,5 @@
 $(document).ready(function() {
     // Update nav-bar
-    updateNavBar()
-});
-
-/**
- * Update nav bar to have correct tab highlighted
- */
-var updateNavBar = function() {
     var pathname = window.location.pathname;
     var $span = $('<span class="sr-only">(current)</span>');
     switch(pathname) {
@@ -37,4 +30,4 @@ var updateNavBar = function() {
         default :
             console.log(`Unknown path ${pathname}`);
     }
-};
+});

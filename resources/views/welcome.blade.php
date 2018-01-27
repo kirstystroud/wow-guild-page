@@ -17,7 +17,6 @@
 
         <!-- Application CSS / JS -->
         <link href="/css/app.css" type="text/css" rel="stylesheet">
-        <script type="text/javascript" src="/js/script.js"></script>
         <script type="text/javascript" src="/js/wow.js"></script>
 
         <!-- Fonts -->
