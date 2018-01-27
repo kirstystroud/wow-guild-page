@@ -13,7 +13,7 @@ class DungeonsController extends Controller {
      */
     public function get(Request $request) {
         $characters = Character::orderBy('name', 'asc')->get();
-        return view('dungeons')->with('characters', $characters);
+        return view('dungeons.index')->with('characters', $characters);
     }
 
     /**
@@ -22,7 +22,7 @@ class DungeonsController extends Controller {
      */
     public function data() {
         $dungeonsData = Dungeon::where('instance_type', Dungeon::TYPE_DUNGEON)->orderBy('min_level', 'asc')->orderBy('max_level', 'asc')->get();
-        return view('partials.dungeons')->with('dungeons', $dungeonsData);
+        return view('dungeons.data')->with('dungeons', $dungeonsData);
     }
 
     /**
@@ -33,7 +33,7 @@ class DungeonsController extends Controller {
         $dungeonClass = $dungeon->getPanelClass();
         return [
             'class' => $dungeonClass,
-            'view' => view('partials.dungeon-row')->with('dungeon', $dungeon)->render()
+            'view' => view('dungeons.partials.row')->with('dungeon', $dungeon)->render()
         ];
     }
 }
