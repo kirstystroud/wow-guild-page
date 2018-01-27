@@ -15,7 +15,7 @@ class RaidsController extends Controller
      */
     public function get(Request $request) {
         $characters = Character::orderBy('name', 'asc')->get();
-        return view('raids')->with('characters', $characters);
+        return view('raids.index')->with('characters', $characters);
     }
 
     /**
@@ -24,7 +24,7 @@ class RaidsController extends Controller
      */
     public function data() {
         $raidsData = Dungeon::where('instance_type', Dungeon::TYPE_RAID)->orderBy('min_level', 'asc')->orderBy('max_level', 'asc')->get();
-        return view('partials.raids')->with('raids', $raidsData);
+        return view('raids.data')->with('raids', $raidsData);
     }
 
     /**
@@ -35,7 +35,7 @@ class RaidsController extends Controller
         $dungeonClass = count($dungeon->getCharacterRaidData()) ? 'panel-info profession-panel' : 'panel-danger';
         return [
             'class' => $dungeonClass,
-            'view' => view('partials.raid-row')->with('raid', $dungeon)->render()
+            'view' => view('raids.partials.row')->with('raid', $dungeon)->render()
         ];
     }
 }
