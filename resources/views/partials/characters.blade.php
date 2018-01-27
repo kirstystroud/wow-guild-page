@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table table-hover">
     <thead>
         <th id="th-name" class="members-th">
             <a href="#" class="table-sort" sort="name">

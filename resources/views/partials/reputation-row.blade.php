@@ -6,7 +6,7 @@
     </h4>
 </div>
 <div id="reputation-row-{{ $reputation->id }}" class="panel-body panel-collapse collapse">
-    <table class="table">
+    <table class="table  table-hover">
         <thead>
             <th>Name</th>
             <th>Standing</th>

@@ -12,7 +12,7 @@
                 <p class="float-right pull-right">Showing auctions {{ $auctions->firstItem() }} to {{ $auctions->lastItem() }} of {{ $auctions->total() }}</p>
             </div>
         </div>
-        <table class="table">
+        <table class="table table-hover">
             <thead>
                 <th>Item</th>
                 <th>Bid</th>
