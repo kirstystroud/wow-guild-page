@@ -1,5 +1,5 @@
 <div>
-    @include('partials.auctions-search')
+    @include('auctions.partials.search')
 </div>
 <div>
     @if(!$auctions->count())

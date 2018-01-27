@@ -10,14 +10,14 @@ use AuctionFilter;
 class AuctionsController extends Controller {
     
     public function get() {
-        return view('auctions');
+        return view('auctions.index');
     }
 
     public function data(AuctionFilter $filters) {
 
         $auctions = Auction::filter($filters)->paginate(20);
 
-        return view('partials.auctions')->with('auctions', $auctions)->with('filters', $filters->filters());
+        return view('auctions.data')->with('auctions', $auctions)->with('filters', $filters->filters());
     }
 
 }
