@@ -17,6 +17,7 @@ elixir((mix) => {
     mix.sass('app.scss')
        .webpack('app.js');
     mix.scripts([
+            'characters.js',
             'stats.js',
             'tabard.js'
         ],
