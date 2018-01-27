@@ -14,7 +14,7 @@ class ReputationController extends Controller
      */
     public function get() {
         $characters = Character::orderBy('name', 'asc')->get();
-        return view('reputation')->with('characters', $characters);
+        return view('reputation.index')->with('characters', $characters);
     }
 
     /**
@@ -24,7 +24,7 @@ class ReputationController extends Controller
     public function data() {
         // Horde faction has 0 / 0 standing 0 for all characters so is misleading
         $reputationData = Faction::orderBy('name', 'asc')->where('name', '!=', 'Horde')->get();
-        return view('partials.reputation')->with('reputation', $reputationData)->render();
+        return view('reputation.data')->with('reputation', $reputationData)->render();
     }
 
     /**
@@ -33,7 +33,7 @@ class ReputationController extends Controller
      */
     public function factionData(Faction $faction) {
         return [
-            'view' => view('partials.reputation-row')->with('reputation', $faction)->render(),
+            'view' => view('reputation.partials.row')->with('reputation', $faction)->render(),
             'class' => $faction->getReputationClass()
         ];
     }
