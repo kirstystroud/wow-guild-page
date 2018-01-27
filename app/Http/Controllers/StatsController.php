@@ -14,7 +14,7 @@ class StatsController extends Controller
      * Handles GET requests to /stats
      */
     public function get() {
-        return view('stats');
+        return view('stats.index');
     }
 
     /**
@@ -36,7 +36,7 @@ class StatsController extends Controller
      */
     public function deaths() {
         $data = $this->getDeathStats();
-        return view('partials.deaths')->with('data', $data);
+        return view('stats.partials.deaths')->with('data', $data);
     }
 
     /**
@@ -44,7 +44,7 @@ class StatsController extends Controller
      */
     public function kills() {
         $data = $this->getKillStats();
-        return view('partials.kills')->with('data', $data);
+        return view('stats.partials.kills')->with('data', $data);
     }
 
     /**
