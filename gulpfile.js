@@ -20,6 +20,7 @@ elixir((mix) => {
             'characters.js',
             'dungeons.js',
             'raids.js',
+            'reputation.js',
             'stats.js',
             'tabard.js'
         ],
