@@ -17,6 +17,7 @@ elixir((mix) => {
     mix.sass('app.scss')
        .webpack('app.js');
     mix.scripts([
+            'auctions.js',
             'characters.js',
             'dungeons.js',
             'raids.js',
