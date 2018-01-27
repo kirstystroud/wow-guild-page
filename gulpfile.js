@@ -17,6 +17,7 @@ elixir((mix) => {
     mix.sass('app.scss')
        .webpack('app.js');
     mix.scripts([
+            'stats.js',
             'tabard.js'
         ],
         'public/js/wow.js','resources/assets/js'
