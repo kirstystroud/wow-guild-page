@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table table-hover">
     <thead>
         <th>Character</th>
         <th>Quests Completed</th>

@@ -18,7 +18,7 @@ class QuestsController extends Controller {
     public function get() {
         $characters = Character::orderBy('name', 'asc')->get();
         $categories = Category::orderBy('name', 'asc')->get();
-        return view('quests')->with('characters', $characters)->with('categories', $categories);
+        return view('quests.index')->with('characters', $characters)->with('categories', $categories);
     }
 
     /**
