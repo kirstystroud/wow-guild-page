@@ -235,6 +235,9 @@ class BlizzardApi {
         } catch (GuzzleHttp\Exception\ClientException $e) {
             // error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
             return false;
+        } catch (GuzzleHttp\Exception\ServerException $e) {
+            // error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
+            return false;
         } catch (Exception $e) {
             // error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
             return false;
