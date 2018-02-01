@@ -43,6 +43,7 @@ class CheckAuctionHouse extends Command {
 
         // Pull down file from remote and put into auctions.json so have local copy
         $auctionDataRemote = BlizzardApi::getAuctionDataUrl();
+        if (!$auctionDataRemote) return false;  // Failure from API
         $auctionData = file_get_contents($auctionDataRemote);
         file_put_contents($filePath, $auctionData);
 
@@ -101,6 +102,7 @@ class CheckAuctionHouse extends Command {
         $item = Item::where('id_ext', $data['item'])->first();
         if (!$item) {
             $itemData = BlizzardApi::getItem($data['item']);
+            if (!$itemData) return false;       // failure from API
 
             $item = new Item;
             $item->id_ext = $data['item'];
@@ -116,6 +118,7 @@ class CheckAuctionHouse extends Command {
             $pet = Pet::where('id_ext', $data['petSpeciesId'])->first();
             if (!$pet) {
                 $petData = BlizzardApi::getPetSpecies($data['petSpeciesId']);
+                if (!$petData) return false;        // failure from API
 
                 $pet = new Pet;
                 $pet->id_ext = $data['petSpeciesId'];

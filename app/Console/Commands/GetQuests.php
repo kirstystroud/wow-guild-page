@@ -65,6 +65,7 @@ class GetQuests extends Command
                 $quest = Quest::where('id_ext', $q)->first();
                 if (!$quest) {
                     $rawQuest = BlizzardApi::getQuest($q);
+                    if (!$rawQuest) continue; // failure from API
 
                     if (!isset($rawQuest['category'])) {
                         $rawQuest['category'] = '-';

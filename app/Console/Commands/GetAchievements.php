@@ -67,6 +67,7 @@ class GetAchievements extends Command
                 $achievement = Achievement::where('id_ext', $a)->first();
                 if (!$achievement) {
                     $rawAchievement = BlizzardApi::getAchievement($a);
+                    if (!$rawAchievement) continue; // failure from API
                     
                     $achievement = new Achievement;
                     $achievement->id_ext = $a;
