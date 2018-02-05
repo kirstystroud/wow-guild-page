@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Character;
 use CharacterClass;
+use CharacterQuest;
 
 use DB;
 use Illuminate\Http\Request;
 
-class StatsController extends Controller
-{
+class StatsController extends Controller {
     /**
      * Handles GET requests to /stats
      */
@@ -45,6 +45,29 @@ class StatsController extends Controller
     public function kills() {
         $data = $this->getKillStats();
         return view('stats.partials.kills')->with('data', $data);
+    }
+
+    /**
+     * Handles GET requests to /stats/dungeons
+     */
+    public function dungeons() {
+        $data = $this->getDungeonStats();
+        return view('stats.partials.dungeons')->with('data', $data);
+    }
+
+    /**
+     * Handles GET requests to /stats/raids
+     */
+    public function raids() {
+        $data = $this->getRaidStats();
+        return view('stats.partials.raids')->with('data', $data);
+    }
+
+    /**
+     * Handles GET requests to /stats/quests
+     */
+    public function dataPieQuests() {
+        return $this->getQuestsData();
     }
 
     /**
@@ -103,6 +126,43 @@ class StatsController extends Controller
     }
 
     /**
+     * Get data for pie chart of quests by class
+     */
+    protected function getQuestsData() {
+        $characters = CharacterQuest::select('character_id', 'class_id', 'classes.name AS class_name', \DB::raw('COUNT(DISTINCT quests.name) as count'))
+                            ->join('quests', 'quest_id', 'quests.id')
+                            ->join('characters', 'character_id', 'characters.id')
+                            ->join('classes', 'class_id', 'classes.id')
+                            ->groupBy('character_id')
+                            ->orderBy('count', 'desc')
+                            ->get();
+
+        // Combine for each class
+        $summary = [];
+        foreach ($characters as $char) {
+            $classId = $char['class_id'];
+            if (isset($summary[$classId])) {
+                $summary[$classId]['quests'] += $char['count'];
+            } else {
+                $summary[$classId] = [
+                    'id_ext' => $classId,
+                    'name' => $char->class_name,
+                    'quests' => $char['count']
+                ];
+            }
+        }
+
+        // Prepare for sorting
+        $values = array_values($summary);
+        // Sort by quests
+        usort($values, function($a, $b) {
+            return $b['quests'] - $a['quests'];
+        });
+
+        return $values;
+    }
+
+    /**
      * Calculate percentile from data array
      * @param {array} $data
      * @param {float} $percentile
@@ -138,5 +198,21 @@ class StatsController extends Controller
             'kdr' => $mostKills,
             'kills' => $leastKills
         ];
+    }
+
+    /**
+     * Get data on character dungeons entered for table
+     */
+    protected function getDungeonStats() {
+        $mostDungeons = Character::orderBy('dungeons_entered', 'DESC')->limit(10)->get();
+        return $mostDungeons;
+    }
+
+    /**
+     * Get data on character raids entered for table
+     */
+    protected function getRaidStats() {
+        $mostRaids = Character::orderBy('raids_entered', 'DESC')->limit(10)->get();
+        return $mostRaids;
     }
 }

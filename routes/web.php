@@ -50,5 +50,8 @@ Route::get('/auctions/data', '\App\Http\Controllers\AuctionsController@data');
 Route::get('/stats', '\App\Http\Controllers\StatsController@get');
 Route::get('/stats/data/candlestick', '\App\Http\Controllers\StatsController@dataCandlestick');
 Route::get('/stats/data/pie', '\App\Http\Controllers\StatsController@dataPie');
+Route::get('/stats/data/quests', '\App\Http\Controllers\StatsController@dataPieQuests');
 Route::get('/stats/deaths', '\App\Http\Controllers\StatsController@deaths');
 Route::get('/stats/kills', '\App\Http\Controllers\StatsController@kills');
+Route::get('/stats/dungeons', '\App\Http\Controllers\StatsController@dungeons');
+Route::get('/stats/raids', '\App\Http\Controllers\StatsController@raids');

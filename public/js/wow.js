@@ -475,16 +475,18 @@ var attachReputationEventHandlers = function() {
 $(document).ready(function() {
     // Load status
     if (window.location.pathname == '/stats') {
-        loadGraphs();
-        loadDeaths();
-        loadKills();
+        loadStatsGraphs();
+        loadStatsDeaths();
+        loadStatsKills();
+        loadStatsDungeons();
+        loadStatsRaids();
     }
 });
 
 /**
  * Load table for character deaths
  */
-var loadDeaths = function() {
+var loadStatsDeaths = function() {
     $.ajax({
         url : '/stats/deaths',
         method : 'GET',
@@ -501,7 +503,7 @@ var loadDeaths = function() {
 /**
  * Load table for character kills
  */
-var loadKills = function() {
+var loadStatsKills = function() {
     $.ajax({
         url : '/stats/kills',
         method : 'GET',
@@ -515,12 +517,47 @@ var loadKills = function() {
     });
 };
 
+/**
+ * Load table for dungeons entered
+ */
+var loadStatsDungeons = function() {
+    $.ajax({
+        url : '/stats/dungeons',
+        method : 'GET',
+        success : function(resp) {
+            $('#dungeons-entered').empty();
+            $('#dungeons-entered').append(resp);
+        },
+        error : function(err) {
+            console.log(err);
+        }
+    });
+};
+
+/**
+ * Load table for raids entered
+ */
+var loadStatsRaids = function() {
+    $.ajax({
+        url : '/stats/raids',
+        method : 'GET',
+        success : function(resp) {
+            $('#raids-entered').empty();
+            $('#raids-entered').append(resp);
+        },
+        error : function(err) {
+            console.log(err);
+        }
+    });
+};
+
 
 
 /**
  * Load stats for graphs
  */
-var loadGraphs = function() {
+var loadStatsGraphs = function() {
+    // Candlestick
     $.ajax({
         url : '/stats/data/candlestick',
         method : 'GET',
@@ -531,8 +568,9 @@ var loadGraphs = function() {
             console.log(err);
         }
     });
+    // Kills pie chart
     $.ajax({
-        url: '/stats/data/pie',
+        url : '/stats/data/pie',
         method : 'GET',
         success : function(resp) {
             drawPieChart(resp);
@@ -541,8 +579,22 @@ var loadGraphs = function() {
             console.log(err);
         }
     });
+    // Quests pie chart
+    $.ajax({
+        url : '/stats/data/quests',
+        method : 'GET',
+        success : function(resp) {
+            drawQuestsPieChart(resp);
+        },
+        error : function(err) {
+            console.log(err);
+        }
+    });
 };
 
+/**
+ * Build candlestick chart from response data
+ */
 var drawChart = function(respData) {
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawCandlestickChart);
@@ -667,11 +719,14 @@ var drawChart = function(respData) {
     };
 };
 
+/**
+ * Build kills pie chart from data
+ */
 var drawPieChart = function(respData) {
     google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawPieChart);
+    google.charts.setOnLoadCallback(drawPieChartInternal);
 
-    function drawPieChart() {
+    function drawPieChartInternal() {
 
         var colorMap = {
             1 : '#c69b6d', // Warrior
@@ -721,9 +776,68 @@ var drawPieChart = function(respData) {
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('stats-pie-div'));
-
         chart.draw(data, options);
     };
+};
+
+var drawQuestsPieChart = function(respData) {
+
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawQuestsPieChartInternal);
+
+    function drawQuestsPieChartInternal() {
+
+        var colorMap = {
+            1 : '#c69b6d', // Warrior
+            2 : '#f48cba', // Paladin
+            3 : '#aad372', // Hunter
+            4 : '#fff468', // Rogue
+            5 : 'white', // Priest
+            6 : '#c41e3b', // Death Knight
+            7 : '#2359ff', // Shaman
+            8 : '#68ccef', // Mage
+            9 : '#9382c9', // Warlock
+            10 : '#00ffba', // Monk
+            11 : '#ff7c0a', // Druid
+            12 : '#a330c9', // Demon Hunter
+        };
+
+        var rawData = [];
+        var sliceData = {};
+        rawData.push(['Class', 'Quests Completed']);
+        $.each(respData, function(k, v) {
+            rawData.push([v.name, parseInt(v.quests)]);
+            sliceData[k] = { 'color' : colorMap[ v['id_ext'] ] };
+        });
+
+        var data = google.visualization.arrayToDataTable(rawData);
+
+        var options = {
+            title: 'Quests Completed by Class',
+            titlePosition : 'out',
+            titleTextStyle : {
+                color : '#f5eBd1',
+                fontSize : 18
+            },
+            backgroundColor : {
+                stroke : '#f5eBd1',
+                fill : '#231207'
+            },
+            slices : sliceData,
+            legend : {
+                textStyle : {
+                    color : '#f5eBd1'
+                }
+            },
+            tooltip : {
+                isHtml : true
+            }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('stats-pie-quests-div'));
+        chart.draw(data, options);
+    };
+
 };
 
 $(document).ready(function() {

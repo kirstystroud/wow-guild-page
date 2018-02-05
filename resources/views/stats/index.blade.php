@@ -8,11 +8,32 @@
         <div class="panel-body" id="panel-stats" >
             <div class="row">
                 <div class="col-md-6">
-                    <div id="stats-div" style="width:100%;min-width:500px;height:400px;"></div>
-                    <div id="stats-pie-div" style="width:100%;min-width:500px;height:500px"></div>
+                    <div id="stats-div" style="width:100%;min-width:500px;height:400px;">
+                        Loading class levels ...
+                    </div>
+                    <div id="stats-pie-div" style="width:100%;min-width:500px;height:500px">
+                        Loading class kills ...
+                    </div>
                 </div>
-                <div class="col-md-3" id="most-deaths"></div>
-                <div class="col-md-3" id="most-kills"></div>
+                <div class="col-md-3" id="most-deaths">
+                    Loading character deaths ...
+                </div>
+                <div class="col-md-3" id="most-kills">
+                    Loading character kills ...
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3" id="dungeons-entered">
+                    Loading character dungeons ...
+                </div>
+                <div class="col-md-3" id="raids-entered">
+                    Loading character raids ...
+                </div>
+                <div class="col-md-6">
+                    <div id="stats-pie-quests-div" style="width:100%;min-width:500px;height:500px">
+                        Loading class quests ...
+                    </div>
+                </div>
             </div>
         </div>
     </div>
