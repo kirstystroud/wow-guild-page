@@ -83,12 +83,24 @@ class GetStatistics extends Command
             }
 
             $dungeonsEntered = $data['statistics']['subCategories'][5]['statistics'][0]['quantity'];
+            $raidsEntered = $data['statistics']['subCategories'][5]['statistics'][1]['quantity']
+                    + $data['statistics']['subCategories'][5]['statistics'][2]['quantity'];
+
             if (!$dungeonsEntered) {
                 $dungeonsEntered = 0;
             }
+            if (!$raidsEntered) {
+                $raidsEntered = 0;
+            }
+
             if ($char->dungeons_entered != $dungeonsEntered) {
                 Log::info($char->name . ' has now entered ' . $dungeonsEntered . ' dungeon(s)');
                 $char->dungeons_entered = $dungeonsEntered;
+            }
+
+            if ($char->raids_entered != $raidsEntered) {
+                Log::info($char->name . ' has now entered ' . $raidsEntered . ' raid(s)');
+                $char->raids_entered = $raidsEntered;
             }
 
             $char->save();
