@@ -52,6 +52,7 @@ class GetStatistics extends Command
 
             $deaths = $data['statistics']['subCategories'][3]['statistics'][0]['quantity'];
             $kills = $data['statistics']['subCategories'][2]['statistics'][0]['quantity'];
+
             if (!$kills) {
                 $kills = 0;
             }
@@ -79,6 +80,15 @@ class GetStatistics extends Command
             if ($char->kdr != $kdr) {
                 // Log::info($char->name . '\'s KDR has changed from ' . $char->kdr . ' to ' . $kdr);
                 $char->kdr = $kdr;
+            }
+
+            $dungeonsEntered = $data['statistics']['subCategories'][5]['statistics'][0]['quantity'];
+            if (!$dungeonsEntered) {
+                $dungeonsEntered = 0;
+            }
+            if ($char->dungeons_entered != $dungeonsEntered) {
+                Log::info($char->name . ' has now entered ' . $dungeonsEntered . ' dungeon(s)');
+                $char->dungeons_entered = $dungeonsEntered;
             }
 
             $char->save();
