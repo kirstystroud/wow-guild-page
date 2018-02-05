@@ -6,9 +6,9 @@
         <th>Character</th>
         <th>Kills</th>
     </thead>
-    </tbody>
+    <tbody>
         @foreach($data['kills'] as $char)
-            <tr class="members-tr-{{ $char->character_class->id_ext }}">
+            <tr>
                 <td>
                     @include('partials.character-link', [ 'character' => $char , 'title' => true ])
                 </td>
@@ -28,7 +28,7 @@
     </thead>
     </tbody>
         @foreach($data['kdr'] as $char)
-            <tr class="members-tr-{{ $char->character_class->id_ext }}">
+            <tr>
                 <td>
                     @include('partials.character-link', [ 'character' => $char , 'title' => true ])
                 </td>

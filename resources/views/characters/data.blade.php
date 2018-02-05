@@ -51,7 +51,7 @@
     </thead>
     <tbody>
         @foreach($characters as $character)
-            <tr class="members-tr members-tr-{{ $character->character_class->id_ext }}">
+            <tr>
                 <td>@include('partials.character-link', [ 'character' => $character , 'omitLevel' => true ])</td>
                 <td>{{ $character->level }}</td>
                 <td>

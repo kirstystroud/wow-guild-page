@@ -6,9 +6,9 @@
         <th>Character</th>
         <th>Deaths</th>
     </thead>
-    </tbody>
+    <tbody>
         @foreach($data['mostDeaths'] as $char)
-            <tr class="members-tr-{{ $char->character_class->id_ext }}">
+            <tr>
                 <td>
                     @include('partials.character-link', [ 'character' => $char , 'title' => true ])
                 </td>
@@ -20,7 +20,7 @@
             <td>....</td>
         </tr>
         @foreach($data['leastDeaths'] as $char)
-            <tr class="members-tr-{{ $char->character_class->id_ext }}">
+            <tr>
                 <td>
                     @include('partials.character-link', [ 'character' => $char , 'title' => true ])
                 </td>

@@ -32,7 +32,7 @@
                                     <th>Skill</th>
                                 </thead>
                                 @foreach($profession->getCharacterData() as $char)
-                                    <tr class="members-tr-{{ $char->character_class->id_ext }} char-{{ $char->id }}">
+                                    <tr>
                                         <td>@include('partials.character-link', [ 'character' => $char ])</td>
                                         <td>{{ $char->skill }}</td>
                                     </tr>

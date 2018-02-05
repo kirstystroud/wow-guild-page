@@ -16,7 +16,7 @@
         </thead>
         <tbody>
             @foreach($dungeon->getAvailableChars() as $char)
-                <tr class="members-tr-{{ $char->character_class->id_ext }} char-{{ $char->id }}">
+                <tr>
                     <td>@include('partials.character-link', [ 'character' => $char ])</td>
                     <td class="td-yes">Yes</td>
                     @if($char->canTank())

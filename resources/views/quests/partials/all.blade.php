@@ -6,7 +6,7 @@
     <tbody>
         @foreach($characters as $char)
             @if($char->character['name'])
-                <tr class="members-tr">
+                <tr>
                     <td>@include('partials.character-link', [ 'character' => $char->character ])</td>
                     <td character-id="{{ $char->character['id'] }}" category-id="0" class="td-category">
                         <a href="/">
