@@ -41,9 +41,20 @@ class AuctionFilter extends Filter {
         return $this->_builder;
     }
 
-    public function sort($sortBy){
-        $sortBy = explode(" ", $sortBy);
-        $this->_builder->orderBy($sortBy[0], $sortBy[1]);
+    public function sort($sort){
+
+        // Check which keys are set
+        $sortKeys = array_keys($sort);
+
+        switch($sortKeys[0]) {
+            case 'item' :
+                // handle item sorting - currently assumes has pet
+                $this->_builder->join('pets', 'pets.id', 'auctions.pet_id')->orderBy('pets.name', $sort[$sortKeys[0]]);
+                break;
+            default :
+                $this->_builder->orderBy($sortKeys[0], $sort[$sortKeys[0]]);
+        }
+
         return $this->_builder;
     }
 

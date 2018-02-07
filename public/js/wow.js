@@ -30,32 +30,31 @@ var attachAuctionsEventHandlers = function() {
         var href = $(this).attr('href');
         $(this).removeAttr('href');
 
-        // Pull data out of form
-        var data = {
-            item : $('#item').val(),
-            status : $('#status').val(),
-            time : $('#time').val(),
-            sold : $('#sold').is(':checked')
-        };
-
-        $.ajax({
-            url : href,
-            method : 'GET',
-            data : data,
-            success : function(resp) {
-                $('#auctions-panel').empty();
-                $('#auctions-panel').append(resp);
-                attachAuctionsEventHandlers();
-            },
-            error : function(err) {
-                console.log(err);
-            }
-        });
+        performSearch(href);
     });
 
     // Auctions searching
     $('#wow-button-auctions-search').click(function(event) {
+        performSearch('/auctions/data');
+    });
 
+    // Auctions filtering
+    $('.table-sort').click(function(event) {
+        var splitId = $(this).parent().attr('id').split('th-');
+        var sortName = splitId[1]
+        var order = $(this).find('span').attr('sort');
+
+        var newSort = 'asc';
+        if (order == 'asc') {
+            newSort = 'desc';
+        }
+
+        var sortingInfo = {};
+        sortingInfo[sortName] = newSort;
+        performSearch('/auctions/data', sortingInfo)
+    });
+
+    var performSearch = function(url, sort) {
         // Pull data out of form before resetting view
         var data = {
             item : $('#item').val(),
@@ -64,11 +63,19 @@ var attachAuctionsEventHandlers = function() {
             sold : $('#sold').is(':checked')
         };
 
-        $('#auctions-search-modal').modal('hide');
-        $('#auctions-panel').empty();
-        $('#auctions-panel').append('Loading ...');
+        if (sort) {
+            data.sort = sort;
+        }
+
+        // Show loading screen if not doing pagination
+        if (url == '/auctions/data') {
+            $('#auctions-search-modal').modal('hide');
+            $('#table-container').empty();
+            $('#table-container').append('Loading ...');
+        }
+
         $.ajax({
-            url : '/auctions/data',
+            url : url,
             method : 'GET',
             data : data,
             success : function(resp) {
@@ -80,7 +87,7 @@ var attachAuctionsEventHandlers = function() {
                 console.log(err);
             }
         });
-    });
+    };
 };
 
 $(document).ready(function() {
@@ -126,7 +133,7 @@ var attachCharacterEventHandlers = function() {
         }
 
         var sortingInfo = {};
-        sortingInfo[sortName] = newSort
+        sortingInfo[sortName] = newSort;
 
         loadCharactersTab({ sort : sortingInfo });
     });

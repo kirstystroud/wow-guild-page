@@ -41,7 +41,7 @@ var attachCharacterEventHandlers = function() {
         }
 
         var sortingInfo = {};
-        sortingInfo[sortName] = newSort
+        sortingInfo[sortName] = newSort;
 
         loadCharactersTab({ sort : sortingInfo });
     });
