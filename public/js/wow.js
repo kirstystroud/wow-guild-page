@@ -60,7 +60,8 @@ var attachAuctionsEventHandlers = function() {
             item : $('#item').val(),
             status : $('#status').val(),
             time : $('#time').val(),
-            sold : $('#sold').is(':checked')
+            sold : $('#sold').is(':checked'),
+            active : $('#active').is(':checked')
         };
 
         if (sort) {

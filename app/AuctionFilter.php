@@ -22,7 +22,7 @@ class AuctionFilter extends Filter {
 
     public function sold($sold = false) {
         if ($sold && ($sold != 'false')) {
-            $this->_builder->where('sell_price', 'IS NOT NULL');
+            $this->_builder->whereNotNull('sell_price');
         }
         return $this->_builder;
     }
@@ -30,6 +30,13 @@ class AuctionFilter extends Filter {
     public function status($status) {
         if ($status != Auction::STATUS_UNKNOWN) {
             $this->_builder->where('status', $status);
+        }
+        return $this->_builder;
+    }
+
+    public function active($active) {
+        if ($active && ($active != 'false')) {
+            $this->_builder->where('time_left', '<>', Auction::TIME_LEFT_NONE);
         }
         return $this->_builder;
     }

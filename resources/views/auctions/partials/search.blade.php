@@ -25,6 +25,15 @@
                             @endif
                         </label>
                     </div>
+                    <div class="checkbox">
+                        <label for="active" class="checkbox-inline">
+                            @if(isset($filters['active']) && ($filters['active']) && ($filters['active'] != 'false'))
+                                <input type="checkbox" id="active" checked="checked">Active</input>
+                            @else
+                                <input type="checkbox" id="active">Active</input>
+                            @endif
+                        </label>
+                    </div>
                     <div class="form-group">
                         <label for="status">Status</label>
                         <select id="status" class="form-control" name="status">
