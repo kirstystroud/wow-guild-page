@@ -18,7 +18,7 @@ abstract class Filter {
 
         foreach ($this->filters() as $name => $value) {
             if(method_exists($this, $name)) {
-                if (trim($value) || (trim($value) === "0") || (trim($value) === 0)) {
+                if (is_array($value) || trim($value) || (trim($value) === "0") || (trim($value) === 0)) {
                     $this->$name($value);
                 } else {
                     $this->$name();

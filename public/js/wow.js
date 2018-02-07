@@ -86,7 +86,7 @@ var attachAuctionsEventHandlers = function() {
 $(document).ready(function() {
     // Load characters data
     if (window.location.pathname == '/characters') {
-        loadCharactersTab({ sort : 0 });
+        loadCharactersTab();
     }
 });
 
@@ -818,7 +818,7 @@ var drawPieChartFromConfig = function(rawData, sliceData, config) {
 
         var chart = new google.visualization.PieChart(document.getElementById(config.div));
         chart.draw(data, options);
-    }; 
+    };
 };
 
 $(document).ready(function() {

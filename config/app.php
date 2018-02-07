@@ -253,6 +253,7 @@ return [
 
         // WoW Filters
         'AuctionFilter' => App\AuctionFilter::class,
+        'CharacterFilter' => App\CharacterFilter::class,
         'Filter' => App\Filter::class,
 
         // WoW Utilities

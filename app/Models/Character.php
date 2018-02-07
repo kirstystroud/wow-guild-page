@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use CharacterFilter;
+
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
@@ -46,6 +48,12 @@ class Character extends Model {
         return $this->hasMany(CharacterQuest::class);
     }
 
+
+    // Enable filtering
+
+    public function scopeFilter($builder, CharacterFilter $filters) {
+        return $filters->apply($builder);
+    }
 
 
     // Public helper functions

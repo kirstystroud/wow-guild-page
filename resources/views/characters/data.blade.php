@@ -1,53 +1,11 @@
 <table class="table table-hover">
     <thead>
-        <th id="th-name" class="members-th">
-            <a href="#" class="table-sort" sort="name">
-                Name
-                @if(isset($sorting['name']))
-                    @include('partials.sort-icon', ['sort' => $sorting['name']])
-                @endif
-            </a>
-        </th>
-        <th id="th-level" class="members-th">
-            <a href="#" class="table-sort" sort="level">
-                Level
-                @if(isset($sorting['level']))
-                    @include('partials.sort-icon', ['sort' => $sorting['level']])
-                @endif
-            </a>
-        </th>
-        <th id="th-class" class="members-th">
-            <a href="#" class="table-sort" sort="class">
-                Class
-                @if(isset($sorting['class']))
-                    @include('partials.sort-icon', ['sort' => $sorting['class']])
-                @endif
-            </a>
-        </th>
-        <th id="th-race" class="members-th">
-            <a href="#" class="table-sort" sort="race">
-                Race
-                @if(isset($sorting['race']))
-                    @include('partials.sort-icon', ['sort' => $sorting['race']])
-                @endif
-            </a>
-        </th>
-        <th id="th-spec" class="members-th">
-            <a href="#" class="table-sort" sort="spec">
-                Spec
-                @if(isset($sorting['spec']))
-                    @include('partials.sort-icon', ['sort' => $sorting['spec']])
-                @endif
-            </a>
-        </th>
-        <th id="th-ilvl" class="members-th">
-            <a href="#" class="table-sort" sort="ilvl">
-                iLvl
-                @if(isset($sorting['ilvl']))
-                    @include('partials.sort-icon', ['sort' => $sorting['ilvl']])
-                @endif
-            </a>
-        </th>
+        @include('partials.th-sort-heading', [ 'label' => 'Name', 'key' => 'name' ])
+        @include('partials.th-sort-heading', [ 'label' => 'Level', 'key' => 'level' ])
+        @include('partials.th-sort-heading', [ 'label' => 'Class', 'key' => 'class' ])
+        @include('partials.th-sort-heading', [ 'label' => 'Race', 'key' => 'race' ])
+        @include('partials.th-sort-heading', [ 'label' => 'Spec', 'key' => 'spec' ])
+        @include('partials.th-sort-heading', [ 'label' => 'iLvl', 'key' => 'ilvl' ])
     </thead>
     <tbody>
         @foreach($characters as $character)

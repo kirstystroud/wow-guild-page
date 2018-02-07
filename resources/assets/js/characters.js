@@ -1,7 +1,7 @@
 $(document).ready(function() {
     // Load characters data
     if (window.location.pathname == '/characters') {
-        loadCharactersTab({ sort : 0 });
+        loadCharactersTab();
     }
 });
 
