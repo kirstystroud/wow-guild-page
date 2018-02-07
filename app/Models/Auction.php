@@ -19,6 +19,7 @@ class Auction extends Model {
     const POLL_STATUS_PROCESSED = 1;
 
     const TIME_LEFT_UNKNOWN = -5;
+    const TIME_LEFT_NONE = -1;
     const TIME_LEFT_VERY_LONG = 0;
     const TIME_LEFT_LONG = 1;
     const TIME_LEFT_MEDIUM = 2;
@@ -58,7 +59,8 @@ class Auction extends Model {
             self::TIME_LEFT_VERY_LONG => 'Very Long',
             self::TIME_LEFT_LONG => 'Long',
             self::TIME_LEFT_MEDIUM => 'Medium',
-            self::TIME_LEFT_SHORT => 'Short'
+            self::TIME_LEFT_SHORT => 'Short',
+            self::TIME_LEFT_NONE => '-'
         ];
     }
 
@@ -155,11 +157,11 @@ class Auction extends Model {
         $sinceLastUpdated = strtotime(time()) - strtotime($this->date_last_seen);
 
         switch($this->time_left) {
-            case Auction::TIME_LEFT_SHORT :
+            case self::TIME_LEFT_SHORT :
                 // Short time left, have to assume expired
                 $timedOut = true;
                 break;
-            case Auction::TIME_LEFT_MEDIUM :
+            case self::TIME_LEFT_MEDIUM :
                 // 30min - 2hr to go
                 if ($sinceLastUpdated > 1800) {
                     // not heard in last half hour, have to assume timed out
@@ -169,7 +171,7 @@ class Auction extends Model {
                     $wentToBuyout = true;
                 }
                 break;
-            case Auction::TIME_LEFT_LONG :
+            case self::TIME_LEFT_LONG :
                 // 2-12 hr to go
                 if ($sinceLastUpdated > 7200) {
                     // Not heard in last two hours, have to assume timed out
@@ -178,7 +180,7 @@ class Auction extends Model {
                     $wentToBuyout = true;
                 }
                 break;
-            case Auction::TIME_LEFT_VERY_LONG :
+            case self::TIME_LEFT_VERY_LONG :
                 // Over 12 hr to go
                 if ($sinceLastUpdated > 43200) {
                     // Not heard in last 12 hours, have to assume timed out
@@ -193,19 +195,19 @@ class Auction extends Model {
 
         if ($wentToBuyout) {
             // Update with buyout price
-            $this->status = Auction::STATUS_SOLD;
+            $this->status = self::STATUS_SOLD;
             // Account for auctions with no buyout price
             $this->sell_price = $this->buyout ? $this->buyout : $this->bid;
             Log::debug('Auction for ' . $name . ' has been bought out for ' . $this->buyoutToGold());
         } elseif ($timedOut) {
-            if ($this->status == Auction::STATUS_SELLING) {
+            if ($this->status == self::STATUS_SELLING) {
                 // Assume auction went for latest bid
-                $this->status = Auction::STATUS_SOLD;
+                $this->status = self::STATUS_SOLD;
                 $this->sell_price = $this->bid;
                 Log::debug('Auction for ' . $name . ' has sold for ' . $this->bidToGold());
             } else {
                 // Assume auction expired
-                $this->status = Auction::STATUS_ENDED;
+                $this->status = self::STATUS_ENDED;
                 Log::debug('Auction for ' . $name . ' has expired');
             }
         } else {
@@ -213,7 +215,8 @@ class Auction extends Model {
         }
 
         // Update poll status
-        $this->poll_status = Auction::POLL_STATUS_ENDED;
+        $this->poll_status = self::POLL_STATUS_ENDED;
+        $this->time_left = self::TIME_LEFT_NONE;
         $this->save();
     }
 
