@@ -161,4 +161,31 @@ class Character extends Model {
         return $formattedResults ? $formattedResults : [];
     }
 
+    /**
+     * Get a list of categories and how many quests completed there for a character
+     */
+    public function getCategoriesByQuestsCompleted() {
+        return CharacterQuest::select('categories.name', 'categories.id AS category_id', \DB::raw('COUNT(DISTINCT quests.name) as count'))
+                ->join('quests', 'quest_id', 'quests.id')
+                ->join('categories', 'category_id', 'categories.id')
+                ->where('character_quests.character_id', $this->id)
+                ->groupBy('categories.name')
+                ->groupBy('categories.id')
+                ->orderBy('categories.name')
+                ->get();
+    }
+
+    /**
+     * Count the quests completed in a category
+     * @param {int} $categoryId
+     * @return (int) $count
+     */
+    public function countQuestsCompletedInCategory($categoryId) {
+        $count = CharacterQuest::select(\DB::raw('COUNT(DISTINCT quests.name) as count'))
+            ->join('quests', 'quest_id', 'quests.id')
+            ->where('character_quests.character_id', $this->id)
+            ->where('quests.category_id', $categoryId)
+            ->first();
+        return $count->count;
+    }
 }

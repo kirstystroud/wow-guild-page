@@ -89,6 +89,7 @@ class QuestsController extends Controller {
 
         return view('quests.partials.character-categories-compare')
                 ->with('character', $character)
+                ->with('category', $categoryId)
                 ->with('compareCharacter', $compareCharacter)
                 ->with('quests', $summary)
                 ->with('otherCharacters', $otherCharacters)
@@ -106,7 +107,10 @@ class QuestsController extends Controller {
         $characterQuests = $this->getQuestListByCharacterCategory($characterId, $categoryId);
         $otherCharacters = $this->getOtherCharacters($characterId, $categoryId);
 
-        return view('quests.partials.character-categories')->with('quests', $characterQuests)->with('otherCharacters', $otherCharacters);
+        return view('quests.partials.character-categories')
+            ->with('quests', $characterQuests)
+            ->with('category', $categoryId)
+            ->with('otherCharacters', $otherCharacters);
     }
 
     /**
@@ -151,14 +155,7 @@ class QuestsController extends Controller {
      * @param {int} $characterId
      */
     protected function searchByCharacter($characterId) {
-        $characterQuests = CharacterQuest::select('categories.name', 'categories.id AS category_id', \DB::raw('COUNT(DISTINCT quests.name) as count'))
-                            ->join('quests', 'quest_id', 'quests.id')
-                            ->join('categories', 'category_id', 'categories.id')
-                            ->where('character_quests.character_id', $characterId)
-                            ->groupBy('categories.name')
-                            ->groupBy('categories.id')
-                            ->orderBy('categories.name')
-                            ->get();
+        $characterQuests = Character::find($characterId)->getCategoriesByQuestsCompleted();
         return view('quests.partials.characters')->with('categories', $characterQuests)->with('character_id', $characterId);
     }
 
@@ -168,14 +165,7 @@ class QuestsController extends Controller {
      * @param {int} $categoryId
      */
     protected function searchByCategory($categoryId) {
-        $characterQuests = CharacterQuest::select('characters.name', 'characters.id AS character_id', \DB::raw('COUNT(DISTINCT quests.name) as count'))
-                            ->join('quests', 'quest_id', 'quests.id')
-                            ->join('characters', 'character_id', 'characters.id')
-                            ->where('quests.category_id', $categoryId)
-                            ->groupBy('characters.name')
-                            ->groupBy('characters.id')
-                            ->orderBy('characters.name')
-                            ->get();
+        $characterQuests = Category::find($categoryId)->getCharactersByQuestsCompleted();
         return view('quests.partials.categories')->with('characters', $characterQuests)->with('category_id', $categoryId);
     }
 
