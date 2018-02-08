@@ -19,6 +19,8 @@ Homestead.yaml
 /public/hot
 /public/storage
 /public/images/*.png
+/public/js/*.js*
+/public/css/*.css*
 
 # Config
 .env
