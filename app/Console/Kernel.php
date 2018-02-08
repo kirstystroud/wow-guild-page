@@ -44,6 +44,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('get:quests')->dailyAt('13:00');
         $schedule->command('get:achievements')->dailyAt('14:00');
         $schedule->command('get:reputation')->dailyAt('15:00');
+        $schedule->command('get:pets')->dailyAt('16:00');
 
         // Hourly commands
         $schedule->command('get:characters')->hourlyAt(10);
