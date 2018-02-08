@@ -196,4 +196,16 @@ class Character extends Model {
             ->first();
         return $count->count;
     }
+
+    /**
+     * Does this character own a pet
+     * @param {int} $petId
+     * @return {bool}
+     */
+    public function doesOwnPet($petId) {
+        $count = CharacterPet::where('character_id', $this->id)
+                ->where('pet_id', $petId)
+                ->count();
+        return (bool) $count;
+    }
 }

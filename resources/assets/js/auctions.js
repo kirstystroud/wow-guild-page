@@ -33,6 +33,11 @@ var attachAuctionsEventHandlers = function() {
         performSearch(href);
     });
 
+    // Character select change
+    $('#auction-char-select').change(function() {
+        performSearch('/auctions/data');
+    });
+
     // Auctions searching
     $('#wow-button-auctions-search').click(function(event) {
         performSearch('/auctions/data');
@@ -61,7 +66,8 @@ var attachAuctionsEventHandlers = function() {
             status : $('#status').val(),
             time : $('#time').val(),
             sold : $('#sold').is(':checked'),
-            active : $('#active').is(':checked')
+            active : $('#active').is(':checked'),
+            character : $('#auction-char-select').val()
         };
 
         if (sort) {
