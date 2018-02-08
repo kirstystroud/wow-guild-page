@@ -234,6 +234,7 @@ return [
         'CharacterAchievement' => App\Models\CharacterAchievement::class,
         'CharacterClass' => App\Models\CharacterClass::class,
         'CharacterDungeon' => App\Models\CharacterDungeon::class,
+        'CharacterPet' => App\Models\CharacterPet::class,
         'CharacterProfession' => App\Models\CharacterProfession::class,
         'CharacterQuest' => App\Models\CharacterQuest::class,
         'CharacterRecipe' => App\Models\CharacterRecipe::class,

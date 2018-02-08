@@ -23,6 +23,7 @@ class Kernel extends ConsoleKernel
         Commands\GetRaids::class,
         Commands\GetQuests::class,
         Commands\GetAchievements::class,
+        Commands\GetPets::class,
         Commands\CheckAuctionHouse::class,
         Commands\SchedulerDaemon::class
     ];
