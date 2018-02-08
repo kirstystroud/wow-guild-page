@@ -1,18 +1,31 @@
+# Third party modules
 /node_modules
-/public/hot
-/public/storage
-/public/images/*.png
-/storage/*.key
+npm-debug.log
 /vendor
-/.idea
+yarn-error.log
+
+# Homestead
 /.vagrant
 Homestead.json
 Homestead.yaml
-npm-debug.log
-yarn-error.log
-.env
+
+# PHP Storm
+/.idea
 
 #sublime files
 *.sublime-*
 
+# Public
+/public/hot
+/public/storage
+/public/images/*.png
+
+# Config
+.env
+
+# Storage
+/storage/*.key
+
+# Debug files
 auctions.json
+achievements.json
