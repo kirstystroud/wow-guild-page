@@ -1,49 +1,65 @@
 $(document).ready(function() {
     // Load characters data
     if (window.location.pathname == '/characters') {
-        loadCharactersTab();
+        var ch = new CharactersHandler().init();
     }
 });
 
 /**
- * Load characters table and populate with ajax data
- * @param sortData details on any sorting required
+ * Class to handle all functionality related to characters page
  */
-var loadCharactersTab = function(sortData) {
-    $.ajax({
-        url : '/characters/data',
-        method : 'GET',
-        data : sortData,
-        success : function(resp) {
-            $('#guild-members-list').empty();
-            $('#guild-members-list').append(resp);
+function CharactersHandler() {
 
-            attachCharacterEventHandlers();
-        },
-        error : function(err) {
-            console.log(err);
-        }
-    });
-};
+    /**
+     * Public function for performing initial setup
+     */
+    this.init = function() {
+        loadCharactersTab();
+    };
 
-var attachCharacterEventHandlers = function() {
-    $('[data-toggle="tooltip"]').tooltip();
+    /**
+     * Load characters table and populate with ajax data
+     * @param sortData details on any sorting required
+     */
+    var loadCharactersTab = function(sortData) {
+        $.ajax({
+            url : '/characters/data',
+            method : 'GET',
+            data : sortData,
+            success : function(resp) {
+                $('#guild-members-list').empty();
+                $('#guild-members-list').append(resp);
 
-    // Sorting icons
-    $('#guild-members-list th').click(function() {
-        var splitId = $(this).attr('id').split('th-');
-        var sortName = splitId[1]
-        var order = $(this).find('span').attr('sort');
+                attachCharacterEventHandlers();
+            },
+            error : function(err) {
+                console.log(err);
+            }
+        });
+    };
 
-        var newSort = 'asc';
-        if (order == 'asc') {
-            newSort = 'desc';
-        }
+    /**
+     * Attach event handlers required for characters page
+     */
+    var attachCharacterEventHandlers = function() {
+        $('[data-toggle="tooltip"]').tooltip();
 
-        var sortingInfo = {};
-        sortingInfo[sortName] = newSort;
+        // Sorting icons
+        $('#guild-members-list th').click(function() {
+            var splitId = $(this).attr('id').split('th-');
+            var sortName = splitId[1]
+            var order = $(this).find('span').attr('sort');
 
-        loadCharactersTab({ sort : sortingInfo });
-    });
+            var newSort = 'asc';
+            if (order == 'asc') {
+                newSort = 'desc';
+            }
 
+            var sortingInfo = {};
+            sortingInfo[sortName] = newSort;
+
+            loadCharactersTab({ sort : sortingInfo });
+        });
+
+    };
 };
