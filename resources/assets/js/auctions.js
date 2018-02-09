@@ -1,10 +1,3 @@
-$(document).ready(function() {
-    // Load auctions
-    if (window.location.pathname == '/auctions') {
-        var ah = new AuctionHandler().init();
-    }
-});
-
 /**
  * Class to handle all functionality related to auctions page
  */

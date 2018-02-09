@@ -1,12 +1,3 @@
-$(document).ready(function() {
-    if (window.location.pathname == '/quests') {
-        var qh = new QuestHandler().init();
-    }
-});
-
-
-
-
 /**
  * Class to handle all js functionality on quests page
  */

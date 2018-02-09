@@ -1,10 +1,3 @@
-$(document).ready(function() {
-    // Load raids
-    if (window.location.pathname == '/raids') {
-        var rh = new RaidHandler().init();
-    }
-});
-
 /**
  * Class for handling js operations on raids page
  */

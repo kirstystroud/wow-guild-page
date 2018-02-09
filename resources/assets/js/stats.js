@@ -1,10 +1,3 @@
-$(document).ready(function() {
-    // Load status
-    if (window.location.pathname == '/stats') {
-        var sh = new StatsHandler().init();
-    }
-});
-
 /**
  * Class for handling all js functionality on stats page
  */

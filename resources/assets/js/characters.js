@@ -1,10 +1,3 @@
-$(document).ready(function() {
-    // Load characters data
-    if (window.location.pathname == '/characters') {
-        var ch = new CharactersHandler().init();
-    }
-});
-
 /**
  * Class to handle all functionality related to characters page
  */

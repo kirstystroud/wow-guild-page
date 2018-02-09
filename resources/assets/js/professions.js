@@ -1,9 +1,3 @@
-$(document).ready(function() {
-    if (window.location.pathname == '/professions') {
-        var ph = new ProfessionsHandler().init();
-    }
-});
-
 /**
  * Class for handling all js functionality on professions page
  */

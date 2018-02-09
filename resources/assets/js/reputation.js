@@ -1,10 +1,3 @@
-$(document).ready(function() {
-    // Load reputation
-    if (window.location.pathname == '/reputation') {
-        var rh = new ReputationHandler().init();
-    }
-});
-
 /**
  * Class for handling all js functionality on reputation page
  */

@@ -1,10 +1,3 @@
-$(document).ready(function() {
-    // Load dungeons
-    if (window.location.pathname == '/dungeons') {
-        var dh = new DungeonHandler().init();
-    }
-});
-
 /**
  * Class to handle all js functionality on dungeons page
  */
