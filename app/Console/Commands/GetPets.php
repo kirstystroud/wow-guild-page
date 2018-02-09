@@ -58,7 +58,6 @@ class GetPets extends Command {
         if (!$characterPets) return false;  // failure from API
 
         Log::info('Checking ' . count($characterPets['pets']['collected']) . ' pets for ' . $character->name);
-        echo 'Checking ' . count($characterPets['pets']['collected']) . ' pets for ' . $character->name . PHP_EOL;
 
         foreach($characterPets['pets']['collected'] as $data) {
 

@@ -83,6 +83,7 @@ var attachAuctionsEventHandlers = function() {
             time : $('#time').val(),
             sold : $('#sold').is(':checked'),
             active : $('#active').is(':checked'),
+            cheapest : $('#cheapest').is(':checked'),
             character : $('#auction-char-select').val()
         };
 

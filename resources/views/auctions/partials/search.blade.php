@@ -24,13 +24,18 @@
                                 <input type="checkbox" id="sold">Sold</input>
                             @endif
                         </label>
-                    </div>
-                    <div class="checkbox">
                         <label for="active" class="checkbox-inline">
                             @if(isset($filters['active']) && ($filters['active']) && ($filters['active'] != 'false'))
                                 <input type="checkbox" id="active" checked="checked">Active</input>
                             @else
                                 <input type="checkbox" id="active">Active</input>
+                            @endif
+                        </label>
+                        <label for="cheapest" class="checkbox-inline">
+                            @if(isset($filters['cheapest']) && ($filters['cheapest']) && ($filters['cheapest'] != 'false'))
+                                <input type="checkbox" id="cheapest" checked="checked">Cheapest</input>
+                            @else
+                                <input type="checkbox" id="cheapest">Cheapest</input>
                             @endif
                         </label>
                     </div>

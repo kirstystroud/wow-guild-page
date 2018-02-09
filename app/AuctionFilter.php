@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Filter;
 use Auction;
 
@@ -41,6 +42,17 @@ class AuctionFilter extends Filter {
         return $this->_builder;
     }
 
+    public function cheapest() {
+        $this->_builder->select([
+            'pet_id',
+            DB::raw('min(buyout) as buyout'),
+            DB::raw('min(bid) as bid'),
+            DB::raw('"' . Auction::STATUS_UNKNOWN . '" AS status'),
+            DB::raw('"' . Auction::TIME_LEFT_UNKNOWN . '" AS time_left')
+        ])->groupBy('pet_id');
+        return $this->_builder;
+    }
+
     public function time($time) {
         if ($time != Auction::TIME_LEFT_UNKNOWN) {
             $this->_builder->where('time_left', $time);
@@ -66,6 +78,8 @@ class AuctionFilter extends Filter {
     }
 
     public function defaultSort(){
-        $this->_builder->orderBy('auctions.id', 'DESC');
+        if (!isset($this->filters()['cheapest']) || !$this->filters()['cheapest']) {
+            $this->_builder->orderBy('auctions.id', 'DESC');
+        }
     }
 }

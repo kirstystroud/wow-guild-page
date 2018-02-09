@@ -50,7 +50,8 @@ class Auction extends Model {
             self::STATUS_ACTIVE => 'Active',
             self::STATUS_SELLING => 'Selling',
             self::STATUS_SOLD => 'Sold',
-            self::STATUS_ENDED => 'Ended'
+            self::STATUS_ENDED => 'Ended',
+            self::STATUS_UNKNOWN => '-'
         ];
     }
 
@@ -60,7 +61,8 @@ class Auction extends Model {
             self::TIME_LEFT_LONG => 'Long',
             self::TIME_LEFT_MEDIUM => 'Medium',
             self::TIME_LEFT_SHORT => 'Short',
-            self::TIME_LEFT_NONE => '-'
+            self::TIME_LEFT_NONE => '-',
+            self::TIME_LEFT_UNKNOWN => '-'
         ];
     }
 
