@@ -17,7 +17,7 @@
                 <th>Mythic</th>
             </thead>
             @foreach($raid->getCharacterRaidData() as $row)
-                <tr>
+                <tr class="char-{{ $row->character->id }}">
                     <td>@include('partials.character-link', [ 'character' => $row->character ])</td>
                     <td>{{ $row->lfr ? $row->lfr : ' ' }}</td>
                     <td>{{ $row->normal ? $row->normal : ' ' }}</td>
