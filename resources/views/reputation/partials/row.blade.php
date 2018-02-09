@@ -14,7 +14,7 @@
         </thead>
         <tbody>
             @foreach($reputation->getCharacters() as $char)
-                <tr>
+                <tr class="char-{{ $char->character->id }}">
                     <td>
                         @include('partials.character-link', [ 'character' => $char->character ])
                     </td>

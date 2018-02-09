@@ -1,64 +1,80 @@
 $(document).ready(function() {
     // Load reputation
     if (window.location.pathname == '/reputation') {
-        loadReputation();
-        attachReputationEventHandlers();
+        var rh = new ReputationHandler().init();
     }
 });
 
 /**
- * Load content for reputations page
+ * Class for handling all js functionality on reputation page
  */
-var loadReputation = function() {
-    $.ajax({
-        url : '/reputation/data',
-        method : 'GET',
-        success : function(resp) {
-            $('#reputations-panel-group').empty();
-            $('#reputations-panel-group').append(resp);
+function ReputationHandler() {
 
-            // Loop over and pull in data
-            $.each($('#reputations-panel-group').find('.panel-pending'), function() {
-                var factionId = $(this).attr('id');
-                var splitId = factionId.split('-');
-                loadReputationRow(splitId[2]);
-            });
-        },
-        error : function(err) {
-            console.log(err);
-        }
-    });
-};
+    /**
+     * Public entry point
+     */
+    this.init = function() {
+        attachReputationEventHandlers();
+        loadReputation();
+    };
 
-/**
- * Load content for a single row on the reputations page
- */
-var loadReputationRow = function(id) {
-    $.ajax({
-        url : '/reputation/data/' + id,
-        method: 'GET',
-        success : function(resp) {
-            var $panel = $('#reputation-panel-' + id);
-            $panel.empty();
-            $panel.append(resp.view);
-            $panel.removeClass('panel-pending');
-            $panel.addClass(resp.class);
-        },
-        error : function(err) {
-            console.log(err);
-        }
-    });
-};
+    /**
+     * Load content for reputations page
+     */
+    var loadReputation = function() {
+        $.ajax({
+            url : '/reputation/data',
+            method : 'GET',
+            success : function(resp) {
+                $('#reputations-panel-group').empty();
+                $('#reputations-panel-group').append(resp);
 
-var attachReputationEventHandlers = function() {
-    // Showing reputation panels on a per-char basis
-    $('#reputation-char-select').change(function() {
-        var selected = $(this).val();
-        if (selected && (selected != '0')) {
-            $('.reputation-panel').css('display', 'none');
-            $('.char-' + selected).parents('.reputation-panel').css('display', 'block');
-        } else {
-            $('.reputation-panel').css('display', 'block');
-        }
-    });
+                // Loop over and pull in data
+                $.each($('#reputations-panel-group').find('.panel-pending'), function() {
+                    var factionId = $(this).attr('id');
+                    var splitId = factionId.split('-');
+                    loadReputationRow(splitId[2]);
+                });
+            },
+            error : function(err) {
+                console.log(err);
+            }
+        });
+    };
+
+    /**
+     * Load content for a single row on the reputations page
+     */
+    var loadReputationRow = function(id) {
+        $.ajax({
+            url : '/reputation/data/' + id,
+            method: 'GET',
+            success : function(resp) {
+                var $panel = $('#reputation-panel-' + id);
+                $panel.empty();
+                $panel.append(resp.view);
+                $panel.removeClass('panel-pending');
+                $panel.addClass(resp.class);
+            },
+            error : function(err) {
+                console.log(err);
+            }
+        });
+    };
+
+    /**
+     * Attach required event handlers
+     */
+    var attachReputationEventHandlers = function() {
+        // Showing reputation panels on a per-char basis
+        $('#reputation-char-select').change(function() {
+            var selected = $(this).val();
+            if (selected && (selected != '0')) {
+                $('.reputation-panel').css('display', 'none');
+                $('.char-' + selected).parents('.reputation-panel').css('display', 'block');
+            } else {
+                $('.reputation-panel').css('display', 'block');
+            }
+        });
+    };
 };
