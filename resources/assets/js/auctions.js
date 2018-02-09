@@ -59,6 +59,22 @@ var attachAuctionsEventHandlers = function() {
         performSearch('/auctions/data', sortingInfo)
     });
 
+    // Get current sort information
+    var getCurrentSort = function() {
+        // Do we have sort icon already there
+        var $sortIcon = $('.wow-sort');
+        if (!$sortIcon.length) return false;
+
+        // Pull out sort attributes
+        var key = $sortIcon.attr('key');
+        var direction = $sortIcon.attr('sort');
+
+        // Build up sort data
+        var sortingInfo = {};
+        sortingInfo[key] = direction;
+        return sortingInfo;
+    };
+
     var performSearch = function(url, sort) {
         // Pull data out of form before resetting view
         var data = {
@@ -72,6 +88,9 @@ var attachAuctionsEventHandlers = function() {
 
         if (sort) {
             data.sort = sort;
+        } else {
+            var currentSorting = getCurrentSort();
+            if (currentSorting) data.sort = currentSorting;
         }
 
         // Show loading screen if not doing pagination
