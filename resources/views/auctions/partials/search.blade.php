@@ -38,6 +38,13 @@
                                 <input type="checkbox" id="cheapest">Cheapest</input>
                             @endif
                         </label>
+                        <label for="notowned" class="checkbox-inline">
+                            @if(isset($filters['notowned']) && ($filters['notowned']) && ($filters['notowned'] != 'false'))
+                                <input type="checkbox" id="notowned" checked="checked">Only not owned</input>
+                            @else
+                                <input type="checkbox" id="notowned">Only not owned</input>
+                            @endif
+                        </label>
                     </div>
                     <div class="form-group">
                         <label for="status">Status</label>
