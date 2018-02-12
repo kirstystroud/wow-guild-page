@@ -68,7 +68,7 @@ class BlizzardApi {
     public static function getAuctionDataUrl() {
         $endpoint = '/wow/auction/data/' . env('WOW_REALM');
         $data = self::makeRequest($endpoint);
-        return $data['files'][0]['url'];
+        return $data['files'][0];
     }
 
 

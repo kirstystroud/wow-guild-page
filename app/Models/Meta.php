@@ -11,7 +11,8 @@ class Meta extends Model {
     // Meta keys
     const KEY_UNKNOWN = 0;
     const KEY_TABARD = 10;
-    CONST KEY_TABARD_HOOKS = 11;
+
+    const KEY_AUCTION_LAST_MODIFIED = 20;
 
     // Keys for tabard json strong
     const TABARD_ICON = 'icon';

@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 
 use Auction;
 use Item;
+use Meta;
 use Pet;
 use PetType;
 
@@ -44,7 +45,17 @@ class CheckAuctionHouse extends Command {
         // Pull down file from remote and put into auctions.json so have local copy
         $auctionDataRemote = BlizzardApi::getAuctionDataUrl();
         if (!$auctionDataRemote) return false;  // Failure from API
-        $auctionData = file_get_contents($auctionDataRemote);
+
+        $auctionDataUrl = $auctionDataRemote['url'];
+        $auctionDataLastModified = $auctionDataRemote['lastModified'];
+
+        $databaseLastModified = Meta::getMeta(Meta::KEY_AUCTION_LAST_MODIFIED);
+        if ($auctionDataLastModified == $databaseLastModified) return true; // No updates to process
+
+        // Update last modified time
+        Meta::addMeta(Meta::KEY_AUCTION_LAST_MODIFIED, $auctionDataLastModified);
+
+        $auctionData = file_get_contents($auctionDataUrl);
         file_put_contents($filePath, $auctionData);
 
         echo 'Downloaded auction data' . PHP_EOL;
