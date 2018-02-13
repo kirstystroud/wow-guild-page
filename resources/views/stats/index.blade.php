@@ -26,8 +26,8 @@
                 <div class="col-md-3" id="dungeons-entered">
                     Loading character dungeons ...
                 </div>
-                <div class="col-md-3" id="raids-entered">
-                    Loading character raids ...
+                <div class="col-md-3" id="pvp-kills">
+                    Loading pvp kills ...
                 </div>
                 <div class="col-md-6">
                     <div id="stats-pie-quests-div" style="width:100%;min-width:500px;height:500px">

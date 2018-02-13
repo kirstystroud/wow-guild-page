@@ -48,6 +48,14 @@ class StatsController extends Controller {
     }
 
     /**
+     * Handles GET requests to /stats/pvpkills
+     */
+    public function pvpKills() {
+        $data = $this->getPvpKillStats();
+        return view('stats.partials.pvp-kills')->with('data', $data);
+    }
+
+    /**
      * Handles GET requests to /stats/dungeons
      */
     public function dungeons() {
@@ -199,6 +207,15 @@ class StatsController extends Controller {
             'kills' => $leastKills
         ];
     }
+
+    /**
+     * Get data on character pvp kills for table
+     */
+    protected function getPvpKillStats() {
+        $pvpKills = Character::orderBy('pvp_kills', 'DESC')->orderBy('level', 'DESC')->orderBy('name', 'ASC')->limit(10)->get();
+        return $pvpKills;
+    }
+
 
     /**
      * Get data on character dungeons entered for table

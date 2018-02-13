@@ -10,6 +10,7 @@ function StatsHandler() {
         loadStatsGraphs();
         loadStatsDeaths();
         loadStatsKills();
+        loadStatsPvpKills();
         loadStatsDungeons();
         loadStatsRaids();
     };
@@ -26,6 +27,13 @@ function StatsHandler() {
      */
     var loadStatsKills = function() {
         loadStatsInternal('/stats/kills', $('#most-kills'));
+    };
+
+    /**
+     * Load table for pvp kills
+     */
+    var loadStatsPvpKills = function() {
+        loadStatsInternal('/stats/pvpkills', $('#pvp-kills'));
     };
 
     /**

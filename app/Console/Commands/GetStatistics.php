@@ -52,12 +52,16 @@ class GetStatistics extends Command
 
             $deaths = $data['statistics']['subCategories'][3]['statistics'][0]['quantity'];
             $kills = $data['statistics']['subCategories'][2]['statistics'][0]['quantity'];
+            $pvpKills = $data['totalHonorableKills'];
 
             if (!$kills) {
                 $kills = 0;
             }
             if (!$deaths) {
                 $deaths = 0;
+            }
+            if (!$pvpKills) {
+                $pvpKills = 0;
             }
 
             if ($deaths) {
@@ -75,6 +79,11 @@ class GetStatistics extends Command
             if ($char->deaths != $deaths) {
                 Log::info($char->name . '\'s deaths has increased from ' . ($char->deaths ? $char->deaths : 0) . ' to ' . $deaths);
                 $char->deaths = $deaths;
+            }
+
+            if($char->pvp_kills != $pvpKills) {
+                Log::info($char->name . '\'s PVP kills has increased from ' . ($char->pvp_kills ? $char->pvp_kills : 0) . ' to ' . $pvpKills);
+                $char->pvp_kills = $pvpKills;
             }
 
             if ($char->kdr != $kdr) {
