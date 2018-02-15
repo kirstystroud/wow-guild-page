@@ -93,9 +93,10 @@ class GetPets extends Command {
             }
 
             // Do we have an entry for this in our character pets table
-            $link = CharacterPet::where('pet_id', $pet->id)->where('character_id', $character->id)->first();
+            $link = CharacterPet::where('id_ext', $data['battlePetGuid'])->first();
             if (!$link) {
                 $link = new CharacterPet;
+                $link->id_ext = $data['battlePetGuid'];
                 $link->character_id = $character->id;
                 $link->pet_id = $pet->id;
                 Log::debug($character->name . ' has a new pet ' . $pet->name); 
