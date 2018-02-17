@@ -244,7 +244,7 @@ class Auction extends Model {
         $copper = $value;
 
         if ($gold) {
-            $rtn .= $gold . ' Gold, ';
+            $rtn .= number_format($gold) . ' Gold, ';
         }
 
         if ($silver || $gold) {
