@@ -14,45 +14,9 @@
                         @include('partials.filter-form.checkbox', [ 'label' => 'Active', 'key' => 'active' ])
                         @include('partials.filter-form.checkbox', [ 'label' => 'Cheapest', 'key' => 'cheapest' ])
                     </div>
-                    <div class="form-group">
-                        <label for="notowned">Only not owned by</label>
-                        <select id="notowned" class="form-control" name="notowned">
-                            <option value="0">Select ...</option>
-                            @foreach($characters as $char)
-                                @if(isset($filters['notowned']) && $filters['notowned'] == $char->id)
-                                    <option value="{{ $char->id }}" selected="selected">{{ $char->name }}</option>
-                                @else
-                                    <option value="{{ $char->id }}">{{ $char->name }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <select id="status" class="form-control" name="status">
-                            <option value="{{ Auction::STATUS_UNKNOWN }}">Select ...</option>
-                            @foreach(Auction::getStatuses() as $key => $value)
-                                @if(isset($filters['status']) && ($filters['status'] == $key))
-                                    <option value="{{ $key }}" selected="selected">{{ $value }}</option>
-                                @else
-                                    <option value="{{ $key }}">{{ $value }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="time">Time Remaining</label>
-                        <select id="time" class="form-control" name="time">
-                            <option value="{{ Auction::TIME_LEFT_UNKNOWN }}">Select ...</option>
-                            @foreach(Auction::getTimeRemaining() as $key => $value)
-                                @if(isset($filters['time']) && ($filters['time'] == $key))
-                                    <option value="{{ $key }}" selected="selected">{{ $value }}</option>
-                                @else
-                                    <option value="{{ $key }}">{{ $value }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
+                    @include('partials.filter-form.select', [ 'label' => 'Only not owned by', 'key' => 'notowned', 'data' => $characters ])
+                    @include('partials.filter-form.select', [ 'label' => 'Status', 'key' => 'status', 'data' => Auction::getStatuses(), 'default' => Auction::STATUS_UNKNOWN ])
+                    @include('partials.filter-form.select', [ 'label' => 'Time Remaining', 'key' => 'time', 'data' => Auction::getTimeRemaining(), 'default' => Auction::TIME_LEFT_UNKNOWN ])
                 </form>
                 <button type="submit" class="btn btn-search" id="wow-button-auctions-search" data-dismiss="modal">Go</button>
             </div>
