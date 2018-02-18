@@ -17,24 +17,12 @@ function AuctionHandler() {
             success : function(resp) {
                 $('#auctions-panel').empty();
                 $('#auctions-panel').append(resp);
-                attachOneOffEventHandlers();
+                attachAuctionsEventHandlers();
             },
             error : function(err) {
                 console.log(err);
             }
         });
-    };
-
-    /**
-     * Attach event handlers which should only be attached once
-     */
-    var attachOneOffEventHandlers = function() {
-        // Character select change
-        $('#auction-char-select').change(function() {
-            performSearch('/auctions/data');
-        });
-
-        attachAuctionsEventHandlers();
     };
 
     /**
@@ -104,8 +92,7 @@ function AuctionHandler() {
             sold : $('#sold').is(':checked'),
             active : $('#active').is(':checked'),
             cheapest : $('#cheapest').is(':checked'),
-            notowned : $('#notowned').is(':checked'),
-            character : $('#auction-char-select').val()
+            notowned : $('#notowned').val()
         };
 
         if (sort) {

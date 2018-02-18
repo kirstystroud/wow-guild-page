@@ -102,19 +102,14 @@ class AuctionFilter extends Filter {
      * @param {string} $notOwned
      * @return {Builder}
      */
-    public function notowned($notOwned) {
-        if ($notOwned && ($notOwned != 'false')) {
-            if (isset($this->filters()['character']) && $this->filters()['character']) {
-                $characterId = $this->filters()['character'];
-                $this->_builder->leftJoin('character_pets', function($q) use ($characterId) {
-                    // Join on specific character id
-                    $q->on('auctions.pet_id', '=', 'character_pets.pet_id')
-                        ->where('character_pets.character_id', '=', $characterId);
-                })
-                // Expect no join
-                ->whereNull('character_pets.id');
-            }
-        }
+    public function notowned($characterId) {
+        $this->_builder->leftJoin('character_pets', function($q) use ($characterId) {
+            // Join on specific character id
+            $q->on('auctions.pet_id', '=', 'character_pets.pet_id')
+                ->where('character_pets.character_id', '=', $characterId);
+        })
+        // Expect no join
+        ->whereNull('character_pets.id');
         return $this->_builder;
     }
 

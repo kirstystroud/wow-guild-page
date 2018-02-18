@@ -21,7 +21,6 @@
                     @include('partials.th-sort-heading', [ 'label' => 'Sell Price', 'key' => 'sell_price' ])
                     @include('partials.th-sort-heading', [ 'label' => 'Time Left', 'key' => 'time_left' ])
                     @include('partials.th-sort-heading', [ 'label' => 'Status', 'key' => 'status' ])
-                    <th>Owned</th>
                 </thead>
                 <tbody>
                     @foreach($auctions as $auction)
@@ -32,15 +31,6 @@
                             <td>{!! $auction->sellPriceToGoldFormatted() !!}</td>
                             <td>{{ $auction->timeLeft() }}</td>
                             <td>{{ $auction->getStatus() }}</td>
-                            @if($character)
-                                @if( $character->doesOwnPet($auction->pet_id) )
-                                    <td class="td-yes">Yes</td>
-                                @else
-                                    <td class="td-no">No</td>
-                                @endif
-                            @else
-                                <td>-</td>
-                            @endif
                         </tr>
                     @endforeach
                 </tbody>

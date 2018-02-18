@@ -11,29 +11,18 @@ use Character;
 class AuctionsController extends Controller {
     
     public function get() {
-        $characters = Character::orderBy('name', 'asc')->get();
-        return view('auctions.index')->with('characters', $characters);
+        return view('auctions.index');
     }
 
     public function data(AuctionFilter $filters) {
 
         $auctions = Auction::filter($filters)->paginate(20);
 
-        if (isset($filters->filters()['character']) && $filters->filters()['character']) {
-            $characterId = $filters->filters()['character'];
-        } else {
-            $characterId = false;
-        }
-
-        if ($characterId > 0) {
-            $character = Character::find($characterId);
-        } else {
-            $character = false;
-        }
+        $characters = $characters = Character::orderBy('name', 'asc')->get();
 
         return view('auctions.data')
             ->with('auctions', $auctions)
-            ->with('character', $character)
+            ->with('characters', $characters)
             ->with('filters', $filters->filters());
     }
 
