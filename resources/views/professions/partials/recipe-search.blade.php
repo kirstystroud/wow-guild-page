@@ -8,15 +8,7 @@
             <div class="modal-body wow-modal-body">
                 <form id="search-recipes-form">
                     @include('partials.filter-form.text', [ 'label' => 'Recipe Name', 'key' => 'name' ])
-                    <div class="form-group">
-                        <label for="profession">Profession (optional)</label>
-                        <select id="profession" class="form-control" name="profession">
-                            <option value="0">-</option>
-                            @foreach($professions as $profession)
-                                <option value="{{ $profession->id }}">{{ $profession->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    @include('partials.filter-form.select', [ 'label' => 'Profession (optional)', 'key' => 'profession', 'data' => $professions ])
                     <button type="submit" class="btn btn-search" id="wow-button-submit">Go</button>
                 </form>
                 <div id="search-recipes-result"></div>
