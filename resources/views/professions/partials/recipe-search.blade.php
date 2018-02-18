@@ -7,10 +7,7 @@
             </div>
             <div class="modal-body wow-modal-body">
                 <form id="search-recipes-form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input class="form-control" type="text" name="name" id="name" placeholder="Recipe name"></input>
-                    </div>
+                    @include('partials.filter-form.text', [ 'label' => 'Recipe Name', 'key' => 'name' ])
                     <div class="form-group">
                         <label for="profession">Profession (optional)</label>
                         <select id="profession" class="form-control" name="profession">

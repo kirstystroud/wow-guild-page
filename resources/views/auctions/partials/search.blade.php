@@ -8,36 +8,11 @@
             </div>
             <div class="modal-body wow-modal-body">
                 <form id="search-auctions-form">
-                    <div class="form-group">
-                        <label for="item">Item</label>
-                        @if(isset($filters['item']) && $filters['item'])
-                            <input type="text" id="item" class="form-control" value="{{ $filters['item'] }}"></input>
-                        @else
-                            <input type="text" id="item" class="form-control"></input>
-                        @endif
-                    </div>
+                    @include('partials.filter-form.text', [ 'label' => 'Item', 'key' => 'item' ])
                     <div class="checkbox">
-                        <label for="sold" class="checkbox-inline">
-                            @if(isset($filters['sold']) && ($filters['sold']) && ($filters['sold'] != 'false'))
-                                <input type="checkbox" id="sold" checked="checked">Sold</input>
-                            @else
-                                <input type="checkbox" id="sold">Sold</input>
-                            @endif
-                        </label>
-                        <label for="active" class="checkbox-inline">
-                            @if(isset($filters['active']) && ($filters['active']) && ($filters['active'] != 'false'))
-                                <input type="checkbox" id="active" checked="checked">Active</input>
-                            @else
-                                <input type="checkbox" id="active">Active</input>
-                            @endif
-                        </label>
-                        <label for="cheapest" class="checkbox-inline">
-                            @if(isset($filters['cheapest']) && ($filters['cheapest']) && ($filters['cheapest'] != 'false'))
-                                <input type="checkbox" id="cheapest" checked="checked">Cheapest</input>
-                            @else
-                                <input type="checkbox" id="cheapest">Cheapest</input>
-                            @endif
-                        </label>
+                        @include('partials.filter-form.checkbox', [ 'label' => 'Sold', 'key' => 'sold'])
+                        @include('partials.filter-form.checkbox', [ 'label' => 'Active', 'key' => 'active' ])
+                        @include('partials.filter-form.checkbox', [ 'label' => 'Cheapest', 'key' => 'cheapest' ])
                     </div>
                     <div class="form-group">
                         <label for="notowned">Only not owned by</label>

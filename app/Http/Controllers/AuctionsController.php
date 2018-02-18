@@ -18,7 +18,7 @@ class AuctionsController extends Controller {
 
         $auctions = Auction::filter($filters)->paginate(20);
 
-        $characters = $characters = Character::orderBy('name', 'asc')->get();
+        $characters = $characters = Character::select('id', 'name')->orderBy('name', 'asc')->get();
 
         return view('auctions.data')
             ->with('auctions', $auctions)

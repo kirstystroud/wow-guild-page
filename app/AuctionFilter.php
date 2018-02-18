@@ -103,13 +103,15 @@ class AuctionFilter extends Filter {
      * @return {Builder}
      */
     public function notowned($characterId) {
-        $this->_builder->leftJoin('character_pets', function($q) use ($characterId) {
-            // Join on specific character id
-            $q->on('auctions.pet_id', '=', 'character_pets.pet_id')
-                ->where('character_pets.character_id', '=', $characterId);
-        })
-        // Expect no join
-        ->whereNull('character_pets.id');
+        if ($characterId && $characterId !== "0") {
+            $this->_builder->leftJoin('character_pets', function($q) use ($characterId) {
+                // Join on specific character id
+                $q->on('auctions.pet_id', '=', 'character_pets.pet_id')
+                    ->where('character_pets.character_id', '=', $characterId);
+            })
+            // Expect no join
+            ->whereNull('character_pets.id');
+        }
         return $this->_builder;
     }
 
