@@ -16,6 +16,10 @@ abstract class Filter {
     public function apply(Builder $builder) {
         $this->_builder = $builder;
 
+        if (method_exists($this, 'init')) {
+            $this->init();
+        }
+
         foreach ($this->filters() as $name => $value) {
             if(method_exists($this, $name)) {
                 if (is_array($value) || trim($value) || (trim($value) === "0") || (trim($value) === 0)) {
@@ -29,7 +33,6 @@ abstract class Filter {
         if(!array_key_exists('sort', $this->filters()) && method_exists($this, 'defaultSort')) {
             $this->defaultSort();
         }
-
         return $this->_builder;
     }
     

@@ -8,6 +8,19 @@ use Auction;
 
 class AuctionFilter extends Filter {
 
+    protected function init() {
+        $this->_builder->select([
+            'pets.name AS pet_name',
+            'sell_price',
+            'buyout',
+            'bid',
+            'status',
+            'time_left'
+            ])
+            ->join('pets', 'pets.id', 'auctions.pet_id');
+        return $this->_builder;
+    }
+
     /**
      * Filter by id
      * @param {int} id
@@ -24,9 +37,7 @@ class AuctionFilter extends Filter {
      */
     public function item($item = '') {
         if (strlen($item)) {
-            $this->_builder->whereHas('pet', function($q) use ($item) {
-                $q->where('pets.name', 'LIKE', '%' . $item . '%');
-            });
+            $this->_builder->where('pets.name', 'LIKE', '%' . $item . '%');
         }
         return $this->_builder;
     }
@@ -110,7 +121,8 @@ class AuctionFilter extends Filter {
                     ->where('character_pets.character_id', '=', $characterId);
             })
             // Expect no join
-            ->whereNull('character_pets.id');
+            ->whereNull('character_pets.id')
+            ->whereNotNull('auctions.pet_id');
         }
         return $this->_builder;
     }
@@ -127,7 +139,7 @@ class AuctionFilter extends Filter {
         switch($sortKeys[0]) {
             case 'item' :
                 // handle item sorting - currently assumes has pet
-                $this->_builder->join('pets', 'pets.id', 'auctions.pet_id')->orderBy('pets.name', $sort[$sortKeys[0]]);
+                $this->_builder->orderBy('pets.name', $sort[$sortKeys[0]]);
                 break;
             default :
                 $this->_builder->orderBy($sortKeys[0], $sort[$sortKeys[0]]);

@@ -124,6 +124,8 @@ class Auction extends Model {
     public function itemName() {
         if ($this->pet_id) {
             $name = $this->pet->name;
+        } else if ($this->pet_name) {
+            $name = $this->pet_name;
         } else {
             $name = $this->item->name;
         }
