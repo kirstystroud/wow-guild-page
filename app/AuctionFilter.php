@@ -132,7 +132,6 @@ class AuctionFilter extends Filter {
      * @param {array} $sort format { 'column_name' => 'order' }
      */
     public function sort($sort){
-
         // Check which keys are set
         $sortKeys = array_keys($sort);
 
@@ -140,6 +139,11 @@ class AuctionFilter extends Filter {
             case 'item' :
                 // handle item sorting - currently assumes has pet
                 $this->_builder->orderBy('pets.name', $sort[$sortKeys[0]]);
+                break;
+            case 'sell_price' :
+                if (!isset($this->filters()['cheapest']) || !$this->filters()['cheapest'] || ($this->filters()['cheapest'] === 'false')) {
+                    $this->_builder->orderBy($sortKeys[0], $sort[$sortKeys[0]]);
+                }
                 break;
             default :
                 $this->_builder->orderBy($sortKeys[0], $sort[$sortKeys[0]]);
@@ -152,8 +156,24 @@ class AuctionFilter extends Filter {
      * Default sorting
      */
     public function defaultSort(){
-        if (!isset($this->filters()['cheapest']) || !$this->filters()['cheapest']) {
-            $this->_builder->orderBy('auctions.id', 'DESC');
+        $active = $this->isFilterSet('active');
+        $cheapest = $this->isFilterSet('cheapest');
+
+        switch(true) {
+            case !$active && !$cheapest :
+                // Nothing set, order by id
+                $this->_builder->orderBy('auctions.id', 'DESC');
+                break;
+            case $active && !$cheapest :
+                // Active, order by recent
+                $this->_builder->orderBy('pets.name');
+                break;
+            case $cheapest :
+                // Cheapest, order by sell price
+                $this->_builder->orderBy('buyout');
+                break;
+            default :
+                $this->_builder->orderBy('auctions.pet_id', 'DESC'); //always available
         }
     }
 }

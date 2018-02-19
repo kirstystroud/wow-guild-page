@@ -28,7 +28,11 @@
                             <td>{{ $auction->itemName() }}</td>
                             <td>{!! $auction->bidToGoldFormatted() !!}</td>
                             <td>{!! $auction->buyoutToGoldFormatted() !!}</td>
-                            <td>{!! $auction->sellPriceToGoldFormatted() !!}</td>
+                            @if(isset($filters['cheapest']) && $filters['cheapest'] && ($filters['cheapest'] != 'false'))
+                                @include('auctions.partials.sell-popup', [ 'auction' => $auction ])
+                            @else
+                                <td>{!! $auction->sellPriceToGoldFormatted() !!}</td>
+                            @endif
                             <td>{{ $auction->timeLeft() }}</td>
                             <td>{{ $auction->getStatus() }}</td>
                         </tr>

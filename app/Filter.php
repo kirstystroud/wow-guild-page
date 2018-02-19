@@ -43,4 +43,13 @@ abstract class Filter {
     public function filters() {
         return $this->_filters ? $this->_filters : $this->_request->all();
     }
+
+    /**
+     * Is a specific filter option set
+     * @param {string} $filter
+     * @return {bool}
+     */
+    public function isFilterSet($filter) {
+        return (bool) ( isset($this->filters()[$filter]) && $this->filters()[$filter] && ($this->filters()[$filter] !== 'false') );
+    }
 }

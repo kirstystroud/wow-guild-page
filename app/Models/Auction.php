@@ -94,6 +94,14 @@ class Auction extends Model {
     }
 
     /**
+     * Calculate average sell price and return in a human-readable format with icons
+     */
+    public function averageSellPriceToGoldFormatted() {
+        $averageSellPrice = static::select([\DB::raw('AVG(sell_price) AS avg_sell_price')])->where('pet_id', $this->pet_id)->first();
+        return $this->formatMoneyString($this->intToGold(round($averageSellPrice['avg_sell_price'])));
+    }
+
+    /**
      * Convert bid into human readable gold silver copper
      * @return {string}
      */
@@ -147,6 +155,13 @@ class Auction extends Model {
      */
     public function getStatus() {
         return self::getStatuses()[$this->status];
+    }
+
+    /**
+     * Get a list of past auctions for this item which have sold
+     */
+    public function getPreviouslySold() {
+        return static::where('pet_id', $this->pet_id)->whereNotNull('sell_price')->orderBy('sell_price', 'DESC')->get();
     }
 
     /**

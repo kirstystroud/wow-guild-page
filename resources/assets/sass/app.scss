@@ -12,6 +12,14 @@ body {
     background: url('../background.jpg');
 }
 
+a.show-info {
+   color: $font-orange!important;
+   &:hover {
+        background-color: $title-background-default!important;
+        border: none;
+   }
+}
+
 .btn {
     color: $font-orange;
 }
