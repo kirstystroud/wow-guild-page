@@ -158,11 +158,12 @@ class Auction extends Model {
     }
 
     /**
-     * Get a list of past auctions for this item which have sold
+     * Get a list of past auctions for this item which have sold in the last month
      */
     public function getPreviouslySold() {
+        $cutoff = \Carbon\Carbon::now()->subMonth();
         return static::where('pet_id', $this->pet_id)
-                    ->where(\DB::raw('updated_at >= now() - INTERVAL 1 MONTH'))
+                    ->where('updated_at', '>=', $cutoff)
                     ->whereNotNull('sell_price')
                     ->orderBy('sell_price', 'DESC')
                     ->get();
