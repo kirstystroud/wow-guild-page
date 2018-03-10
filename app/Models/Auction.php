@@ -161,7 +161,11 @@ class Auction extends Model {
      * Get a list of past auctions for this item which have sold
      */
     public function getPreviouslySold() {
-        return static::where('pet_id', $this->pet_id)->whereNotNull('sell_price')->orderBy('sell_price', 'DESC')->get();
+        return static::where('pet_id', $this->pet_id)
+                    ->where(\DB::raw('updated_at >= now() - INTERVAL 1 MONTH'))
+                    ->whereNotNull('sell_price')
+                    ->orderBy('sell_price', 'DESC')
+                    ->get();
     }
 
     /**
