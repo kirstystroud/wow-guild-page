@@ -111,11 +111,13 @@ class GetCharacters extends Command
             // Load race
             $race = Race::where('id_ext', $characterData['race'])->first();
             $char->race_id = $race->id;
+            $char->updateLastActivity();
         }
 
         // Spec and Level change, reset here
         if ($characterData['level'] != $char->level) {
             Log::info($char->name . '\'s level has increased from ' . ($char->level ? $char->level : 0) . ' to ' . $characterData['level']);
+            $char->updateLastActivity();
         }
         $char->level = $characterData['level'];
         if (isset($characterData['spec'])) {

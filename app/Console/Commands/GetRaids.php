@@ -72,26 +72,31 @@ class GetRaids extends Command
                 if ($link->lfr != $r['lfr']) {
                     $link->lfr = $r['lfr'];
                     Log::info($char->name . ' has now run ' . $dungeon->name . ' ' . $r['lfr'] . ' times via raid finder');
+                    $char->updateLastActivity();
                 }
 
                 // Update normal if changed
                 if ($link->normal != $r['normal']) {
                     $link->normal = $r['normal'];
                     Log::info($char->name . ' has now run ' . $dungeon->name . ' ' . $r['normal'] . ' times on normal difficulty');
+                    $char->updateLastActivity();
                 }
 
                 // Update heroic if changed
                 if ($link->heroic != $r['heroic']) {
                     $link->heroic = $r['heroic'];
                     Log::info($char->name . ' has now run ' . $dungeon->name . ' ' . $r['heroic'] . ' times on heroic difficulty');
+                    $char->updateLastActivity();
                 }
 
                 // Update mythic if changed
                 if ($link->mythic != $r['mythic']) {
                     $link->mythic = $r['mythic'];
                     Log::info($char->name . ' has now run ' . $dungeon->name . ' ' . $r['mythic'] . ' times on mythic difficulty');
+                    $char->updateLastActivity();
                 }
 
+                $char->save();
                 $link->save();
             }
 

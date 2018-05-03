@@ -59,6 +59,9 @@ class GetQuests extends Command
                 continue;
             }
 
+            $char->updateLastActivity();
+            $char->save();
+
             Log::info('Checking ' . count($toCheck) . ' quests for ' . $char->name);
             foreach ($toCheck as $q) {
                 // Do we already know about this quest

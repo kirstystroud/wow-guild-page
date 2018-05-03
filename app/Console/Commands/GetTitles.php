@@ -74,6 +74,7 @@ class GetTitles extends Command
 
                 if(isset($t['selected']) && $t['selected'] && ($title->id != $char->title_id)) {
                     $char->title_id = $title->id;
+                    $char->updateLastActivity();
                     $char->save();
                     Log::info($char->name . '\'s title is now ' . trim(str_replace('%s', '', $title->name)));
                 }

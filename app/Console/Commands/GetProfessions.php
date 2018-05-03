@@ -107,6 +107,8 @@ class GetProfessions extends Command
                 Log::info($char->name . '\'s skill in ' . $profession->name . ' has increased from ' . ($link->skill ? $link->skill : 0) . ' to ' . $p['rank']);
                 $link->skill = $p['rank'];
                 $link->save();
+                $char->updateLastActivity();
+                $char->save();
             }
 
             // Do we want to update recipes

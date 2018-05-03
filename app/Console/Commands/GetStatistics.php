@@ -74,21 +74,25 @@ class GetStatistics extends Command
             if ($char->kills != $kills) {
                 Log::info($char->name . '\'s kills has increased from ' . ($char->kills ? $char->kills : 0) . ' to ' . $kills);
                 $char->kills = $kills;
+                $char->updateLastActivity();
             }
 
             if ($char->deaths != $deaths) {
                 Log::info($char->name . '\'s deaths has increased from ' . ($char->deaths ? $char->deaths : 0) . ' to ' . $deaths);
                 $char->deaths = $deaths;
+                $char->updateLastActivity();
             }
 
             if($char->pvp_kills != $pvpKills) {
                 Log::info($char->name . '\'s PVP kills has increased from ' . ($char->pvp_kills ? $char->pvp_kills : 0) . ' to ' . $pvpKills);
                 $char->pvp_kills = $pvpKills;
+                $char->updateLastActivity();
             }
 
             if ($char->kdr != $kdr) {
                 // Log::info($char->name . '\'s KDR has changed from ' . $char->kdr . ' to ' . $kdr);
                 $char->kdr = $kdr;
+                $char->updateLastActivity();
             }
 
             $dungeonsEntered = $data['statistics']['subCategories'][5]['statistics'][0]['quantity'];
@@ -105,11 +109,13 @@ class GetStatistics extends Command
             if ($char->dungeons_entered != $dungeonsEntered) {
                 Log::info($char->name . ' has now entered ' . $dungeonsEntered . ' dungeon(s)');
                 $char->dungeons_entered = $dungeonsEntered;
+                $char->updateLastActivity();
             }
 
             if ($char->raids_entered != $raidsEntered) {
                 Log::info($char->name . ' has now entered ' . $raidsEntered . ' raid(s)');
                 $char->raids_entered = $raidsEntered;
+                $char->updateLastActivity();
             }
 
             $char->save();

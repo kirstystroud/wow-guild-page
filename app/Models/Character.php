@@ -99,6 +99,13 @@ class Character extends Model {
     }
 
     /**
+     * Update character last activity to the current time
+     */
+    public function updateLastActivity() {
+        $this->last_activity = Date('Y-m-d H:i:s', time());
+    }
+
+    /**
      * Construct title for this character
      * @return {string}
      */

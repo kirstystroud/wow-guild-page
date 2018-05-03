@@ -75,7 +75,9 @@ class GetReputation extends Command
 
                 if ($reputation->standing != $r['standing']) {
                     Log::info($char->name . ' is now ' . Reputation::getStandings()[$r['standing']] . ' with ' . $faction->name);
-                    $reputation->standing = $r['standing'];    
+                    $reputation->standing = $r['standing'];
+                    $char->updateLastActivity();
+                    $char->save();
                 }
                 
                 $reputation->current = $r['value'];
