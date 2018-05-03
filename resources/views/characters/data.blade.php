@@ -6,6 +6,7 @@
         @include('partials.th-sort-heading', [ 'label' => 'Race', 'key' => 'race' ])
         @include('partials.th-sort-heading', [ 'label' => 'Spec', 'key' => 'spec' ])
         @include('partials.th-sort-heading', [ 'label' => 'iLvl', 'key' => 'ilvl' ])
+        @include('partials.th-sort-heading', [ 'label' => 'Last Activity', 'key' => 'last_activity' ])
     </thead>
     <tbody>
         @foreach($characters as $character)
@@ -38,6 +39,7 @@
                     @endif
                 </td>
                 <td>{{ $character->ilvl }}</td>
+                <td>{{ isset($character->last_activity) ? $character->last_activity : '-' }}</td>
             </tr>
         @endforeach
     </tbody>
