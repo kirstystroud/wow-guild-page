@@ -106,6 +106,55 @@ class Character extends Model {
     }
 
     /**
+     * Get last activity in human-readable format for front-end
+     * @return {string}
+     */
+    public function getLastActivity() {
+        // No activity recorded
+        if (!isset($this->last_activity)) {
+            return '-';
+        }
+
+        $currentTime = time();
+        $lastActivity = strtotime($this->last_activity);
+        $difference = $currentTime - $lastActivity;
+
+        $units = 0;
+        $interval = '';
+
+        switch(true) {
+            case ($difference < 60) :
+                // Less that one minute ago
+                $units = $difference;
+                $interval = 'second';
+            break;
+
+            case ($difference < 3600) :
+                // Less than one hour ago
+                $units = floor($difference / 60);
+                $interval = 'minute';
+            break;
+
+            case ($difference < 86400) :
+                // Less than one day ago
+                $units = floor($difference / 3600);
+                $interval = 'hour';
+            break;
+
+            default:
+                // more than 1 day ago
+                $units = floor($difference / 86400);
+                $interval = 'day';
+        }
+
+        if ($units !== 1) {
+            $interval .= 's';
+        }
+
+        return $units . ' ' . $interval . ' ago';
+    }
+
+    /**
      * Construct title for this character
      * @return {string}
      */

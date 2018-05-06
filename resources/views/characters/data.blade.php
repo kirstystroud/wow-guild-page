@@ -39,7 +39,7 @@
                     @endif
                 </td>
                 <td>{{ $character->ilvl }}</td>
-                <td>{{ isset($character->last_activity) ? $character->last_activity : '-' }}</td>
+                <td>{{ $character->getLastActivity() }}</td>
             </tr>
         @endforeach
     </tbody>
