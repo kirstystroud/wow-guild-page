@@ -147,7 +147,7 @@ class Character extends Model {
                 $interval = 'day';
         }
 
-        if ($units !== 1) {
+        if ($units != 1) {
             $interval .= 's';
         }
 
