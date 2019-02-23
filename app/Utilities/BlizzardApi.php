@@ -3,6 +3,7 @@
 namespace App\Utilities;
 
 use GuzzleHttp;
+use App\Models\Access;
 
 class BlizzardApi {
 
@@ -230,11 +231,13 @@ class BlizzardApi {
      * @return {array} JSON formatted response data
      */
     protected static function makeRequest($endpoint, $data = []) {
-        $baseUrl = 'https://' . env('WOW_REGION') . '.api.battle.net/';
+        $baseUrl = 'https://' . env('WOW_REGION') . '.api.blizzard.com/';
 
         // Required data for all requests
         $data['locale'] = 'en_GB';
-        $data['apikey'] = env('WOW_KEY');
+
+        $accessToken = self::getAccessToken();
+        $data['access_token'] = $accessToken;
 
         try {
             $client = new GuzzleHttp\Client(['base_uri' => $baseUrl]);
@@ -242,14 +245,53 @@ class BlizzardApi {
             $requestBody = (string) $req->getBody();
             return $requestBody ? json_decode($requestBody, true) : false;
         } catch (GuzzleHttp\Exception\ClientException $e) {
-            // error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
+            error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
             return false;
         } catch (GuzzleHttp\Exception\ServerException $e) {
-            // error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
+            error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
             return false;
         } catch (Exception $e) {
-            // error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
+            error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
             return false;
         }
+    }
+
+    protected static function getAccessToken() {
+        $token = Access::getCurrentToken();
+        if ($token) {
+            // We have a valid one in the database
+            return $token;
+        }
+
+        // Need to update database
+        $uri = 'https://' . env('WOW_REGION') . '.battle.net';
+        $clientAccess = env('WOW_CLIENT_ID');
+        $clientSecret = env('WOW_CLIENT_SECRET');
+
+        $response = false;
+        try {
+            $client = new GuzzleHttp\Client([
+                'base_uri' => $uri,
+                'auth' => [$clientAccess, $clientSecret],
+            ]);
+            $req = $client->request('GET', '/oauth/token', ['query' => ['grant_type' => 'client_credentials']]);
+            $response = (string) $req->getBody();
+        } catch (Exception $e) {
+            error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
+            throw $e;
+        }
+
+        // Parse response and update database
+        $responseArray = json_decode($response, true);
+        $expiry = $responseArray['expires_in'];
+
+        // Calculate absolute expiry time
+        $expiryTimestamp = Date('Y-m-d H:i:s', time() + $expiry);
+
+        $access = new Access;
+        $access->access_token = $responseArray['access_token'];
+        $access->expires = $expiryTimestamp;
+        $access->save();
+        return $responseArray['access_token'];
     }
 }
