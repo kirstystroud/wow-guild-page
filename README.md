@@ -1,40 +1,49 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## WoW Guild Page
+This project is a Laravel 5.3 web application which shows information and statistics related to a Guild on World of Warcraft. 
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+### Installing the codebase
+This section assumes you have `composer`, `npm` and `gulp` already installed.
+```sh
+# Pull in PHP dependencies
+composer install
+# Pull in JavaScript dependencies
+npm install
+# Build CSS
+gulp
+```
 
-## About Laravel
+### Configurating the application
+In order to pull in data from Blizzard's API, the `.env` file should first be set up as a copy of `.env.example`.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+| Key | Comment |
+|-----|---------|
+| DB_DATABASE | local database name |
+| DB_USERNAME | local database user |
+| DB_PASSWORD | database password for above user |
+| WOW_CLIENT_ACCESS | Client access token for Blizzard API, see the [Blizzard documentation](https://develop.battle.net/access/clients) |
+| WOW_CLIENT_SECRET | Client secret key for Blizzard API, see the [Blizzard documentation](https://develop.battle.net/access/clients) |
+| WOW_REGION | In-game region on which realm is located |
+| WOW_REALM | In-game realm in which guild is located |
+| WOW_GUILD | In-game guild name |
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Once `.env` has been set up run the following to build the database and set the application encryption key.
+```sh
+php artisan key:generate
+php artisan migrate
+```
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+### Loading in data
+For the application to work there needs to be data in the database. This is retrieved from Blizzard's API using a variety of the available endpoints. A quick-start shell script can be used to populate the initial load of data. Note the first execution of this may be slow, depending on the number of guild members.
+```sh
+.getAll.sh
+```
+Once this data has been imported, then the application is ready to go. To run locally on port 8000 use
+```sh
+php artisan serve
+```
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
-
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+### Scheduler
+To regularly update data stored locally, a cron job can be set up to run Laravel's command scheduler every minute. 
+```sh
+php artisan schedule:run
+```
