@@ -17,6 +17,7 @@ class Profession extends Model {
 
     /**
      * Get list of characters with this profession ordered by skill
+     *
      * @return {Object}
      */
     public function getCharacterData() {
@@ -31,6 +32,7 @@ class Profession extends Model {
 
     /**
      * Get the max skill any character has achieved in this profession
+     *
      * @return {int}
      */
     public function getMaxSkill() {
@@ -39,6 +41,7 @@ class Profession extends Model {
 
     /**
      * Get path to icon image
+     *
      * @return {string}
      */
     public function getIconLocation() {

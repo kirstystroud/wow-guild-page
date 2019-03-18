@@ -39,18 +39,20 @@ class Dungeon extends Model {
 
     /**
      * Get characters who are able to run this dungeon
+     *
      * @return {Object}
      */
     public function getAvailableChars() {
-        $chars = Character::where('level',  '>=', $this->min_level)
-            ->where('level',  '<=', $this->max_level)
+        $chars = Character::where('level', '>=', $this->min_level)
+            ->where('level', '<=', $this->max_level)
             ->orderBy('level', 'asc')
             ->get();
         return $chars;
     }
 
-    /** 
+    /**
      * Get summary of characters who have run this raid
+     *
      * @return {Object}
      */
     public function getCharacterRaidData() {
@@ -66,6 +68,7 @@ class Dungeon extends Model {
 
     /**
      * Get class to be applied to this panel in dungeons view
+     *
      * @return {string}
      */
     public function getPanelClass() {
@@ -100,8 +103,12 @@ class Dungeon extends Model {
         $healers = 0;
         $tanks = 0;
         foreach ($chars as $char) {
-            if ($char->canHeal()) $healers++;
-            if ($char->canTank()) $tanks++;
+            if ($char->canHeal()) {
+                $healers++;
+            }
+            if ($char->canTank()) {
+                $tanks++;
+            }
         }
 
         // Don't have either tanks or healers

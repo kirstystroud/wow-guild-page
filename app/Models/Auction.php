@@ -28,10 +28,20 @@ class Auction extends Model {
 
     // Public relations
 
+    /**
+     * Define relation between auctions and pets
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\BelongsTo}
+     */
     public function pet() {
         return $this->belongsTo(Pet::class);
     }
 
+    /**
+     * Define relation between auctions and items
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\BelongsTo}
+     */
     public function item() {
         return $this->belongsTo(Item::class);
     }
@@ -71,6 +81,7 @@ class Auction extends Model {
 
     /**
      * Convert bid to human-readable with icons
+     *
      * @return {string}
      */
     public function bidToGoldFormatted() {
@@ -79,6 +90,7 @@ class Auction extends Model {
 
     /**
      * Convert buyout to human-readable with icons
+     *
      * @return {string}
      */
     public function buyoutToGoldFormatted() {
@@ -87,6 +99,7 @@ class Auction extends Model {
 
     /**
      * Convert sell price to human-readable with icons
+     *
      * @return {string}
      */
     public function sellPriceToGoldFormatted() {
@@ -103,6 +116,7 @@ class Auction extends Model {
 
     /**
      * Convert bid into human readable gold silver copper
+     *
      * @return {string}
      */
     public function bidToGold() {
@@ -111,6 +125,7 @@ class Auction extends Model {
 
     /**
      * Convert bid into human readable gold silver copper
+     *
      * @return {string}
      */
     public function buyoutToGold() {
@@ -119,6 +134,7 @@ class Auction extends Model {
 
     /**
      * Convert sell price into human readable gold silver copper
+     *
      * @return {string}
      */
     public function sellPriceToGold() {
@@ -127,6 +143,7 @@ class Auction extends Model {
 
     /**
      * Get human-friendly item name
+     *
      * @return {string}
      */
     public function itemName() {
@@ -143,6 +160,7 @@ class Auction extends Model {
 
     /**
      * Get human-readable time left
+     *
      * @return {string}
      */
     public function timeLeft() {
@@ -151,6 +169,7 @@ class Auction extends Model {
 
     /**
      * Get human-readable status
+     *
      * @return {string}
      */
     public function getStatus() {
@@ -246,7 +265,8 @@ class Auction extends Model {
 
     /**
      * Convert an integer into human readable gold silver copper
-     * @param {int} $value
+     *
+     * @param  {int} $value
      * @return {string}
      */
     protected function intToGold($value) {
@@ -280,7 +300,8 @@ class Auction extends Model {
 
     /**
      * Replace text with icons for front end
-     * @param {string} $input
+     *
+     * @param  {string} $input
      * @return {string}
      */
     protected function formatMoneyString($input) {

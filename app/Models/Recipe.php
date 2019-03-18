@@ -8,9 +8,13 @@ class Recipe extends Model {
 
     public $timestamps = false;
 
-
     // Public relations
 
+    /**
+     * Define relation between recipes and professions
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\BelongsTo}
+     */
     public function profession() {
         return $this->belongsTo(Profession::class);
     }

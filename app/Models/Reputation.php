@@ -20,6 +20,7 @@ class Reputation extends Model {
 
     /**
      * Get human-friendly mappings for standings
+     *
      * @return {array}
      */
     public static function getStandings() {
@@ -38,10 +39,20 @@ class Reputation extends Model {
 
     // Public relations
 
+    /**
+     * Define relation between reputations and factions
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\BelongsTo}
+     */
     public function faction() {
         return $this->belongsTo(Faction::class);
     }
 
+    /**
+     * Define relation between reputations and characters
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\BelongsTo}
+     */
     public function character() {
         return $this->belongsTo(Character::class);
     }
@@ -51,6 +62,7 @@ class Reputation extends Model {
 
     /**
      * Get progress through this standing as a percentage
+     *
      * @return {string}
      */
     public function getProgress() {

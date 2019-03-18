@@ -24,7 +24,11 @@ class Meta extends Model {
     const TABARD_BACKGROUND_COLOR = 'background_color';
     const TABARD_BACKGROUND_COLOR_DATA = 'background_color_data';
 
-
+    /**
+     * Initialise table in constructor
+     *
+     * @return {void}
+     */
     public function __construct() {
         $this->table = 'guild_meta';
     }
@@ -34,7 +38,8 @@ class Meta extends Model {
 
     /**
      * Set meta value
-     * @param {int} $key
+     *
+     * @param {int}    $key
      * @param {string} $value
      */
     public static function addMeta($key, $value) {
@@ -53,7 +58,8 @@ class Meta extends Model {
 
     /**
      * Retrieve a meta value
-     * @param {int} $key
+     *
+     * @param  {int} $key
      * @return {string} value
      */
     public static function getMeta($key) {

@@ -24,18 +24,38 @@ class Character extends Model {
 
     // Public relations
 
+    /**
+     * Define relation between characters and character classes
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\BelongsTo}
+     */
     public function character_class() {
         return $this->belongsTo(CharacterClass::class, 'class_id');
     }
 
+    /**
+     * Define relation between characters and races
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\BelongsTo}
+     */
     public function race() {
         return $this->belongsTo(Race::class);
     }
 
+    /**
+     * Define relation between characters and spec
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\BelongsTo}
+     */
     public function spec() {
         return $this->belongsTo(Spec::class);
     }
 
+    /**
+     * Define relation between characters and titles
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\BelongsTo}
+     */
     public function title() {
         return $this->belongsTo(Title::class);
     }
@@ -60,6 +80,7 @@ class Character extends Model {
 
     /**
      * Get class icon
+     *
      * @return {string}
      */
     public function getClassImg() {
@@ -68,6 +89,7 @@ class Character extends Model {
 
     /**
      * Get race icon
+     *
      * @return {string}
      */
     public function getRaceImg() {
@@ -76,6 +98,7 @@ class Character extends Model {
 
     /**
      * Get link to external character page
+     *
      * @return {string}
      */
     public function getLinkAddr() {
@@ -84,6 +107,7 @@ class Character extends Model {
 
     /**
      * Can this character tank
+     *
      * @return {bool}
      */
     public function canTank() {
@@ -92,6 +116,7 @@ class Character extends Model {
 
     /**
      * Can this character heal
+     *
      * @return {bool}
      */
     public function canHeal() {
@@ -107,6 +132,7 @@ class Character extends Model {
 
     /**
      * Get last activity in human-readable format for front-end
+     *
      * @return {string}
      */
     public function getLastActivity() {
@@ -156,6 +182,7 @@ class Character extends Model {
 
     /**
      * Construct title for this character
+     *
      * @return {string}
      */
     public function getTitle() {
@@ -167,6 +194,7 @@ class Character extends Model {
 
     /**
      * Get a list of quest id_exts completed by this character
+     *
      * @return {array}
      */
     public function getCompletedQuestIdExts() {
@@ -178,7 +206,7 @@ class Character extends Model {
         ', [$this->id]);
 
         $results = array_map(function ($value) {
-            return (array)$value;
+            return (array) $value;
         }, $results);
 
         $formattedResults = array_column($results, 'id_ext');
@@ -187,6 +215,7 @@ class Character extends Model {
 
     /**
      * Get a list of recipe id_exts known by this character
+     *
      * @return {array}
      */
     public function getKnownRecipesForProfession($professionId) {
@@ -198,7 +227,7 @@ class Character extends Model {
         ', [$this->id, $professionId]);
 
         $results = array_map(function ($value) {
-            return (array)$value;
+            return (array) $value;
         }, $results);
 
         $formattedResults = array_column($results, 'id_ext');
@@ -207,6 +236,7 @@ class Character extends Model {
 
     /**
      * Get a list of achievement id_exts completed by this character
+     *
      * @return {array}
      */
     public function getEarnedAchievements() {
@@ -218,7 +248,7 @@ class Character extends Model {
         ', [$this->id]);
 
         $results = array_map(function ($value) {
-            return (array)$value;
+            return (array) $value;
         }, $results);
 
         $formattedResults = array_column($results, 'id_ext');
@@ -241,7 +271,8 @@ class Character extends Model {
 
     /**
      * Count the quests completed in a category
-     * @param {int} $categoryId
+     *
+     * @param  {int} $categoryId
      * @return (int) $count
      */
     public function countQuestsCompletedInCategory($categoryId) {
@@ -255,7 +286,8 @@ class Character extends Model {
 
     /**
      * Does this character own a pet
-     * @param {int} $petId
+     *
+     * @param  {int} $petId
      * @return {bool}
      */
     public function doesOwnPet($petId) {

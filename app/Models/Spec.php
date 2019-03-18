@@ -15,6 +15,7 @@ class Spec extends Model {
 
     /**
      * Get icon location for this spec
+     *
      * @return {string}
      */
     public function getIconLocation() {

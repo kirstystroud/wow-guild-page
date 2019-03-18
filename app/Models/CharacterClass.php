@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class CharacterClass extends Model {
 
     public $timestamps = false;
-    
+
+    /**
+     * Initialise table in constructor
+     *
+     * @return {void}
+     */
     public function __construct() {
         $this->table = 'classes';
     }
