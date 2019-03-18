@@ -10,8 +10,8 @@ use Log;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
-class GetTitles extends Command
-{
+class GetTitles extends Command {
+
     /**
      * The name and signature of the console command.
      *
@@ -31,8 +31,7 @@ class GetTitles extends Command
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
     }
 
@@ -41,8 +40,7 @@ class GetTitles extends Command
      *
      * @return mixed
      */
-    public function handle()
-    {
+    public function handle() {
         $characters = Character::all();
 
         if (!$characters) {
@@ -54,7 +52,7 @@ class GetTitles extends Command
 
         $progressBar = $this->output->createProgressBar(count($characters));
 
-        foreach($characters as $char) {
+        foreach ($characters as $char) {
             $data = BlizzardApi::getTitles($char);
 
             if (!$data) {
@@ -63,7 +61,7 @@ class GetTitles extends Command
             }
 
             // loop over all titles
-            foreach($data['titles'] as $t) {
+            foreach ($data['titles'] as $t) {
                 $title = Title::where('id_ext', $t['id'])->first();
                 if (!$title) {
                     $title = new Title;
@@ -72,7 +70,7 @@ class GetTitles extends Command
                     $title->save();
                 }
 
-                if(isset($t['selected']) && $t['selected'] && ($title->id != $char->title_id)) {
+                if (isset($t['selected']) && $t['selected'] && ($title->id != $char->title_id)) {
                     $char->title_id = $title->id;
                     $char->updateLastActivity();
                     $char->save();

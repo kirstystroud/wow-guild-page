@@ -44,13 +44,19 @@ class CheckAuctionHouse extends Command {
 
         // Pull down file from remote and put into auctions.json so have local copy
         $auctionDataRemote = BlizzardApi::getAuctionDataUrl();
-        if (!$auctionDataRemote) return false;  // Failure from API
+        if (!$auctionDataRemote) {
+            // Failure from API
+            return false;
+        }
 
         $auctionDataUrl = $auctionDataRemote['url'];
         $auctionDataLastModified = $auctionDataRemote['lastModified'];
 
         $databaseLastModified = Meta::getMeta(Meta::KEY_AUCTION_LAST_MODIFIED);
-        if ($auctionDataLastModified == $databaseLastModified) return true; // No updates to process
+        if ($auctionDataLastModified == $databaseLastModified) {
+            // No updates to process
+            return true;
+        }
 
         // Update last modified time
         Meta::addMeta(Meta::KEY_AUCTION_LAST_MODIFIED, $auctionDataLastModified);
@@ -60,12 +66,13 @@ class CheckAuctionHouse extends Command {
 
         echo 'Downloaded auction data' . PHP_EOL;
 
-        // TODO load data from remote, currently loading from file
         $auctionData = json_decode($auctionData, true);
 
         Log::debug('Checking ' . count($auctionData['auctions']) . ' auctions for pet data');
 
-        if(!$auctionData['auctions']) return false;
+        if (!$auctionData['auctions']) {
+            return false;
+        }
 
         // Filter for pet related data only
         $petAuctions = array_filter($auctionData['auctions'], function($k) {
@@ -81,7 +88,7 @@ class CheckAuctionHouse extends Command {
 
         // Loop over pet auctions
         $existingAuctions = [];
-        foreach($petAuctions as $p) {
+        foreach ($petAuctions as $p) {
             $this->checkAuctionData($p);
             $existingAuctions[] = $p['auc'];
             $progressBar->advance();
@@ -96,10 +103,12 @@ class CheckAuctionHouse extends Command {
         $expiredAuctions = Auction::where('poll_status', Auction::POLL_STATUS_PENDING)->get();
         echo 'Found ' . count($expiredAuctions) . ' expired auctions to check' . PHP_EOL;
 
-        if (!count($expiredAuctions)) return true;
+        if (!count($expiredAuctions)) {
+            return true;
+        }
 
         $expiredProgressBar = $this->output->createProgressBar(count($expiredAuctions));
-        foreach($expiredAuctions as $auction) {
+        foreach ($expiredAuctions as $auction) {
             $auction->expire();
             $expiredProgressBar->advance();
         }
@@ -107,13 +116,22 @@ class CheckAuctionHouse extends Command {
         $this->line('');
     }
 
+    /**
+     * Check auction data for a single item
+     *
+     * @param  {array} $data
+     * @return {bool|void}
+     */
     protected function checkAuctionData($data) {
 
         // Do we already know about this item in the items table ?
         $item = Item::where('id_ext', $data['item'])->first();
         if (!$item) {
             $itemData = BlizzardApi::getItem($data['item']);
-            if (!$itemData) return false;       // failure from API
+            if (!$itemData) {
+                // failure from API
+                return false;
+            }
 
             $item = new Item;
             $item->id_ext = $data['item'];
@@ -129,7 +147,10 @@ class CheckAuctionHouse extends Command {
             $pet = Pet::where('id_ext', $data['petSpeciesId'])->first();
             if (!$pet) {
                 $petData = BlizzardApi::getPetSpecies($data['petSpeciesId']);
-                if (!$petData) return false;        // failure from API
+                if (!$petData) {
+                    // failure from API
+                    return false;
+                }
 
                 $pet = new Pet;
                 $pet->id_ext = $data['petSpeciesId'];
@@ -193,12 +214,12 @@ class CheckAuctionHouse extends Command {
         $auction->date_last_seen = $this->_dateRun;
         $auction->poll_status = Auction::POLL_STATUS_PROCESSED;
         $auction->save();
-
     }
 
     /**
      * Convert time left string into integer mapping for database
-     * @param {string} $timeLeft
+     *
+     * @param  {string} $timeLeft
      * @return {int}
      */
     protected function timeLeftToInteger($timeLeft) {

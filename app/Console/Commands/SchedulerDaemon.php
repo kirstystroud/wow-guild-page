@@ -6,8 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
-class SchedulerDaemon extends Command
-{
+class SchedulerDaemon extends Command {
+
     /**
      * The name and signature of the console command.
      *
@@ -27,8 +27,7 @@ class SchedulerDaemon extends Command
      *
      * @return mixed
      */
-    public function handle()
-    {
+    public function handle() {
         while (true) {
             $this->line('<info>[' . Carbon::now()->format('Y-m-d H:i:s') . ']</info> Calling scheduler');
 

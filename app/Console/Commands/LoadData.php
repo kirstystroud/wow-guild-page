@@ -67,12 +67,16 @@ class LoadData extends Command {
 
     /**
      * Update list of dungeons
+     *
+     * @return {bool|void}
      */
     protected function loadDungeons() {
         Log::debug('Loading dungeons');
         // Make request to Blizzard API to load Dungeons and populate database
         $zones = BlizzardApi::getZones();
-        if (!$zones) return false;
+        if (!$zones) {
+            return false;
+        }
 
         foreach ($zones['zones'] as $zone) {
             // Check if we already know about this
@@ -91,7 +95,7 @@ class LoadData extends Command {
             if (!$dungeon->instance_type) {
                 if ($zone['isRaid']) {
                     $dungeon->instance_type = Dungeon::TYPE_RAID;
-                } else if($zone['isDungeon']) {
+                } else if ($zone['isDungeon']) {
                     $dungeon->instance_type = Dungeon::TYPE_DUNGEON;
                 }
                 $dungeon->save();
@@ -102,12 +106,16 @@ class LoadData extends Command {
 
     /**
      * Update list of classes
+     *
+     * @return {void}
      */
     protected function loadClasses() {
         Log::debug('Loading classes');
         // Make requests to Blizzard API to load classes
         $classes = BlizzardApi::getClasses();
-        if (!$classes) return false;
+        if (!$classes) {
+            return false;
+        }
 
         foreach ($classes['classes'] as $c) {
             $class = CharacterClass::where('id_ext', $c['id'])->first();
@@ -123,11 +131,15 @@ class LoadData extends Command {
 
     /**
      * Update list of races
+     *
+     * @return {void}
      */
     protected function loadRaces() {
         Log::debug('Loading races');
         $races = BlizzardApi::getRaces();
-        if (!$races) return false;
+        if (!$races) {
+            return false;
+        }
 
         foreach ($races['races'] as $r) {
             $race = Race::where('id_ext', $r['id'])->first();
@@ -143,14 +155,18 @@ class LoadData extends Command {
 
     /**
      * Load pet types
+     *
+     * @return {bool|void}
      */
     protected function loadPetTypes() {
         Log::debug('Loading pet types');
         $petData = BlizzardApi::getPetTypes();
-        if (!$petData) return false;
+        if (!$petData) {
+            return false;
+        }
 
         // Add new entries as required
-        foreach($petData['petTypes'] as $type) {
+        foreach ($petData['petTypes'] as $type) {
             $existing = PetType::where('id_ext', $type['id'])->first();
 
             if (!$existing) {
@@ -164,7 +180,7 @@ class LoadData extends Command {
         // Make sure strong/weak against properly set
         $notSet = PetType::where('strong_against', 0)->count();
         if ($notSet) {
-            foreach($petData['petTypes'] as $type) {
+            foreach ($petData['petTypes'] as $type) {
                 // Load this row
                 $existing = PetType::where('id_ext', $type['id'])->first();
 
@@ -182,11 +198,15 @@ class LoadData extends Command {
 
     /**
      * Update guild meta information
+     *
+     * @return {bool|void}
      */
     protected function loadGuildMeta() {
         Log::debug('Loading guild meta');
         $guildData = BlizzardApi::getGuildProfile();
-        if (!$guildData) return false;
+        if (!$guildData) {
+            return false;
+        }
 
         // Store meta information on icon
         $metaValue = [
@@ -213,7 +233,7 @@ class LoadData extends Command {
             case self::SIDE_HORDE :
                 $ringPath = 'ring-horde.png';
                 break;
-            default : 
+            default :
                 throw new Exception('Unknown guild side');
         }
         $this->downloadToFile($ringPath, 'ring.png');
@@ -234,6 +254,13 @@ class LoadData extends Command {
 
     }
 
+    /**
+     * Download image files from remote to local images directory
+     *
+     * @param  {string} $remotePath
+     * @param  {string} $localPath
+     * @return {void}
+     */
     protected function downloadToFile($remotePath, $localPath) {
         $remoteFullPath = 'http://eu.battle.net/wow/static/images/guild/tabards/' . $remotePath;
         $localFullPath = __DIR__ . '/../../../public/images/' . $localPath;
@@ -249,6 +276,12 @@ class LoadData extends Command {
         }
     }
 
+    /**
+     * Add preceding 0s to integer value
+     *
+     * @param  {int} $value
+     * @return {string} two digiet representation of $value
+     */
     protected function zeroFill($value) {
         if ($value > 9) {
             return $value;

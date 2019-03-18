@@ -10,8 +10,8 @@ use BlizzardApi;
 use Log;
 use Illuminate\Console\Command;
 
-class GetReputation extends Command
-{
+class GetReputation extends Command {
+
     /**
      * The name and signature of the console command.
      *
@@ -44,7 +44,7 @@ class GetReputation extends Command
 
         $progressBar = $this->output->createProgressBar(count($characters));
 
-        foreach($characters as $char) {
+        foreach ($characters as $char) {
 
             $data = BlizzardApi::getReputation($char);
 
@@ -53,7 +53,7 @@ class GetReputation extends Command
                 continue;
             }
 
-            foreach($data['reputation'] as $r) {
+            foreach ($data['reputation'] as $r) {
                 // Add new faction row if we don't already know about this faction
                 $faction = Faction::where('id_ext', $r['id'])->first();
 
@@ -79,7 +79,7 @@ class GetReputation extends Command
                     $char->updateLastActivity();
                     $char->save();
                 }
-                
+
                 $reputation->current = $r['value'];
                 $reputation->max = $r['max'];
                 $reputation->save();

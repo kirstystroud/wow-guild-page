@@ -10,8 +10,8 @@ use Achievement;
 use CharacterAchievement;
 use BlizzardApi;
 
-class GetAchievements extends Command
-{
+class GetAchievements extends Command {
+
     /**
      * The name and signature of the console command.
      *
@@ -42,7 +42,7 @@ class GetAchievements extends Command
 
         $progressBar = $this->output->createProgressBar(count($characters));
 
-        foreach($characters as $char) {
+        foreach ($characters as $char) {
             // Pull down list of achievements
             $data = BlizzardApi::getAchievements($char);
 
@@ -62,13 +62,16 @@ class GetAchievements extends Command
             Log::debug('Checking ' . count($toCheck) . ' achievements for ' . $char->name);
 
             // Loop over achievements
-            foreach($toCheck as $a) {
+            foreach ($toCheck as $a) {
                 // Do we already know about this
                 $achievement = Achievement::where('id_ext', $a)->first();
                 if (!$achievement) {
                     $rawAchievement = BlizzardApi::getAchievement($a);
-                    if (!$rawAchievement) continue; // failure from API
-                    
+                    if (!$rawAchievement) {
+                        // failure from API
+                        continue;
+                    }
+
                     $achievement = new Achievement;
                     $achievement->id_ext = $a;
                     $achievement->title = $rawAchievement['title'];

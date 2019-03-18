@@ -8,8 +8,8 @@ use Illuminate\Console\Command;
 
 use Log;
 
-class GetItemLevels extends Command
-{
+class GetItemLevels extends Command {
+
     /**
      * The name and signature of the console command.
      *
@@ -42,7 +42,7 @@ class GetItemLevels extends Command
 
         $progressBar = $this->output->createProgressBar(count($characters));
 
-        foreach($characters as $character) {
+        foreach ($characters as $character) {
             $this->getItemLevel($character);
             $progressBar->advance();
         }
@@ -50,12 +50,20 @@ class GetItemLevels extends Command
         $this->line('');
     }
 
+    /**
+     * Get item levels for a character
+     *
+     * @param  {Character} $character
+     * @return {bool|void}
+     */
     protected function getItemLevel($character) {
         // Low-level characters will not have this available
         try {
             $itemObject = BlizzardApi::getCharacterItems($character);
 
-            if (!$itemObject) return false;
+            if (!$itemObject) {
+                return false;
+            }
 
             if ($itemObject['items']['averageItemLevelEquipped']) {
                 if ($character->ilvl != $itemObject['items']['averageItemLevelEquipped']) {

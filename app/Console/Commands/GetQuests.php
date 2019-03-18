@@ -11,8 +11,8 @@ use Quest;
 use Category;
 use BlizzardApi;
 
-class GetQuests extends Command
-{
+class GetQuests extends Command {
+
     /**
      * The name and signature of the console command.
      *
@@ -45,7 +45,7 @@ class GetQuests extends Command
 
         $progressBar = $this->output->createProgressBar(count($characters));
 
-        foreach($characters as $char) {
+        foreach ($characters as $char) {
             $data = BlizzardApi::getQuests($char);
             if (!$data) {
                 $progressBar->advance();
@@ -68,7 +68,10 @@ class GetQuests extends Command
                 $quest = Quest::where('id_ext', $q)->first();
                 if (!$quest) {
                     $rawQuest = BlizzardApi::getQuest($q);
-                    if (!$rawQuest) continue; // failure from API
+                    if (!$rawQuest) {
+                        // failure from API
+                        continue;
+                    }
 
                     if (!isset($rawQuest['category'])) {
                         $rawQuest['category'] = '-';

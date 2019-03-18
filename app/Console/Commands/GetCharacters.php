@@ -12,8 +12,8 @@ use Illuminate\Console\Command;
 
 use Log;
 
-class GetCharacters extends Command
-{
+class GetCharacters extends Command {
+
     /**
      * The name and signature of the console command.
      *
@@ -46,11 +46,13 @@ class GetCharacters extends Command
         // Make call to Blizzard API to get a list of characters in the guild
         $result = BlizzardApi::getGuildCharacters();
 
-        if (!$result) exit(2);
+        if (!$result) {
+            exit(2);
+        }
 
         $guildMembers = $result['members'];
 
-        foreach($guildMembers as $member) {
+        foreach ($guildMembers as $member) {
             $this->updateCharacter($member['character']);
         }
 
@@ -67,7 +69,7 @@ class GetCharacters extends Command
             }
             // Reputation
             if ($char->reputation) {
-                foreach($char->reputation as $link) {
+                foreach ($char->reputation as $link) {
                     $link->delete();
                 }
             }
@@ -79,13 +81,13 @@ class GetCharacters extends Command
             }
             // Quests
             if ($char->quests) {
-                foreach($char->quests as $link) {
+                foreach ($char->quests as $link) {
                     $link->delete();
                 }
             }
             // Dungeons
             if ($char->dungeons) {
-                foreach($char->dungeons as $link) {
+                foreach ($char->dungeons as $link) {
                     $link->delete();
                 }
             }
@@ -94,6 +96,12 @@ class GetCharacters extends Command
         }
     }
 
+    /**
+     * Update a single character based on data
+     *
+     * @param  {array} $characterData
+     * @return {void}
+     */
     protected function updateCharacter($characterData) {
         // Check for existing
         $char = Character::where('name', $characterData['name'])->first();
@@ -102,7 +110,8 @@ class GetCharacters extends Command
             Log::info('Creating new entry for ' . $characterData['name']);
             $char = new Character;
             $char->name = $characterData['name'];
-            $char->ilvl = 0;        // Handle this in separate command as ilvl requires separate call per character
+            // Handle this in separate command as ilvl requires separate call per character
+            $char->ilvl = 0;
 
             // Load class
             $class = CharacterClass::where('id_ext', $characterData['class'])->first();
@@ -153,10 +162,10 @@ class GetCharacters extends Command
         }
 
         // Check realm
-        if ($characterData['realm'] != $char->server ) {
+        if ($characterData['realm'] != $char->server) {
             $char->server = $characterData['realm'];
         }
-        
+
         $char->save();
 
         $this->_existingCharIds[] = $char->id;

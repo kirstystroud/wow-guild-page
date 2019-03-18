@@ -9,8 +9,8 @@ use Log;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
-class GetStatistics extends Command
-{
+class GetStatistics extends Command {
+
     /**
      * The name and signature of the console command.
      *
@@ -43,7 +43,7 @@ class GetStatistics extends Command
 
         $progressBar = $this->output->createProgressBar(count($characters));
 
-        foreach($characters as $char) {
+        foreach ($characters as $char) {
             $data = BlizzardApi::getStats($char);
             if (!$data) {
                 $progressBar->advance();
@@ -83,7 +83,7 @@ class GetStatistics extends Command
                 $char->updateLastActivity();
             }
 
-            if($char->pvp_kills != $pvpKills) {
+            if ($char->pvp_kills != $pvpKills) {
                 Log::info($char->name . '\'s PVP kills has increased from ' . ($char->pvp_kills ? $char->pvp_kills : 0) . ' to ' . $pvpKills);
                 $char->pvp_kills = $pvpKills;
                 $char->updateLastActivity();
@@ -96,8 +96,7 @@ class GetStatistics extends Command
             }
 
             $dungeonsEntered = $data['statistics']['subCategories'][5]['statistics'][0]['quantity'];
-            $raidsEntered = $data['statistics']['subCategories'][5]['statistics'][1]['quantity']
-                    + $data['statistics']['subCategories'][5]['statistics'][2]['quantity'];
+            $raidsEntered = $data['statistics']['subCategories'][5]['statistics'][1]['quantity'] + $data['statistics']['subCategories'][5]['statistics'][2]['quantity'];
 
             if (!$dungeonsEntered) {
                 $dungeonsEntered = 0;

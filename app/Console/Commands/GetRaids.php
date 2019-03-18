@@ -11,8 +11,8 @@ use Log;
 
 use Illuminate\Console\Command;
 
-class GetRaids extends Command
-{
+class GetRaids extends Command {
+
     /**
      * The name and signature of the console command.
      *
@@ -45,7 +45,7 @@ class GetRaids extends Command
 
         $progressBar = $this->output->createProgressBar(count($characters));
 
-        foreach($characters as $char) {
+        foreach ($characters as $char) {
 
             $data = BlizzardApi::getRaids($char);
 
@@ -57,7 +57,9 @@ class GetRaids extends Command
             foreach ($data['progression']['raids'] as $r) {
 
                 $dungeon = Dungeon::where('name', $r['name'])->first();
-                if (!$dungeon) continue;
+                if (!$dungeon) {
+                    continue;
+                }
 
                 // Add new character dungeon link if required
                 $link = CharacterDungeon::where('dungeon_id', $dungeon->id)->where('character_id', $char->id)->first();

@@ -13,8 +13,8 @@ use Illuminate\Console\Command;
 
 use Log;
 
-class GetProfessions extends Command
-{
+class GetProfessions extends Command {
+
     /**
      * The name and signature of the console command.
      *
@@ -67,6 +67,13 @@ class GetProfessions extends Command
         $this->line('');
     }
 
+    /**
+     * Update profession status for a single character
+     *
+     * @param  {Character} $char
+     * @param  {array}     $professions
+     * @return {bool|void}
+     */
     protected function updateProfessionsForChar($char, $professions) {
         // Some lower level characters will not have any professions yet
         if (!$professions) {
@@ -125,13 +132,15 @@ class GetProfessions extends Command
 
                 Log::debug('Checking ' . count($recipesToCheck) . ' ' . $profession->name . ' recipes for ' . $char->name);
                 // Loop over recipes
-                foreach($recipesToCheck as $r) {
+                foreach ($recipesToCheck as $r) {
                     // Do we have an existing entry for this recipe
                     $existing = Recipe::where('id_ext', $r)->first();
                     if (!$existing) {
 
                         $recipe = BlizzardApi::getRecipe($r);
-                        if (!$recipe) continue;
+                        if (!$recipe) {
+                            continue;
+                        }
 
                         $existing = new Recipe;
                         $existing->id_ext = $r;

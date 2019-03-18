@@ -44,7 +44,7 @@ class GetPets extends Command {
 
         $progressBar = $this->output->createProgressBar(count($characters));
 
-        foreach($characters as $char) {
+        foreach ($characters as $char) {
             $this->updatePets($char);
             $progressBar->advance();
         }
@@ -53,13 +53,22 @@ class GetPets extends Command {
         $this->line('');
     }
 
+    /**
+     * Update pet information for a character
+     *
+     * @param  {Character} $character
+     * @return {bool|void}
+     */
     protected function updatePets($character) {
         $characterPets = BlizzardApi::getPets($character);
-        if (!$characterPets) return false;  // failure from API
+        if (!$characterPets) {
+            // failure from API
+            return false;
+        }
 
         Log::info('Checking ' . count($characterPets['pets']['collected']) . ' pets for ' . $character->name);
 
-        foreach($characterPets['pets']['collected'] as $data) {
+        foreach ($characterPets['pets']['collected'] as $data) {
 
             $speciesIdExt = $data['stats']['speciesId'];
 
@@ -67,7 +76,10 @@ class GetPets extends Command {
             $pet = Pet::where('id_ext', $speciesIdExt)->first();
             if (!$pet) {
                 $petData = BlizzardApi::getPetSpecies($speciesIdExt);
-                if (!$petData) continue;        // failure from API
+                if (!$petData) {
+                    // failure from API
+                    continue;
+                }
 
                 $pet = new Pet;
                 $pet->id_ext = $speciesIdExt;
@@ -102,7 +114,7 @@ class GetPets extends Command {
                 $link->id_ext = $data['battlePetGuid'];
                 $link->character_id = $character->id;
                 $link->pet_id = $pet->id;
-                Log::debug($character->name . ' has a new pet ' . $pet->name); 
+                Log::debug($character->name . ' has a new pet ' . $pet->name);
             }
 
             if ($link->name != $data['name']) {
@@ -114,7 +126,7 @@ class GetPets extends Command {
 
             if ($link->level != $data['stats']['level']) {
                 $link->level = $data['stats']['level'];
-                Log::debug($character->name . '\'s pet ' . $link->name . ' is now level ' . $link->level );
+                Log::debug($character->name . '\'s pet ' . $link->name . ' is now level ' . $link->level);
             }
 
             if ($link->quality != $data['stats']['petQualityId']) {
@@ -124,6 +136,6 @@ class GetPets extends Command {
             $link->is_favourite = $data['isFavorite'] ? CharacterPet::FAVOURITE : CharacterPet::NOT_FAVOURITE;
             $link->save();
         }
-        
+
     }
 }
