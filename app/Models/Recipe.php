@@ -19,6 +19,11 @@ class Recipe extends Model {
         return $this->belongsTo(Profession::class);
     }
 
+    /**
+     * Define relation between recipes and character recipes
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\HasMany}
+     */
     public function character_recipes() {
         return $this->hasMany(CharacterRecipe::class);
     }

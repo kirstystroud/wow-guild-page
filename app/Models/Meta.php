@@ -39,8 +39,9 @@ class Meta extends Model {
     /**
      * Set meta value
      *
-     * @param {int}    $key
-     * @param {string} $value
+     * @param  {int}    $key
+     * @param  {string} $value
+     * @return {void}
      */
     public static function addMeta($key, $value) {
 

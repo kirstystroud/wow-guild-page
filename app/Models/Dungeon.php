@@ -26,10 +26,20 @@ class Dungeon extends Model {
 
     // Public relations
 
+    /**
+     * Define relation between dungeons and character dungeons
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\HasMany}
+     */
     public function character_dungeons() {
         return $this->hasMany(CharacterDungeon::class);
     }
 
+    /**
+     * Get the heading for this dungeon
+     *
+     * @return {string}
+     */
     public function getHeading() {
         return $this->name . ' (' . $this->min_level . ' - ' . $this->max_level . ')';
     }
@@ -87,6 +97,8 @@ class Dungeon extends Model {
 
     /**
      * Get status of this dungeon based on the characters who are able to run it
+     *
+     * @return {int}
      */
     public function getStatus() {
         $chars = $this->getAvailableChars();

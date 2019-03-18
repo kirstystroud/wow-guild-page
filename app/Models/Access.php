@@ -17,6 +17,11 @@ class Access extends Model {
         $this->table = 'access';
     }
 
+    /**
+     * Get the current access token from the database
+     *
+     * @return {string|bool} token if available, false otherwise
+     */
     public static function getCurrentToken() {
         $now = Date('Y-m-d H:i:s');
         $token = self::where('expires', '>', $now)->first();

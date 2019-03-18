@@ -20,6 +20,11 @@ class CharacterClass extends Model {
 
     // Public relations
 
+    /**
+     * Define relation between character classes and characters
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\HasMany}
+     */
     public function characters() {
         return $this->hasMany(Character::class, 'class_id');
     }

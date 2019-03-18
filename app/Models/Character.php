@@ -60,10 +60,20 @@ class Character extends Model {
         return $this->belongsTo(Title::class);
     }
 
+    /**
+     * Define relation between characters and reputations
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\HasMany}
+     */
     public function reputation() {
         return $this->hasMany(Reputation::class);
     }
 
+    /**
+     * Define relation between characters and character quests
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\HasMany}
+     */
     public function character_quests() {
         return $this->hasMany(CharacterQuest::class);
     }
@@ -71,6 +81,13 @@ class Character extends Model {
 
     // Enable filtering
 
+    /**
+     * Apply the scope to a given Eloquent query builder.
+     *
+     * @param  {\Illuminate\Database\Eloquent\Builder} $builder
+     * @param  {CharacterFilters}                      $filters
+     * @return {void}
+     */
     public function scopeFilter($builder, CharacterFilter $filters) {
         return $filters->apply($builder);
     }
@@ -125,6 +142,8 @@ class Character extends Model {
 
     /**
      * Update character last activity to the current time
+     *
+     * @return {void}
      */
     public function updateLastActivity() {
         $this->last_activity = Date('Y-m-d H:i:s', time());
@@ -216,6 +235,7 @@ class Character extends Model {
     /**
      * Get a list of recipe id_exts known by this character
      *
+     * @param  {int} $professionId
      * @return {array}
      */
     public function getKnownRecipesForProfession($professionId) {
@@ -257,6 +277,8 @@ class Character extends Model {
 
     /**
      * Get a list of categories and how many quests completed there for a character
+     *
+     * @return {array}
      */
     public function getCategoriesByQuestsCompleted() {
         return CharacterQuest::select('categories.name', 'categories.id AS category_id', \DB::raw('COUNT(DISTINCT quests.name) as count'))

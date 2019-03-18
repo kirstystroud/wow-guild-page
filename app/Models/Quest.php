@@ -19,6 +19,11 @@ class Quest extends Model {
         return $this->belongsTo(Category::class);
     }
 
+    /**
+     * Define relation between quests and character quests
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\HasMany}
+     */
     public function character_quests() {
         return $this->hasMany(CharacterQuest::class);
     }

@@ -10,14 +10,21 @@ class Category extends Model {
 
     // Public relations
 
+    /**
+     * Define relation between catagories and quests
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\HasMany}
+     */
     public function quests() {
         return $this->hasMany(Quest::class);
     }
 
-    // helper functions
+    // Helper functions
 
     /**
      * Get a list of characters and how many quests they have completed for a category
+     *
+     * @return {array}
      */
     public function getCharactersByQuestsCompleted() {
         return CharacterQuest::select('characters.name', 'characters.id AS character_id', \DB::raw('COUNT(DISTINCT quests.name) as count'))

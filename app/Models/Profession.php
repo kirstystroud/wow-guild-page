@@ -8,9 +8,13 @@ class Profession extends Model {
 
     public $timestamps = false;
 
-
     // Public relations
 
+    /**
+     * Define relation between professions and character professions
+     *
+     * @return {\Illuminate\Database\Eloquent\Relations\HasMany}
+     */
     public function character_professions() {
         return $this->hasMany(CharacterProfession::class);
     }

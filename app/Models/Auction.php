@@ -46,15 +46,26 @@ class Auction extends Model {
         return $this->belongsTo(Item::class);
     }
 
-
     // Enable filtering
 
+    /**
+     * Apply the scope to a given Eloquent query builder.
+     *
+     * @param  {\Illuminate\Database\Eloquent\Builder} $builder
+     * @param  {AuctionFilter}                         $filters
+     * @return {void}
+     */
     public function scopeFilter($builder, AuctionFilter $filters) {
         return $filters->apply($builder);
     }
 
     // Static helper functions
 
+    /**
+     * Get a list of human readable statuses
+     *
+     * @return {array}
+     */
     public static function getStatuses() {
         return [
             self::STATUS_ACTIVE => 'Active',
@@ -65,6 +76,11 @@ class Auction extends Model {
         ];
     }
 
+    /**
+     * Get an array of human readable times
+     *
+     * @return {array}
+     */
     public static function getTimeRemaining() {
         return [
             self::TIME_LEFT_VERY_LONG => 'Very Long',
@@ -108,6 +124,8 @@ class Auction extends Model {
 
     /**
      * Calculate average sell price and return in a human-readable format with icons
+     *
+     * @return {string}
      */
     public function averageSellPriceToGoldFormatted() {
         $averageSellPrice = static::select([\DB::raw('AVG(sell_price) AS avg_sell_price')])->where('pet_id', $this->pet_id)->first();
@@ -178,6 +196,8 @@ class Auction extends Model {
 
     /**
      * Get a list of past auctions for this item which have sold in the last month
+     *
+     * @return {array}
      */
     public function getPreviouslySold() {
         $cutoff = \Carbon\Carbon::now()->subMonth();
@@ -190,6 +210,8 @@ class Auction extends Model {
 
     /**
      * Expire an auction, updating statuses based on last seen / previous status
+     *
+     * @return {void}
      */
     public function expire() {
         $name = $this->itemName();
