@@ -42,13 +42,13 @@ $(document).ready(function() {
 
             // Positions to overlay each image at
             _position = [
-                [ 0, 0, (_width*216/240), (_width*216/240) ],
-                [ (_width*18/240), (_width*27/240), (_width*179/240), (_width*216/240) ],
-                [ (_width*18/240), (_width*27/240), (_width*179/240), (_width*210/240) ],
-                [ (_width*18/240), (_width*27/240), (_width*179/240), (_width*210/240) ],
-                [ (_width*31/240), (_width*40/240), (_width*147/240), (_width*159/240) ],
-                [ (_width*33/240), (_width*57/240), (_width*125/240), (_width*125/240) ],
-                [ (_width*18/240), (_width*27/240), (_width*179/240), (_width*32/240) ]
+                [ 0, 0, (_width * 216 / 240), (_width * 216 / 240) ],
+                [ (_width * 18 / 240), (_width * 27 / 240), (_width * 179 / 240), (_width * 216 / 240) ],
+                [ (_width * 18 / 240), (_width * 27 / 240), (_width * 179 / 240), (_width * 210 / 240) ],
+                [ (_width * 18 / 240), (_width * 27 / 240), (_width * 179 / 240), (_width * 210 / 240) ],
+                [ (_width * 31 / 240), (_width * 40 / 240), (_width * 147 / 240), (_width * 159 / 240) ],
+                [ (_width * 33 / 240), (_width * 57 / 240), (_width * 125 / 240), (_width * 125 / 240) ],
+                [ (_width * 18 / 240), (_width * 27 / 240), (_width * 179 / 240), (_width * 32 / 240) ]
             ],
             _img = [ new Image(), new Image(), new Image(), new Image(), new Image(), new Image(), new Image() ];
             $(canvas).css('opacity', 0);

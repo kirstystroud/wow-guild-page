@@ -117,8 +117,7 @@ function StatsHandler() {
 
         var chartData = [];
 
-        for(var item in respData) {
-
+        for (var item in respData) {
             var row = respData[item];
             var newDataItem = [
                 row.name,
@@ -130,7 +129,6 @@ function StatsHandler() {
 
             chartData.push(newDataItem);
         }
-
 
         /**
          * Draw candlestick chart for character levels
@@ -179,7 +177,8 @@ function StatsHandler() {
                     stroke : '#f5eBd1',
                     fill : '#231207'
                 },
-                colors : ['yellow']       // specific for later lookups
+                // specific for later lookups
+                colors : ['yellow']
             };
 
             var chart = new google.visualization.CandlestickChart(document.getElementById('stats-div'));
@@ -190,18 +189,30 @@ function StatsHandler() {
             var $rect = $('svg').find('rect[fill="#ffff00"]');
 
             var colors = [
-                '#c41e3b', // Death Knight
-                '#a330c9', // Demon Hunter
-                '#ff7c0a', // Druid
-                '#aad372', // Hunter
-                '#68ccef', // Mage
-                '#00ffba', // Monk
-                '#f48cba', // Paladin
-                'white', // Priest
-                '#fff468', // Rogue
-                '#2359ff', // Shaman
-                '#9382c9', // Warlock
-                '#c69b6d' // Warrior
+                // Death Knight
+                '#c41e3b',
+                // Demon Hunter
+                '#a330c9',
+                // Druid
+                '#ff7c0a',
+                // Hunter
+                '#aad372',
+                // Mage
+                '#68ccef',
+                // Monk
+                '#00ffba',
+                // Paladin
+                '#f48cba',
+                // Priest
+                'white',
+                // Rogue
+                '#fff468',
+                // Shaman
+                '#2359ff',
+                // Warlock
+                '#9382c9',
+                // Warrior
+                '#c69b6d'
             ];
 
             var $tooltip = $('<div></div>');
@@ -221,7 +232,7 @@ function StatsHandler() {
 
                 $(this).mouseover(function() {
                     var index = $(this).attr('index');
-                    var tooltipText = `${respData[index].name} (${respData[index].total}) : ${respData[index].min_level}-${respData[index].max_level} mean ${Math.round(respData[index].avg_level)}`;
+                    var tooltipText = `${respData[index].name} (${respData[index].total}) : ${respData[index].min_level} - ${respData[index].max_level} mean ${Math.round(respData[index].avg_level)}`;
 
                     $tooltip.css('top', event.clientY + 10);
                     $tooltip.css('left', event.clientX + 10);
@@ -276,18 +287,30 @@ function StatsHandler() {
      */
     var buildSliceData = function(respData) {
         var colorMap = {
-            1 : '#c69b6d', // Warrior
-            2 : '#f48cba', // Paladin
-            3 : '#aad372', // Hunter
-            4 : '#fff468', // Rogue
-            5 : 'white', // Priest
-            6 : '#c41e3b', // Death Knight
-            7 : '#2359ff', // Shaman
-            8 : '#68ccef', // Mage
-            9 : '#9382c9', // Warlock
-            10 : '#00ffba', // Monk
-            11 : '#ff7c0a', // Druid
-            12 : '#a330c9', // Demon Hunter
+            // Warrior
+            1 : '#c69b6d',
+            // Paladin
+            2 : '#f48cba',
+            // Hunter
+            3 : '#aad372',
+            // Rogue
+            4 : '#fff468',
+            // Priest
+            5 : 'white',
+            // Death Knight
+            6 : '#c41e3b',
+            // Shaman
+            7 : '#2359ff',
+            // Mage
+            8 : '#68ccef',
+            // Warlock
+            9 : '#9382c9',
+            // Monk
+            10 : '#00ffba',
+            // Druid
+            11 : '#ff7c0a',
+            // Demon Hunter
+            12 : '#a330c9',
         };
 
         var sliceData = {};

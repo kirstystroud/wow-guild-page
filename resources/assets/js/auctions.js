@@ -66,7 +66,9 @@ function AuctionHandler() {
     var getCurrentSort = function() {
         // Do we have sort icon already there
         var $sortIcon = $('.wow-sort');
-        if (!$sortIcon.length) return false;
+        if (!$sortIcon.length) {
+            return false;
+        }
 
         // Pull out sort attributes
         var key = $sortIcon.attr('key');
@@ -99,7 +101,9 @@ function AuctionHandler() {
             data.sort = sort;
         } else {
             var currentSorting = getCurrentSort();
-            if (currentSorting) data.sort = currentSorting;
+            if (currentSorting) {
+                data.sort = currentSorting;
+            }
         }
 
         // Show loading screen if not doing pagination
