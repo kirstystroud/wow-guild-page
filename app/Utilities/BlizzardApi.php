@@ -14,8 +14,10 @@ class BlizzardApi {
      * ------------------------------------------------
      */
 
-    /** 
+    /**
      * Make a request to get a list of characters in the guild
+     *
+     * @return {array}
      */
     public static function getGuildCharacters() {
         $endpoint = '/wow/guild/' . env('WOW_REALM') . '/' . env('WOW_GUILD');
@@ -25,6 +27,8 @@ class BlizzardApi {
 
     /**
      * Make a request to load all dungeon information
+     *
+     * @return {array}
      */
     public static function getZones() {
         $endpoint = '/wow/zone/';
@@ -33,6 +37,8 @@ class BlizzardApi {
 
     /**
      * Make a request to load classes
+     *
+     * @return {array}
      */
     public static function getClasses() {
         $endpoint = '/wow/data/character/classes';
@@ -41,6 +47,8 @@ class BlizzardApi {
 
     /**
      * Make a request to load races
+     *
+     * @return {array}
      */
     public static function getRaces() {
         $endpoint = '/wow/data/character/races';
@@ -49,6 +57,8 @@ class BlizzardApi {
 
     /**
      * Make a request to load guild profile
+     *
+     * @return {array}
      */
     public static function getGuildProfile() {
         $endpoint = '/wow/guild/' . env('WOW_REALM') . '/' . env('WOW_GUILD');
@@ -57,6 +67,8 @@ class BlizzardApi {
 
     /**
      * Make a request to load pet types
+     *
+     * @return {array}
      */
     public static function getPetTypes() {
         $endpoint = '/wow/data/pet/types';
@@ -65,6 +77,8 @@ class BlizzardApi {
 
     /**
      * Make a request to get a link to auctions.json
+     *
+     * @return {array}
      */
     public static function getAuctionDataUrl() {
         $endpoint = '/wow/auction/data/' . env('WOW_REALM');
@@ -82,7 +96,9 @@ class BlizzardApi {
 
     /**
      * Make a request to get information on a single recipe
-     * @param {int} $id
+     *
+     * @param  {int} $id external recipe id
+     * @return {array}
      */
     public static function getRecipe($id) {
         $endpoint = '/wow/recipe/' . $id;
@@ -91,7 +107,9 @@ class BlizzardApi {
 
     /**
      * Load information on a single quest
-     * @param {int} $id
+     *
+     * @param  {int} $id external quest id
+     * @return {array}
      */
     public static function getQuest($id) {
         $endpoint = '/wow/quest/' . $id;
@@ -100,7 +118,9 @@ class BlizzardApi {
 
     /**
      * Load information on a single achievement
-     * @param {int} $id
+     *
+     * @param  {int} $id external achievement id
+     * @return {array}
      */
     public static function getAchievement($id) {
         $endpoint = '/wow/achievement/' . $id;
@@ -109,6 +129,9 @@ class BlizzardApi {
 
     /**
      * Load information on a single item
+     *
+     * @param  {int} $id external item id
+     * @return {array}
      */
     public static function getItem($id) {
         $endpoint = '/wow/item/' . $id;
@@ -117,6 +140,9 @@ class BlizzardApi {
 
     /**
      * Load information on a single pet
+     *
+     * @param  {int} $id external pet species id
+     * @return {array}
      */
     public static function getPetSpecies($id) {
         $endpoint = '/wow/pet/species/' . $id;
@@ -133,7 +159,9 @@ class BlizzardApi {
 
     /**
      * Make a request to get information on character items
-     * @param {Character} $char
+     *
+     * @param  {Character} $char
+     * @return {array}
      */
     public static function getCharacterItems($char) {
         $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
@@ -143,7 +171,9 @@ class BlizzardApi {
 
     /**
      * Make a request to get information on character professions
-     * @param {Character} $char
+     *
+     * @param  {Character} $char
+     * @return {array}
      */
     public static function getProfessions($char) {
         $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
@@ -153,7 +183,9 @@ class BlizzardApi {
 
     /**
      * Make a request to get character statistics
-     * @param {Character} $char
+     *
+     * @param  {Character} $char
+     * @return {array}
      */
     public static function getStats($char) {
         $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
@@ -163,7 +195,9 @@ class BlizzardApi {
 
     /**
      * Make a request to get character titles
-     * @param {Character} $char
+     *
+     * @param  {Character} $char
+     * @return {array}
      */
     public static function getTitles($char) {
         $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
@@ -173,7 +207,9 @@ class BlizzardApi {
 
     /**
      * Make a request to get character reputation
-     * @param {Character} $char
+     *
+     * @param  {Character} $char
+     * @return {array}
      */
     public static function getReputation($char) {
         $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
@@ -183,7 +219,9 @@ class BlizzardApi {
 
     /**
      * Make a request to get character raid runs
-     * @param {Chracter} $char
+     *
+     * @param  {Chracter} $char
+     * @return {array}
      */
     public static function getRaids($char) {
         $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
@@ -193,7 +231,9 @@ class BlizzardApi {
 
     /**
      * Make a request to load character quest progress
-     * @param {Character} $char
+     *
+     * @param  {Character} $char
+     * @return {array}
      */
     public static function getQuests($char) {
         $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
@@ -203,7 +243,9 @@ class BlizzardApi {
 
     /**
      * Make a request to load character achievements
-     * @param {Character} $char
+     *
+     * @param  {Character} $char
+     * @return {array}
      */
     public static function getAchievements($char) {
         $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
@@ -213,7 +255,9 @@ class BlizzardApi {
 
     /**
      * Make a request to load character pets
-     * @param {Character} $char
+     *
+     * @param  {Character} $char
+     * @return {array}
      */
     public static function getPets($char) {
         $endpoint = '/wow/character/' . $char->server . '/' . $char->name;
@@ -226,8 +270,9 @@ class BlizzardApi {
 
     /**
      * Make a request
-     * @param {string} $endpoint
-     * @param {array} $data
+     *
+     * @param  {string} $endpoint
+     * @param  {array}  $data
      * @return {array} JSON formatted response data
      */
     protected static function makeRequest($endpoint, $data = []) {
@@ -256,6 +301,13 @@ class BlizzardApi {
         }
     }
 
+    /**
+     * Get access token required for other requests
+     * Pulls it out of database if available
+     * If database token has expired, makes request to update database store
+     *
+     * @return {string} access token to use
+     */
     protected static function getAccessToken() {
         $token = Access::getCurrentToken();
         if ($token) {
