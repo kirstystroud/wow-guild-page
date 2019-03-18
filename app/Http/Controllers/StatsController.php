@@ -10,8 +10,11 @@ use DB;
 use Illuminate\Http\Request;
 
 class StatsController extends Controller {
+
     /**
      * Handles GET requests to /stats
+     *
+     * @return {view} page framework
      */
     public function get() {
         return view('stats.index');
@@ -19,6 +22,8 @@ class StatsController extends Controller {
 
     /**
      * Handles GET requests to /stats/data/candlestick
+     *
+     * @return {array} formatted data for candlestick chart
      */
     public function dataCandlestick() {
         return $this->getClassData();
@@ -26,6 +31,8 @@ class StatsController extends Controller {
 
     /**
      * Handles GET requests to /stats/data/pie
+     *
+     * @return {array} formatted data for pie chart
      */
     public function dataPie() {
         return $this->getPieData();
@@ -33,6 +40,8 @@ class StatsController extends Controller {
 
     /**
      * Handles GET requests to /stats/deaths
+     *
+     * @return {view} formatted deaths table
      */
     public function deaths() {
         $data = $this->getDeathStats();
@@ -41,6 +50,8 @@ class StatsController extends Controller {
 
     /**
      * Handles GET requests to /stats/kills
+     *
+     * @return {view} formatted kills table
      */
     public function kills() {
         $data = $this->getKillStats();
@@ -49,6 +60,8 @@ class StatsController extends Controller {
 
     /**
      * Handles GET requests to /stats/pvpkills
+     *
+     * @return {view} formatted pvp kills table
      */
     public function pvpKills() {
         $data = $this->getPvpKillStats();
@@ -57,6 +70,8 @@ class StatsController extends Controller {
 
     /**
      * Handles GET requests to /stats/dungeons
+     *
+     * @return {view} formatted dungeons table
      */
     public function dungeons() {
         $data = $this->getDungeonStats();
@@ -65,6 +80,8 @@ class StatsController extends Controller {
 
     /**
      * Handles GET requests to /stats/raids
+     *
+     * @return {view} formatted raids table
      */
     public function raids() {
         $data = $this->getRaidStats();
@@ -73,6 +90,8 @@ class StatsController extends Controller {
 
     /**
      * Handles GET requests to /stats/quests
+     *
+     * @return {array} formatted data for quests pie chart
      */
     public function dataPieQuests() {
         return $this->getQuestsData();
@@ -80,6 +99,8 @@ class StatsController extends Controller {
 
     /**
      * Get data for candlestick chart of levels by class
+     *
+     * @return {array} formatted class breakdown for candlestick chart
      */
     protected function getClassData() {
         $data = [];
@@ -90,7 +111,7 @@ class StatsController extends Controller {
             $charLevels = [];
             $chars = $class->characters;
             // Record all character levels for that class
-            foreach($chars as $char) {
+            foreach ($chars as $char) {
                 $charLevels[] = $char->level;
             }
 
@@ -118,23 +139,27 @@ class StatsController extends Controller {
 
     /**
      * Get data for pie chart of total kills by class
+     *
+     * @return {array}
      */
     protected function getPieData() {
         $data = CharacterClass::select(
-                    'classes.id_ext',
-                    'classes.name',
-                    DB::raw('SUM(kills) AS kills')
-                )
-                ->leftJoin('characters', 'characters.class_id', 'classes.id')
-                ->groupBy('classes.id_ext')
-                ->groupBy('classes.name')
-                ->orderBy('kills', 'DESC')
-                ->get();
+            'classes.id_ext',
+            'classes.name',
+            DB::raw('SUM(kills) AS kills')
+        )
+            ->leftJoin('characters', 'characters.class_id', 'classes.id')
+            ->groupBy('classes.id_ext')
+            ->groupBy('classes.name')
+            ->orderBy('kills', 'DESC')
+            ->get();
         return $data;
     }
 
     /**
      * Get data for pie chart of quests by class
+     *
+     * @return {array} formatted sorted data
      */
     protected function getQuestsData() {
         $characters = CharacterQuest::select('character_id', 'class_id', 'classes.name AS class_name', \DB::raw('COUNT(DISTINCT quests.name) as count'))
@@ -172,20 +197,27 @@ class StatsController extends Controller {
 
     /**
      * Calculate percentile from data array
-     * @param {array} $data
-     * @param {float} $percentile
+     *
+     * @param  {array} $data
+     * @param  {float} $percentile
      * @return {float} $percentile value for data
      */
     protected function percentile($data, $percentile) {
+        // Position in ordered list
         $pos = (count($data) - 1) * $percentile;
+        // Lower index in list
         $lowerIndex = floor($pos);
+        // Upper index in list
         $upperIndex = ceil($pos);
+        // How far between indicies to take
         $fraction = $pos - $lowerIndex;
         return $data[$lowerIndex] + ($fraction * ($data[$upperIndex] - $data[$lowerIndex]));
     }
 
     /**
      * Get data on character deaths for table
+     *
+     * @return {array}
      */
     protected function getDeathStats() {
         $mostDeaths = Character::orderBy('deaths', 'DESC')->limit(11)->get();
@@ -198,6 +230,8 @@ class StatsController extends Controller {
 
     /**
      * Get data on character kills for table
+     *
+     * @return {array}
      */
     protected function getKillStats() {
         $mostKills = Character::orderBy('kdr', 'DESC')->limit(10)->get();
@@ -210,6 +244,8 @@ class StatsController extends Controller {
 
     /**
      * Get data on character pvp kills for table
+     *
+     * @return {array}
      */
     protected function getPvpKillStats() {
         $pvpKills = Character::orderBy('pvp_kills', 'DESC')->orderBy('level', 'DESC')->orderBy('name', 'ASC')->limit(10)->get();
@@ -219,6 +255,8 @@ class StatsController extends Controller {
 
     /**
      * Get data on character dungeons entered for table
+     *
+     * @return {array}
      */
     protected function getDungeonStats() {
         $mostDungeons = Character::orderBy('dungeons_entered', 'DESC')->limit(10)->get();
@@ -227,6 +265,8 @@ class StatsController extends Controller {
 
     /**
      * Get data on character raids entered for table
+     *
+     * @return {array}
      */
     protected function getRaidStats() {
         $mostRaids = Character::orderBy('raids_entered', 'DESC')->limit(10)->get();

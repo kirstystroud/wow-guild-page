@@ -14,6 +14,8 @@ class QuestsController extends Controller {
     /**
      * Handles GET requests to /quests
      * Returns view with list of characters/categories but empty panel
+     *
+     * @return {view}
      */
     public function get() {
         $characters = Character::orderBy('name', 'asc')->get();
@@ -24,6 +26,9 @@ class QuestsController extends Controller {
     /**
      * Handles GET requests to /quests/search
      * Performs search based on user-supplied criteria and returns results as view
+     *
+     * @param  {Request} $request
+     * @return {view} rendered search results
      */
     public function search(Request $request) {
         $characterProvided = (bool) ($request->character > 0);
@@ -32,27 +37,34 @@ class QuestsController extends Controller {
 
         switch (true) {
             case ($characterProvided && $categoryProvided && $compareProvided) :
+                // Character and category provided and in compare mode
                 return $this->searchByCharacterAndCategoryWithCompare($request->character, $request->category, $request->compare);
-                break;
+
             case ($characterProvided && $categoryProvided) :
+                // Character and category provided, not compare mode
                 return $this->searchByCharacterAndCategory($request->character, $request->category);
-                break;
+
             case $characterProvided :
+                // Only character provided
                 return $this->searchByCharacter($request->character);
-                break;
+
             case $categoryProvided :
+                // Only category provided
                 return $this->searchByCategory($request->category);
-                break;
+
             default :
+                // Nothing provided, search everything
                 return $this->searchAll();
         }
     }
 
     /**
      * Search for a specific character and category whilsts comparing against another character
-     * @param {int} $characterId
-     * @param {int} $categoryId
-     * @param {int} $compareId
+     *
+     * @param  {int} $characterId
+     * @param  {int} $categoryId
+     * @param  {int} $compareId
+     * @return {view}
      */
     protected function searchByCharacterAndCategoryWithCompare($characterId, $categoryId, $compareId) {
         $otherCharacters = $this->getOtherCharacters($characterId, $categoryId);
@@ -70,7 +82,7 @@ class QuestsController extends Controller {
 
         // Construct empty summary
         $summary = array();
-        foreach($quests as $quest) {
+        foreach ($quests as $quest) {
             $summary[$quest->name] = [
                 'character' => false,
                 'compare' => false
@@ -78,12 +90,12 @@ class QuestsController extends Controller {
         }
 
         // Add in quests for first character
-        foreach($firstCharacterQuests as $quest) {
+        foreach ($firstCharacterQuests as $quest) {
             $summary[$quest->name]['character'] = true;
         }
 
         // Add in quests for second character
-        foreach($compareCharacterQuests as $quest) {
+        foreach ($compareCharacterQuests as $quest) {
             $summary[$quest->name]['compare'] = true;
         }
 
@@ -99,8 +111,10 @@ class QuestsController extends Controller {
     /**
      * Search for a specific character and a specific category
      * Returns view with list of all quests completed by that character in that category
-     * @param {int} $characterId
-     * @param {int} $categoryId
+     *
+     * @param  {int} $characterId
+     * @param  {int} $categoryId
+     * @return {view}
      */
     protected function searchByCharacterAndCategory($characterId, $categoryId) {
 
@@ -115,9 +129,10 @@ class QuestsController extends Controller {
 
     /**
      * Get a list of characters who have completed quests in a zone with an exclusion
-     * @param {int} $characterId
-     * @param {int} $categoryId
-     * @return {Array}
+     *
+     * @param  {int} $characterId
+     * @param  {int} $categoryId
+     * @return {array}
      */
     protected function getOtherCharacters($characterId, $categoryId) {
         $otherCharacters = Character::select('characters.id', 'characters.name')
@@ -134,9 +149,10 @@ class QuestsController extends Controller {
 
     /**
      * Get a lit of characters completed by a specific character in a specific category
-     * @param {int} $characterId
-     * @param {int} $categoryId
-     * @return {Array}
+     *
+     * @param  {int} $characterId
+     * @param  {int} $categoryId
+     * @return {array}
      */
     protected function getQuestListByCharacterCategory($characterId, $categoryId) {
         $characterQuests = CharacterQuest::select('quests.name')
@@ -152,7 +168,9 @@ class QuestsController extends Controller {
     /**
      * Search for a specific character
      * Returns view with summary of how many quests that character has completed by category
-     * @param {int} $characterId
+     *
+     * @param  {int} $characterId
+     * @return {view}
      */
     protected function searchByCharacter($characterId) {
         $characterQuests = Character::find($characterId)->getCategoriesByQuestsCompleted();
@@ -162,7 +180,9 @@ class QuestsController extends Controller {
     /**
      * Search for a specific category
      * Returns view with summary of how many quests different characters have completed in that category
-     * @param {int} $categoryId
+     *
+     * @param  {int} $categoryId
+     * @return {view}
      */
     protected function searchByCategory($categoryId) {
         $characterQuests = Category::find($categoryId)->getCharactersByQuestsCompleted();
@@ -172,6 +192,8 @@ class QuestsController extends Controller {
     /**
      * Search over all characters and categories
      * Returns view with summary of total quests completed by each character
+     *
+     * @return {view}
      */
     protected function searchAll() {
         $characters = CharacterQuest::select('character_id', \DB::raw('COUNT(DISTINCT quests.name) as count'))

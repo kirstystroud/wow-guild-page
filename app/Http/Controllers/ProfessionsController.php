@@ -14,6 +14,8 @@ class ProfessionsController extends Controller {
     /**
      * Handles GET requests to /professions
      * Returns view with details on professions
+     *
+     * @return {view}
      */
     public function get() {
         $professions = Profession::orderBy('name', 'asc')->get();
@@ -23,6 +25,9 @@ class ProfessionsController extends Controller {
     /**
      * Handles GET requests to /professions/search
      * Return view containing search results
+     *
+     * @param  {Request} $request
+     * @return {view} rendered search results
      */
     public function search(Request $request) {
         $name = $request->name;
