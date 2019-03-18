@@ -7,7 +7,13 @@ use Auction;
 
 class CharacterFilter extends Filter {
 
-    public function sort($sorting){
+    /**
+     * Handles sorting based on requirements
+     *
+     * @param  {array} $sorting contains column and direction
+     * @return {Builder}
+     */
+    public function sort($sorting) {
 
         // Check which keys are set
         $sortKeys = array_keys($sorting);
@@ -32,12 +38,18 @@ class CharacterFilter extends Filter {
             $this->_builder->orderBy('characters.name', 'asc');
         }
 
-        $this->setFilters( [ 'sort' => [$sortKeys[0] => $sorting[$sortKeys[0]]] ] );
+        $this->setFilters([ 'sort' => [$sortKeys[0] => $sorting[$sortKeys[0]]] ]);
 
         return $this->_builder;
     }
 
-    public function defaultSort(){
+    /**
+     * Default sorting method
+     * Orders by level ascending
+     *
+     * @return {void}
+     */
+    public function defaultSort() {
         $this->_builder->orderBy('level', 'ASC')->orderBy('name', 'ASC');
         $this->setFilters([ 'sort' => ['level' => 'asc'] ]);
     }

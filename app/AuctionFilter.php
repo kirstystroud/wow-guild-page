@@ -8,6 +8,11 @@ use Auction;
 
 class AuctionFilter extends Filter {
 
+    /**
+     * Initialise filters
+     *
+     * @return {Builder}
+     */
     protected function init() {
         $this->_builder->select([
             'pets.name AS pet_name',
@@ -16,14 +21,15 @@ class AuctionFilter extends Filter {
             'bid',
             'status',
             'time_left'
-            ])
+        ])
             ->join('pets', 'pets.id', 'auctions.pet_id');
         return $this->_builder;
     }
 
     /**
      * Filter by id
-     * @param {int} id
+     *
+     * @param  {int} $id
      * @return {Builder}
      */
     public function id($id) {
@@ -32,7 +38,8 @@ class AuctionFilter extends Filter {
 
     /**
      * Filter by item name
-     * @param {string} item
+     *
+     * @param  {string} $item
      * @return {Builder}
      */
     public function item($item = '') {
@@ -44,7 +51,8 @@ class AuctionFilter extends Filter {
 
     /**
      * Only items which have sold
-     * @param {string} sold
+     *
+     * @param  {string|bool} $sold
      * @return {Builder}
      */
     public function sold($sold = false) {
@@ -56,7 +64,8 @@ class AuctionFilter extends Filter {
 
     /**
      * Filter by status
-     * @param {int} $status
+     *
+     * @param  {int} $status
      * @return {Builder}
      */
     public function status($status) {
@@ -68,7 +77,8 @@ class AuctionFilter extends Filter {
 
     /**
      * Only currently active
-     * @param {string} $active
+     *
+     * @param  {string} $active
      * @return {Builder}
      */
     public function active($active) {
@@ -80,7 +90,8 @@ class AuctionFilter extends Filter {
 
     /**
      * Only the cheapest of each item
-     * @param {string} $cheapest
+     *
+     * @param  {string} $cheapest
      * @return {Builder}
      */
     public function cheapest($cheapest) {
@@ -98,7 +109,8 @@ class AuctionFilter extends Filter {
 
     /**
      * Filter by time left
-     * @param {int} $time
+     *
+     * @param  {int} $time
      * @return {Builder}
      */
     public function time($time) {
@@ -110,7 +122,8 @@ class AuctionFilter extends Filter {
 
     /**
      * Only not owned by the current character
-     * @param {string} $notOwned
+     *
+     * @param  {string} $characterId
      * @return {Builder}
      */
     public function notowned($characterId) {
@@ -129,9 +142,11 @@ class AuctionFilter extends Filter {
 
     /**
      * Apply sorting
-     * @param {array} $sort format { 'column_name' => 'order' }
+     *
+     * @param  {array} $sort format { 'column_name' => 'order' }
+     * @return {Builder}
      */
-    public function sort($sort){
+    public function sort($sort) {
         // Check which keys are set
         $sortKeys = array_keys($sort);
 
@@ -154,8 +169,10 @@ class AuctionFilter extends Filter {
 
     /**
      * Default sorting
+     *
+     * @return {void}
      */
-    public function defaultSort(){
+    public function defaultSort() {
         $active = $this->isFilterSet('active');
         $cheapest = $this->isFilterSet('cheapest');
 
