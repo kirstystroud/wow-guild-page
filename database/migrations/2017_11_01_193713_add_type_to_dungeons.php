@@ -4,15 +4,14 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTypeToDungeons extends Migration
-{
+class AddTypeToDungeons extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::table('dungeons', function (Blueprint $table) {
             $table->integer('instance_type')->default(Dungeon::TYPE_UNKNOWN);
         });
@@ -23,8 +22,7 @@ class AddTypeToDungeons extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::table('dungeons', function (Blueprint $table) {
             $table->dropColumn('instance_type');
         });

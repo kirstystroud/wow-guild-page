@@ -4,15 +4,14 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIndexToRecipes extends Migration
-{
+class AddIndexToRecipes extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::table('recipes', function (Blueprint $table) {
             $table->index('name');
         });
@@ -23,8 +22,7 @@ class AddIndexToRecipes extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::table('recipes', function (Blueprint $table) {
             $table->dropIndex('name');
         });

@@ -4,15 +4,14 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAuctionsTable extends Migration
-{
+class CreateAuctionsTable extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('auctions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_ext')->default(0)->index();
@@ -33,8 +32,7 @@ class CreateAuctionsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('auctions');
     }
 }

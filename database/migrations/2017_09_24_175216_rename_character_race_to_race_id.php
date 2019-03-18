@@ -4,15 +4,14 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RenameCharacterRaceToRaceId extends Migration
-{
+class RenameCharacterRaceToRaceId extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::table('characters', function (Blueprint $table) {
             $table->renameColumn('race', 'race_id');
         });
@@ -23,8 +22,7 @@ class RenameCharacterRaceToRaceId extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::table('characters', function (Blueprint $table) {
             $table->renameColumn('race_id', 'race');
         });

@@ -4,15 +4,14 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCharacterDungeonsTable extends Migration
-{
+class CreateCharacterDungeonsTable extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('character_dungeons', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('character_id')->default(0)->index();
@@ -29,8 +28,7 @@ class CreateCharacterDungeonsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('character_dungeons');
     }
 }

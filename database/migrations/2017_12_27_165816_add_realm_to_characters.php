@@ -4,15 +4,14 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRealmToCharacters extends Migration
-{
+class AddRealmToCharacters extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::table('characters', function (Blueprint $table) {
             $table->string('server')->after('name')->default(env('WOW_REALM'));
         });
@@ -23,8 +22,7 @@ class AddRealmToCharacters extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::table('characters', function (Blueprint $table) {
             $table->dropColumn('server');
         });

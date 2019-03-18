@@ -4,15 +4,14 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDatabaseIndices extends Migration
-{
+class CreateDatabaseIndices extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::table('characters', function (Blueprint $table) {
             $table->integer('class_id')->index()->change();
         });
@@ -31,8 +30,7 @@ class CreateDatabaseIndices extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::table('characters', function (Blueprint $table) {
             $table->dropIndex('characters_class_id_index');
         });

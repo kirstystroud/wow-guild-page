@@ -4,15 +4,14 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDateLastSeenToAuctions extends Migration
-{
+class AddDateLastSeenToAuctions extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::table('auctions', function (Blueprint $table) {
             // sqlite does not like non-static defaults
             if (env('DB_CONNECTION') == 'sqlite') {
@@ -28,8 +27,7 @@ class AddDateLastSeenToAuctions extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::table('auctions', function (Blueprint $table) {
             $table->dropColumn('date_last_seen');
         });

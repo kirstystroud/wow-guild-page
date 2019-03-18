@@ -4,15 +4,14 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTypeToPetsTable extends Migration
-{
+class AddTypeToPetsTable extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::table('pets', function (Blueprint $table) {
             $table->integer('type')->default(0);
         });
@@ -23,8 +22,7 @@ class AddTypeToPetsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::table('pets', function (Blueprint $table) {
             $table->dropColumn('type');
         });

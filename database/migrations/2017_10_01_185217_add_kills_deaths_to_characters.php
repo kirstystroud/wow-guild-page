@@ -4,15 +4,14 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddKillsDeathsToCharacters extends Migration
-{
+class AddKillsDeathsToCharacters extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::table('characters', function (Blueprint $table) {
             $table->integer('deaths')->default(0);
         });
@@ -31,8 +30,7 @@ class AddKillsDeathsToCharacters extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::table('characters', function (Blueprint $table) {
             $table->dropColumn('deaths');
         });

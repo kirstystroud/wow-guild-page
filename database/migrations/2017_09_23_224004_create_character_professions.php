@@ -4,15 +4,14 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCharacterProfessions extends Migration
-{
+class CreateCharacterProfessions extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('character_professions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('character_id')->default(0);
@@ -26,8 +25,7 @@ class CreateCharacterProfessions extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('character_professions');
     }
 }
