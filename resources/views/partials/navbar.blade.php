@@ -28,7 +28,7 @@
                     <li nav-title="Auctions" id="navbar-auctions"><a href="/auctions">Auctions</a></li>
                 @endif
                 <li nav-title="Stats" id="navbar-stats"><a href="/stats">Stats</a></li>
-            </ul>          
+            </ul>
         </div>
     </div>
 </nav>

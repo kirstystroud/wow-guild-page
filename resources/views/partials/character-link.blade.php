@@ -4,7 +4,7 @@
     @else
         {{ $character->name }}
     @endif
-</a> 
+</a>
 
 @if( !isset($omitLevel) )
     <span>({{ $character->level }})</span>
