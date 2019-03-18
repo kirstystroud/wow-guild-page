@@ -31,7 +31,7 @@
                     @if($character->spec_id)
                         <span>
                             <a href="#" data-toggle="tooltip" data-placement="right" data-original-title="{{ $character->spec->name }}">
-                                <img class="fmts-img" src="{{ $character->spec->getIconLocation() }}">
+                                <img class="wow-img" src="{{ $character->spec->getIconLocation() }}">
                             </a>
                         </span>
                     @else

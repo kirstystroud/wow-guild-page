@@ -24,7 +24,7 @@
 
     </head>
     <body>
-        <div class="container container-fmts">
+        <div class="container container-wow">
             @include('partials.navbar')
             @yield('content')
         </div>
