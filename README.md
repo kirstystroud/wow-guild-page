@@ -35,7 +35,7 @@ php artisan migrate
 ### Loading in data
 For the application to work there needs to be data in the database. This is retrieved from Blizzard's API using a variety of the available endpoints. A quick-start shell script can be used to populate the initial load of data. Note the first execution of this may be slow, depending on the number of guild members.
 ```sh
-.getAll.sh
+./getAll.sh
 ```
 Once this data has been imported, then the application is ready to go. To run locally on port 8000 use
 ```sh
