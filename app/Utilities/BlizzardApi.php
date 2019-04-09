@@ -3,6 +3,7 @@
 namespace App\Utilities;
 
 use GuzzleHttp;
+use Log;
 use App\Models\Access;
 
 class BlizzardApi {
@@ -290,13 +291,13 @@ class BlizzardApi {
             $requestBody = (string) $req->getBody();
             return $requestBody ? json_decode($requestBody, true) : false;
         } catch (GuzzleHttp\Exception\ClientException $e) {
-            error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
+            Log::error('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
             return false;
         } catch (GuzzleHttp\Exception\ServerException $e) {
-            error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
+            Log::error('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
             return false;
         } catch (Exception $e) {
-            error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
+            Log::error('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
             return false;
         }
     }
@@ -317,7 +318,7 @@ class BlizzardApi {
 
         // Need to update database
         $uri = 'https://' . env('WOW_REGION') . '.battle.net';
-        $clientAccess = env('WOW_CLIENT_ID');
+        $clientAccess = env('WOW_CLIENT_ACCESS');
         $clientSecret = env('WOW_CLIENT_SECRET');
 
         $response = false;
@@ -329,7 +330,7 @@ class BlizzardApi {
             $req = $client->request('GET', '/oauth/token', ['query' => ['grant_type' => 'client_credentials']]);
             $response = (string) $req->getBody();
         } catch (Exception $e) {
-            error_log('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
+            Log::error('API request to ' . $endpoint . ' with data ' . json_encode($data) . ' failed with exception ' . $e->getMessage());
             throw $e;
         }
 
