@@ -75,6 +75,10 @@ class GetPets extends Command {
             // Do we have an entry for this in our pets table
             $pet = Pet::where('id_ext', $speciesIdExt)->first();
             if (!$pet) {
+                // Species id 0, nothing we can do
+                if (!$speciesIdExt) {
+                    continue;
+                }
                 $petData = BlizzardApi::getPetSpecies($speciesIdExt);
                 if (!$petData) {
                     // failure from API
